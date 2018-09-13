@@ -1,0 +1,42 @@
+Initial conditions:
+
+
+the job initially in service has no index, and no service time.
+
+a(0), I(0): check the tightness proof to see if assumptions on i.c. is needed.
+
+
+
+
+Dawson measure-valued process, for every <f,\nu>
+
+C-tight.
+
+
+
+
+
+additional 
+
+
+
+1. Check the set fset for I_1 in particular, 
+
+	Relevant: \tightset versus \fset
+
+
+2. The f(w(s-)) thing in applications of lemma 14.
+
+
+3. K1 for K and A_\ell
+
+
+4. Almost sure thing in Lemma 5.12 for all fs at the same time.
+
+
+
+
+
+Add processor sharing connection. renegging. 
+
+(f^x)s: generalized Laplace transform

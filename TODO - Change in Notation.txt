@@ -1,0 +1,10 @@
+Q ---> to Q_\Sigma
+
+Cb[0,\infty) ----> Cb([0,infty))
+
+
+1(...) to 1_{...}
+
+
+\weight: p_\ell -> ??
+
