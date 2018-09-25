@@ -1,37 +1,52 @@
 Initial conditions:
 
 
-the job initially in service has no index, and no service time.
-
-a(0), I(0): check the tightness proof to see if assumptions on i.c. is needed.
+1. the job initially in service has no index, and no service time.
 
 
-
-
-Dawson measure-valued process, for every <f,\nu>
-
-C-tight.
-
-
-
-
-
-additional 
-
-
-
-1. Check the set fset for I_1 in particular, 
-
-	Relevant: \tightset versus \fset
 
 
 2. The f(w(s-)) thing in applications of lemma 14.
 
 
-3. K1 for K and A_\ell
 
 
-4. Almost sure thing in Lemma 5.12 for all fs at the same time.
+
+Generalizations: 
+
+remove assumptions on h_S being bounded. 
+
+Recall that $\bar K^m$ is the (fluid-scaled) total service entry process of the queueing system with index $m$.
+\begin{lemma}\label{lem_Ktight}
+The sequence $\{\bar K^m\}_{m\in\N}$ is tight in $\D$.
+\end{lemma}
+\begin{proof}
+We verify the Kurtz criteria of Proposition \ref{Kurtz} for $\{\bar K^m\}_{m\in\N}$. The first condition K1 follows from the inequalities $\bar K^m(t)\leq \bar Q^m(0)+\sum_{\ell=1}^L\bar\arrival_\ell(t)$ (see \eqref{elementary_bound_R}) and \eqref{ineq_initial}, and the Markov's inequality. To verify K2a, recall that $K^m(t)=\sum_{\ell=1}^L K^m_\ell$, where $K^m_\ell$ is the service entry counting process for jobs of class $\ell$. Now consider a renewal process $N^m$ with same delay as $K^m_\ell$ (that is, equal to $\min\{t\geq0: K^m_\ell(t)>0\}$), and with renewal times $\tilde \servicereq_{\ell,j}/m$ where $\{\tilde v_{\ell,j}\}$ is an iid sequence   with common distribution $G_{S,\ell}$. Observing that $K^m_\ell$ is a point process whose ``inter-epoch'' times are equal the service requirement of the job a class $\ell$ plus the time until the next job of class $\ell$ enters service (which includes processing times of jobs of other classes and possible server idle times), it follows from a straightforward coupling argument that the modulus of continuity of $K^m_\ell $ is stochastically bounded by that of $N^m$, that is \[P(w'(K^m_\ell,\delta,T)>\eta)\leq P(w'(N^m,\delta,T)>\eta),\] for every $\eta>0$. In addition, defining $\bar N^m(t)=N^m(t)/m$, by the law of large numbers for renewal process (\cite[Theorem 5.10]{CheYao2001}) $\{\bar N^m(t)\}_m$ converges almost surely in $\D$ to $\mu_\ell\id$ as $m\to\infty$. In particular, the sequence $\{\bar N^m\}_m$ is tight and hence, satisfies the condition K2a of Proposition \ref{Kurtz}. Therefore, using the bound established in the last display, $\{\bar K_\ell^m\}_{m\in\N}$ satisfies the condition K2a, and so does $\{\bar K^m\}_{m\in\N}$.
+
+\end{proof}
+
+For every $m\in\N$, $\ell=1,...,L$, and $f\in\fset$ define
+
+\begin{equation}\label{def_Am}
+  \bar A^m_\ell(f;t)= \int_{0}^t h_{S,\class^m(u)}\left(m\age^m(u)\right) \frac{\weight_\ell \langle f,\bnu^m_\ell(u)\rangle}{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(u)} du.
+\end{equation}
+
+\begin{lemma}\label{lem_Atight}
+For every $\ell=1,...,L$ and $f\in\fset$, the sequence $\{\bar A^m_\ell(f;\cdot)\}_{m\in\N}$ is tight in $\D$.
+\end{lemma}
+
+\begin{proof}
+We verify the Kurtz criteria of Proposition \ref{Kurtz} for $\{\bar A^m_\ell(f;\cdot)\}$. The first condition K1 trivially holds because $\bar A^m_\ell(f;0)=0$ by definition. To verify K2a, recall from \eqref{Kdcomp_scaled} that
+\[
+    \bar A^m_\ell(f;t)= \bar\entryC^m_\ell(f;t)-  \bar M^m_{\mathfrak{S},\ell}(f;t).
+\]
+First, by definition \eqref{def_renegC} of $\entryC^m_\ell$ and \eqref{def_fluid} of fluid-scaled quantities, for $t\in[0,T]$ and $\delta>0$,
+\[
+|\bar\entryC^m_\ell(f;t+\delta) - \bar\entryC^m_\ell(f;t)| \leq \|f\|(\bar K_\ell^m(t+\delta)-\bar K_\ell^m(t))\leq  \|f\|(\bar K^m(t+\delta)-\bar K^m(t)),
+\]
+and hence $w'(\bar\entryC^m_\ell(f;\cdot),\delta,T)\leq \|f\| w'(\bar K^m,\delta,T)$.  Since $\{\bar K^m\}$ is tight by Lemma \ref{lem_Ktight}, it satisfies K2a by Proposition \ref{Kurtz}, and hence, so does $\{\bar\entryC^m_\ell(f;\cdot)\}$. Moreover, $\{\bar M^m_{\mathfrak{S},\ell}(f;t)\}$ converges to zero in distribution, and hence is tight and satisfies K2a as well. Therefore, $\{\bar A^m_\ell(f;\cdot)\}$ also satisfies K2a.
+
+\end{proof}
 
 
 
