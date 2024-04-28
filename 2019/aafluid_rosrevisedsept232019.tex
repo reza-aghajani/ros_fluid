@@ -1,0 +1,1742 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Stochastic Systems (stsy) [interim solution; new styles under construction]
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.92, August 2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[stsy]{informs-stsy}
+
+\OneAndAHalfSpacedXI
+%%\OneAndAHalfSpacedXII % Current default line spacing
+%%\DoubleSpacedXII
+%%\DoubleSpacedXI
+
+% Private macros here (check that there is no clash with the style)
+
+% Natbib setup for author-year style
+\usepackage{pdfsync}
+\usepackage{color}
+\usepackage{bbm,multirow,bm,cases}
+
+
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+
+\TheoremsNumberedBySection  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+
+\EquationsNumberedBySection % (1.1), (1.2), ...
+
+
+% For new submissions, leave this number blank.
+% For revisions, input the manuscript number assigned by the on-line
+% system along with a suffix ".Rx" where x is the revision number.
+\MANUSCRIPTNO{}
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+\RUNAUTHOR{Aghajani and Williams}
+
+\RUNTITLE{Fluid limit of a multi-class queue with random order of service}
+
+\TITLE{Fluid Limit for a Multi-Class $G/G/1+G$ Queue with Random Order of Service}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{%
+\AUTHOR{Reza Aghajani}
+\AFF{Google, \EMAIL{raghajani01@gmail.com}}
+\AUTHOR{Ruth J. Williams}
+\AFF{Department of Mathematics, University of California San Diego, 9500 Gilman Dr, La Jolla, CA 92093, \EMAIL{rjwilliams@ucsd.edu}}
+% Enter all authors
+} % end of the block
+
+\ABSTRACT{%
+Abstract here. 
+}%
+
+\KEYWORDS{Fluid limit, random order of service, queueing system, measure-valued processes.}
+
+\input{commands.tex}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+
+\section{Introduction}\label{sec_intro}
+
+\subsection{Notation and Terminology} \label{sec_notation}
+For $a, b \in \R$, let $\lfloor a\rfloor$ denote the largest integer smaller than or equal to $a$, $\lceil a\rceil$ denote the smallest integer larger than or equal to $a$, and   $a \wedge b$ and $a \vee b$ denote the minimum and maximum of $a$ and $b$, respectively. Also,  $a^+\doteq a\vee 0$ and $a^-\doteq-(a\wedge 0)$. For a set $B$, $\indic{B}$ is the indicator function of the set $B$.
+
+%\subsubsection{Function spaces}
+For  $n\in\N$ and  a closed set $V\subset\R^n$, $\mathbf{C}(V)$, $\mathbf{C}_b(V)$, $\mathbf{C}_c(V)$ and $\mathbf{C}^1_b(V)$  are respectively, the spaces of real-valued continuous functions on $V$, bounded continuous functions on $V$,  continuous functions with compact support in $V$, once continuously differentiable functions that together with their first (partial) derivatives are
+bounded on $V$. When $V = [0,\infty)$, we will write $\mathbf{C}[0,\infty)$ for $\mathbf{C}([0,\infty))$ and analogously for the other spaces. For $f\in \mathbf{C}_b(V)$, we use $\|f\|_V$ to denote the supremum of $|f(s)|$, $s \in V$, and for $f\in\mathbf{C}_b\hc$, we let $\|f\|_\infty=\|f\|_{[0,\infty)} $. 
+
+For a metric space $(E, d)$, let $\mathbb D_E[0,\infty)$ denote the set of functions defined from $[0,\infty)$ into $E$ that are right continuous with finite left limits
+and let $\mathbb C_E[0,\infty)$ denote the subspace of continuous functions in $\mathbb D_E [0, \infty)$. We endow $\mathbb D_E [0,\infty)$ with the usual $J_1$ Skorokhod topology,
+see e.g., \cite{KurtzBook}.
+
+%\subsubsection{Measure spaces}
+
+Let $\Mset$ denote the space of finite non-negative Borel measures on $\hc$,endowed with  the Prohorov metric $d_p$, defined by
+\[
+d_p(\mu,\tilde\mu) := \inf\{ \epsilon>0 \; | \; \mu(A)\leq \tilde\mu(A^\epsilon)+\epsilon\text{ and }\tilde\mu(A)\leq \mu(A^\epsilon)+\epsilon\text{ for all non-empty Borel sets } A\subset\hc\},
+\]
+where $A^\epsilon$ is the open $\epsilon$-neighborhood of $A$. 
+The induced topology is that of weak convergence of measures. Moreover, $(\Mset, d_p)$ is a separable metric space, and there is an equivalent metric
+under which it is complete. Hence it is a Polish space.
+For every bounded, real-valued, measurable function $f$ on $\hc$ and every $\nu\in\Mset$, define
+\[
+\langle f ,\nu \rangle = \int_{\hc}f(x)\nu(dx).
+\]
+Also, define $\Mset^L$ to be the $L$-fold product of spaces $(\Mset,d_p)$, endowed with the metric $d_p^L$ defined by 
+\[
+d_p^L(\mu,\tilde\mu)=\max(d_p(\mu_\ell,\tilde\mu_\ell);\ell=1,...,L),
+\]
+for $\mu=(\mu_1,...,\mu_L),\tilde\mu=(\tilde\mu_1,...,\tilde\mu_L)\in\Mset^L$. This space is also a Polish space.
+
+
+
+\section{Model Description}
+
+We consider a single-server queue with infinite capacity waiting room that provides service to jobs of $L$ different classes indexed by $\ell=1,...,L$. The server processes only one job at a time, working at unit rate; it is non-idling in the sense that it is never idle at a time when there is a job in the system, and it operates under a Discriminatory Random Order of Service policy described below. Jobs are considered to be impatient, that is, if a job has to wait more than a pre-determined patience time before entering service, it abandons the system without being served. Jobs have class-specific arrival rates, patience time distributions, and service time distributions. Fundamental stochastic processes associated with these are now defined.
+
+
+\subsection{Primitive stochastic processes}\label{sec_model}
+
+XXXShould we consider delayed renewal processes?XXX
+
+\subsubsection*{Job arrivals.}
+Jobs of different classes arrive according to independent processes $E_\ell$, $\ell=1,...,L$, where for each $t\geq0$, $\arrival_\ell(t)$ is the number of job arrivals of class $\ell$ during $(0,t]$. The arrival processes are assumed to satisfy the following assumption.
+
+\begin{assumption}\label{asm_arrival}
+(Arrival processes) For each $\ell=1,2,...,L$, $E_\ell$ is a renewal process where the times between arrivals are independent and identically distributed  (i.i.d.) with distribution function $G_{E,\ell}$ and reciprocal mean $\lambda_\ell\in(0,\infty)$. It is assumed that $G_{E,\ell}$ has a Borel measurable density $g_{E,\ell}$ with respect to Lebesgue measure on $[0,\infty)$.  
+%The processes $E_\ell , \ell =1, \ldots, L$ are assumed to be mutually independent.
+\end{assumption}
+\noindent The letter $E$ here indicates \textit{exogenous} arrivals. 
+
+\subsubsection*{Patience times.}
+The patience times of arriving jobs are given by $L$ independent sequences of positive random variables  $\{\patience_{\ell,j},j\geq1\}, \ell=1,...,L.$  For each $\ell \in \{ 1,\ldots, L\}$ and $j\geq 1$, 
+$\patience_{\ell, j}$ is the time that the $j^{\text{th}}$ arrival to class $\ell $ is willing to wait in queue   before reneging (i.e., abandoning the system). 
+The common distribution function for class $\ell$ is denoted by $G_{R,\ell}$.  We make the following assumption on the patience time distribution functions. 
+(See Section \ref{sec_state} for a description of patience times for jobs that are initially in queue.)
+\begin{assumption}\label{asm_patience}
+  (Patience times) For each $\ell=1,...,L$, the patience time distribution function $G_{R,\ell}$ has a Borel measurable density $g_{R,\ell}$ with respect to Lebesgue measure on $[0,\infty)$, reciprocal mean $\renegrate_{\ell}\in(0,\infty),$  complementary cumulative distribution function $\bar G_{R,\ell}=1-G_{R,\ell}$ that is positive on $\hc$, and hazard rate function 
+\[
+h_{R,\ell}(x):=\frac{g_{R,\ell}(x)}{\bar G_{R,\ell}(x)}\quad\quad x\in\hc,
+\]
+that is bounded\footnote{Since $\int_a^b h_{R,\ell}(x)dx = \ln(\bar G_{R,\ell}(b)) - \ln(\bar G_{R,\ell}(a))$ for $0\leq a<b <\infty$, $h_{R,\ell}$ is not integrable over its support, and hence the   bounded hazard rate assumption necessitates that $\bar G_{R,\ell}(x)>0$ for all $x\geq 0$.}.
+\end{assumption}
+The subscript $R$ is used here to indicate that the quantities are associated with reneging. 
+
+\subsubsection*{Service times.}
+The service time requirements of jobs entering service after time zero are determined by $L$ independent sequences of positive random variables  $\{v_{\ell,i},i\geq1\}, \ell=1,...,L.$ 
+If the class of the $i^{th}$ job to enter service after time zero is $\ell(i)$, then $v_{\ell(i), i}$ is the amount of service time required by that job. (The random variables 
+$v_{\ell', i}$ for $\ell'\not=\ell(i)$ are not used.) For $\ell =1, \ldots, L$, 
+the common distribution function for the class $\ell$ service times is denoted by $G_{S,\ell}$ and is assumed to satisfy the following assumption. 
+(See Section \ref{sec_state} for a description of the service time requirement of the job that is initially in service (if any).)
+
+\begin{assumption}\label{asm_service}
+  (Service times) For each $\ell=1,...,L$, the service time distribution $G_{S,\ell}$ has Borel measurable density $g_{S,\ell}$ on $[0,\infty)$, reciprocal mean $\mu_{\ell}\in(0,\infty),$ complementary cumulative distribution function $\bar G_{S,\ell}=1-G_{S,\ell}$ that is positive on $\hc$, and hazard rate function 
+\[
+h_{S,\ell}(x):=\frac{g_{S,\ell}(x)}{\bar G_{S,\ell}(x)}\quad\quad x\in\hc,
+\]
+that is bounded.
+\end{assumption}
+%TODO Suggestion. if change above is made, change this accordingly. 
+The subscript $S$ is used here to indicate that the quantities are associated with service. Let $H<\infty$ be an upper bound on the hazard rate of all service and patience time distributions (which exists by Assumptions \ref{asm_patience} and \ref{asm_service}), i.e.,
+\begin{equation}\label{def-H}
+h_{S,\ell}(x),h_{R,\ell}(x)\leq H,  \quad\quad\quad \text{for all }x\geq0,\ \ell=1,...,L.
+\end{equation}
+
+We assume that the processes/sequences of random variables,  $E_\ell$, $\{ \patience_{\ell, j}, j\geq 1\}$, $\{v_{\ell, i} , i\geq 1\}$, $\ell =1, \ldots, L$ are all mutually independent.
+
+\subsection{Service policy: Discriminatory Random Order of Service}
+We consider the queue operating under the so-called Discriminatory Random Order of Service (DROS) policy. According to this policy, a job  enters service immediately upon arrival if the server is idle, and waits in the queue if the server is busy. Once the service requirement is complete for the job in service, it departs the system and the server becomes available immediately to serve the next job. The next job to enter service is randomly chosen from the jobs waiting in queue (if any) according to the following probability law. Denoting the number of jobs of class $\ell$ waiting in queue at time $t$ by $Q_\ell(t)$, if the server becomes available at time $t>0$ and the queue is nonempty right before $t$, each given job of class $\ell$ waiting in queue just before $t$ (if any) will be chosen for service entry at time $t$ with probability
+\begin{equation}\label{DROS}
+\frac{\weight_\ell}{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(t-)},
+\end{equation}
+where $(\weight_\ell,\ell=1,...,L)$ is a probability vector, satisfying $\weight_\ell>0,\ell=1,...,L,$ and $\sum_{\ell=1}^Lp_{\ell}=1$, that determines the preferences for different job classes.
+Here $Q_{\ell'}(t-)$ is the left limit value of $Q_{\ell'}$ at time $t$.
+
+More precisely, the random selection of jobs for service entry is determined by a sequence of i.i.d.\ random variables $\{\selector_i,i\geq1\}$ uniformly distributed on $(0,1]$.  These random variables are independent of the primitive processes defined in the previous subsection. If the $i^{th}$ service entry after time $0$ happens at a time $t$ and the queue is non-empty right before the service entry, the job chosen to enter service at time $t$ is of class $\ell$ if
+$\selector_i\in(\lowInt_\ell(t),\upInt_\ell(t)]$, where
+\begin{equation}\label{def_class_interval}
+	\lowInt_\ell (t) := \frac{\sum_{\ell'=1}^{\ell-1}\weight_{\ell'}Q_{\ell'}(t-)}{\sum_{\ell'=1}^{L}\weight_{\ell'}Q_{\ell'}(t-)},\quad\quad 	\upInt_\ell (t):= \frac{\sum_{\ell'=1}^{\ell}\weight_{\ell'}Q_{\ell'}(t-)}{\sum_{\ell'=1}^{L}\weight_{\ell'}Q_{\ell'}(t-)}= 	\lowInt_\ell (t)+ \frac{\weight_{\ell}Q_{\ell}(t-)}{\sum_{\ell'=1}^{L}\weight_{\ell'}Q_{\ell'}(t-)}.
+\end{equation}
+In addition, all jobs of class $\ell$ waiting in queue right before the entry time  (if any) are equally likely to be selected, and hence, each such job is selected with a probability given by \eqref{DROS}.  On the other hand, if the $i^{th}$ service entry results from a job arrival when the server is idle, no random selection for service entry is required and $\selector_i$ is discarded.
+
+XXXIn addition to the random variables $\selector_i$, it seems to me that you need a random variable, once the class is chosen,  to choose which of the jobs of that class will enter service.XXXX
+
+
+
+\subsection{State Descriptor} \label{sec_state}
+For every $\ell=1,...,L$, recall that $Q_\ell(t)$ denotes the number of jobs of class $\ell$ waiting in queue at time $t$, and let $Q_\Sigma(t)=\sum_{\ell=1}^LQ_\ell(t)$ be the total number of jobs waiting in queue at time $t$. We index individual jobs of each class by integers in the order of their arrival as follows: jobs of class $\ell$ have their indices in the set
+\[
+\indexSet_\ell := \{-Q_\ell(0)+1,...,-1,0,1,....\},
+\]
+where non-positive indices $-Q_\ell(0)+1,...,-1,0$ are assigned to the $Q_\ell(0)$ jobs that are initially in queue (if any), and positive indices are assigned to the jobs that arrive after time $t=0$. The jobs are ordered according to their arrival times with jobs having arrived earlier having smaller indices. Each job is then uniquely determined by its class-index pair $(\ell,j): \ell\in\{1,...,L\}, j\in\indexSet_\ell$.
+
+Since the patience, service  and interarrival times are not (necessarily) exponentially distributed, to have a Markovian state description of the system, we keep track of the age in queue for each job that is currently waiting in queue, the class and   time in service  of the job currently in  service (if any), as well as the time since the last arrival to each class\footnote{Alternatively, one could choose to keep track of residual patience, service and interarrival times.}. 
+
+We first describe the ages of the jobs in queue.
+If a job with index $(\ell,j)$ is in queue at time $t$,  let $\waiting_{\ell,j}(t)$ denote the age in queue of the job at time $t$, which is the amount of time that the job has spent in queue since its arrival (see \eqref{def_w} for a full description). We record the age in queue of all waiting jobs at time $t$ in a vector $\nu(t)=(\nu_\ell(t);\ell=1,...,L)$ of measure-valued variables defined as follows. At time $t$, let $\inque_\ell(t)$ be the set of indices of the jobs of class $\ell$ that are waiting in queue at time $t$,  and define the measure $\nu_\ell(t)$ on $[0,\infty)$ by
+\begin{equation}\label{def_nuk_early}
+  \nu_\ell(t):= \sum_{j\in\inque_\ell(t)}\delta_{\waiting_{\ell,j}(t)},
+\end{equation}
+where $\delta_a$ is the Dirac delta measure at $a$. Therefore, $\nu_\ell(t)$ is the sum of Dirac delta masses located at the age in queue of each job of class $\ell$ waiting in queue at time $t$, and takes values in the space $\Mset$ of finite non-negative Borel measures on $\hc$ (see \eqref{def_nu_alt} for a full description).  Note that 
+\begin{equation}
+  \ql_\ell(t)=\langle\f1,\nu_\ell(t)\rangle,
+\end{equation}
+where $\f1$ is the constant function on $[0,\infty)$ with value 1.
+
+To describe the state of the server, for each $t\geq 0$, we define the pair $(\age(t),I(t))$ as follows: if the server is busy at time $t$, $a(t)$ and $I(t)$ are, respectively, the age in service (the time passed since entry to service) and the class of the job currently in service at time $t$; if the server is idle at time $t$ (i.e., no job in service), we define $a(t)=0$ and $I(t)=0$. 
+
+For arrivals, for each $t\geq 0$ and $\ell \in \{ 1, \ldots, L\}$, we define $\{\brt(t),t\geq0\}$ to be the backward recurrence time of the arrival process $E_\ell$, so that $\brt(t)$ is the time since the last arrival in $[0,t]$.  If there has been no arrival in $[0,t]$, then $r_\ell(t) =t$.
+
+The process
+\[
+\{\left( \brt(t), \nu_\ell(t);\ell=1,...,L,a(t),I(t) \right);t\geq0\}
+\]
+is a Markovian descriptor for our queueing system. However,  we do not use the Markov property of this process directly, and hence do not prove this claim.
+
+
+\subsection{Initial Conditions\label{initialconditions}}
+The initial condition for our queueing system is described by the collection of random variables
+\begin{equation}\label{ic}
+\mathfrak{Q}_0:=\{\nu(0)=(\nu_\ell(0);\ell=1,...,L),a(0),I(0)\}.
+\end{equation}
+XXX Should we include a backward recurrence time for arrivals   in this? XXX
+Note that a valid initial condition must be consistent with the non-idling assumption: when $I(0)=0$ (which means the server is initially idle), one must have $a(0)=0$ and $\nu_\ell(0)$ is the zero measure on $[0, \infty)$,  for each $\ell=1,...,L$. The number of jobs initially in queue and their initial ages can be recovered from $\nu(0)$: for $\ell=1,...,L,$ the number of jobs of class $\ell$ initially in queue is given by 
+\begin{equation}\label{QLzero}
+Q_\ell(0)=\langle\f1,\nu_\ell(0) \rangle,
+\end{equation}
+and, given our indexing convention, the initial ages $\waiting_{\ell,j}(0)$ of jobs with indices $(\ell,j)$ with $j=-Q_\ell(0)+1,...,-1,0$ are given by the locations of the delta masses in $\nu_\ell(0)$ in a manner that the jobs with smaller indices $j$ have larger initial ages in queue. For convenience, we let $\waiting_{\ell,j}(0)=0$ for $j\leq -Q_\ell(0)$.
+
+Recall that the patience times of jobs of class $\ell$ arriving after time zero are given by the i.i.d.\ sequence $\{\patience_{\ell,j}, j\geq1\}$. However, for jobs initially in service, the patience times are defined slightly differently. Consider $L$ independent sequences $\{\tilde\patience_{\ell,j},j\leq 0\}$, $\ell=1,...,L$, where for each $\ell$, $\tilde\patience_{\ell,j},j\leq0$, are conditionally independent of all other random elements given $\nu(0)$ and satisfy
+\[
+\mathbb{P}\left\{\tilde\patience_{\ell,j}>x|\nu(0)\right\}=\frac{1- G_{R,\ell}(x+\waiting_{\ell,j}(0))}{1- G_{R,\ell}(\waiting_{\ell,j}(0))}, \ x\geq 0.
+\]
+Moreover, define 
+\begin{equation}\label{def_initial_age}
+\patience_{\ell,j}=\waiting_{\ell,j}(0)+\tilde\patience_{\ell,j},\quad\quad \ell=1,...,L,j\leq 0.
+\end{equation}
+For each $\ell=1,...,L$, the quantities $\{\patience_{\ell,j};j=-Q_\ell(0)+1,...,-1,0\}$ are the patience times of jobs of class $\ell$ that are initially in service, while $\{\tilde\patience_{\ell,j};j=-Q_\ell(0)+1,...,-1,0\}$ are the residual patience times of those jobs at time $0$. The variables $\patience_{\ell,j}(0)$ and $\tilde \patience_{\ell,j}$ for $j\leq -Q_\ell(0)$ will not be used in our model description, they are introduced for convenience so that we do not have sequences of random variables of random length.
+
+Similarly, for the job initially in service, the  service requirement time is defined as follows. Define random variables $\{\tilde v_{\ell,0}\}$, $\ell=1,...,L$, that are conditionally independent of all other random elements given $a(0)$, and satisfy
+\[
+\Prob{\tilde v_{\ell,0}>x|a(0)} = \frac{1- G_{S,\ell}(x+a(0))}{1- G_{S,\ell}(a(0))}.
+\]
+Moreover, define $v_{\ell,0}= a(0)+\tilde v_{\ell,0}$ for $\ell=1,...,0$, and
+\begin{equation}\label{def_initial_service}
+v_0 := \sum_{\ell=1}^L \indic{I(0)=\ell} v_{\ell,0}.
+\end{equation}
+When the server is not initially idle (i.e.\ $I(0)\neq 0$), $v_0$ is the  service requirement of the job initially in service, and $\tilde v_{\ell,0}$ is the residual service requirement of that job at time $0$ if the job is of class $\ell$.
+
+\begin{remark}
+Given the initial conditions, the stochastic processes and random variables underlying the model are
+\begin{itemize}
+\item the arrival processes $\{\arrival_\ell;\ell=1,...,L\}$, 
+\item the patience times $\{\patience_{\ell,j};\ell=1,...,L;j\in\Z\}$,
+\item the job selection random variables $\{\selector_i;i\geq 1\}$, 
+\item the service time requirements $\{v_{\ell,i};i\geq 0,\ell=1,...,L\}.$ 
+\end{itemize}
+Initial conditions and the random elements listed above are all defined on a common probability space $(\Omega,\mathcal{F},\mathbb{P})$. All other random times and state variables can be constructed as functions of the above system primitives.
+\end{remark}
+
+
+XXX DO WE NEED ANOTHER SEQUENCE OF RANDOM VARIABLES BESIDES THE $\selector_i$. XXX
+
+
+
+
+\section{Main Results}
+
+\subsection{Fluid scaling}\label{sec_seq}
+
+To obtain a fluid limit result for the G/G/1+G queue, we  accelerate the arrival processes and effective service rate by a positive integer scale factor of $m$, while keeping the patience time distribution unchanged. The initial conditions may change somewhat with $m$.  We  scale the queue length processes $Q_\ell$, and the measure-valued processes $\nu_\ell$, by the factor $1/m$. 
+The fluid limit is obtained by taking $m\to\infty$. We formally define the scaling below. 
+
+Consider a sequence of queueing systems as described above, indexed by a parameter $m$. The corresponding quantities in the $m^\text{th}$ system are annotated with a superscript of $m$. In the $m^\text{th}$ system,  the arrival process $\arrival^m_\ell$ for each class $\ell\in \{ 1, \ldots, L\}$ satisfies $\arrival^m_\ell(t)=\arrival_\ell(mt) $ for all $t\geq 0$, where $\arrival_\ell$ is as in Section
+\ref{sec_model}.
+ The patience time distributions are kept unchanged, hence
+\[
+    \overline G^m_{R,\ell}(x)=\overline G_{R,\ell}(x),\quad\quad g^m_{R,\ell}(x)=g_{R,\ell}(x),\quad\quad h^m_{R,\ell}(x)=h_{R,\ell}(x),\quad x\in\hc.
+\]
+Indeed, we can take $ \patience^m_{\ell, j}= \patience_{\ell, j}$ for $\ell =1, \ldots, L$ and $j\geq 1$, where the $\{\patience_{\ell, j}, j\geq 1 \}$, $\ell =1, \ldots, L$ are defined as in 
+Section \ref{sec_model}. The $\patience^m_{\ell, j} $ for $j\leq 0$ can be defined as in Section \ref{initialconditions}, using $\nu^m(0)$ and the associated distributions $G^m_{R, \ell}$. 
+
+To produce an effective service rate of $m$ in the $m^{\text{th}}$ system, the server continues to work at unit rate, but 
+the service time requirements in the $m^\text{th}$ system are scaled by $1/m$, and hence, the complementary c.d.f. $\overline G^m_{S,\ell}$, the density $g^m_{S,\ell}$, and hazard rate function $h^m_{S,\ell}$ of the service times in the $m^{th}$ system are given by
+\[
+    \overline G^m_{S,\ell}(x)=\overline G_{S,\ell}(mx),\quad\quad g^m_{S,\ell}(x)=m g_{S,\ell}(mx),\quad\quad h^m_{S,\ell}(x)=mh_{S,\ell}(mx),\quad x\in\hc.
+\]
+Indeed, the service times $\{  v^m_{\ell, i} , i\geq 1\}$ can be defined by 
+ $v^m_{\ell, i} =\frac{1}{m} v_{\ell, i}$ where the $\{v_{\ell, i}, i\geq 1$ are defined as in Section \ref{sec_model} for $\ell =1, \ldots, L$.
+ The $ v^m_{\ell, 0} $ can be defined as in Section \ref{initialconditions} with $ v^m_{\ell, 0}, G^m_{S,\ell}, a^m(0)$  in place of $ v_{\ell, 0}, G_{S,\ell},a(0)$, $\ell =1, \ldots, L$.
+
+We define the fluid scaled processes $\bar\nu^m_\ell$ and  $\bar Q_\ell^m$, $\ell=1,...,L$, by
+\[
+    \bar\nu^m_\ell(t)=\frac{1}{m}\nu^m_\ell(t),\quad\quad \bql^m_\ell(t)=\frac{1}{m}\bql_\ell(t),\quad\quad t\geq0.
+\]
+
+
+\begin{remark}
+ Alternatively, a sequence of queueing systems indexed by $m$ can be defined by keeping the arrival processes and service times unchanged, scaling the patience times by the factor $m$, speeding up time, and scaling the ``mass'' of jobs by $1/m$. This scaling would lead to the same fluid limit as the procedure described above.
+\end{remark}
+
+\subsection{Fluid limit theorem}
+
+The main result of this paper is to establish a fluid limit 
+result %TODO change wording if uniqueness is not proved.
+for the multiclass G/G/1+G queue with a Discriminatory Random Order of Service (DROS) policy as described above. The next assumption, on the convergence of initial conditions, is necessary for our results. 
+
+\begin{assumption}\label{asm_initial}
+The sequence $\{\bnu^m(0)\}_{m\in\N}$ is tight in $\Mset^L$.
+\end{assumption}
+Note that by \eqref{QLzero} and the continuous mapping theorem, Assumption \ref{asm_initial} implies that
+\begin{equation}\label{Q0_bound}
+\sup_m \Ept{\bql^m_\ell(0)}<\infty.
+\end{equation}
+
+
+
+
+\begin{theorem}\label{thm_conv}
+The sequence $\{\bnu^m=(\bnu_1^m,...,\bnu_L^m)\}_{m\in\N}$ is $\mathbb{C}$-tight in $\mathbb{D}_{\Mset^L}[0,\infty)$. Moreover, for any weakly convergence subsequence 
+$\{\bnu^{m_k}\}$ of $\{\bnu^m\}$, the weak limit  $\bnu=(\bnu_1,...,\bnu_L)$ satisfies the following almost surely: for every $\ell=1,...,L$ and every $f\in\fset$,
+\begin{align}\label{fluid_eq}
+  \langle f,\bnu_\ell(t)\rangle  = & \langle f,\bnu_\ell(0)\rangle + \int_0^t\langle f' ,\bnu_\ell(s)\rangle ds +\lambda_\ell f(0)\int_0^t\indic{\bar\nu(s)\neq\mathbf{0}}ds - \int_0^t\langle fh_{R,\ell},\bnu_\ell(s)\rangle ds \\
+  &- \int_0^t\indic{\bar\nu(s)\neq \mathbf{0}}\frac{\weight_\ell\langle f,\bnu_\ell(s)\rangle}{\sum_{\ell'=1}^{L}\frac{\weight_{\ell'}}{\mu_{\ell'}}\langle\f1,\bnu_{\ell'}(s)\rangle} ds,\notag\quad\quad \text{for all }t\geq0,
+\end{align}
+where $\mathbf{0}$ is the vector of zero measures in $\Mset^L$.
+\end{theorem}
+
+\begin{remark}
+Note that we are not assuming uniqueness of the limit $\bnu$, this may depend on the  subsequence chosen.
+\end{remark}
+%TODO Suggestion: may want to remove the indicator function in the last term, and just say that the fraction is zero if both numerator and denominator are zero.
+
+
+
+
+\section{Dynamics of the State Variables}
+
+
+
+\subsection{Some auxiliary processes}
+For each class $\ell=1,...,L$, recall that the arrival process $E_\ell$ of class $\ell$ is a renewal process satisfying Assumption \ref{asm_arrival}, and that $\indexSet_\ell=\{-Q_\ell(0)+1,...,-1,0,1,2,...\}$ is the index set of jobs of that class. The arrival time of each job $(\ell,j)$, $j\in \indexSet_\ell$, is denoted by $\arrivaltime_{\ell,j}$. For jobs with indices $j\geq1$ that arrive after time $t=0$, the arrival times are given by the epoch times of the arrival process $E_\ell$. However, for jobs  that are initially in queue, the arrival times are non-positive and are determined by the initial conditions, namely,  $\arrivaltime_{\ell,j}=-\waiting_{\ell,j}(0)$ for $j\in\{-Q_\ell(0)+1,...,0\}$, where $\waiting_{\ell,j}(0)$ is the initial age in queue of the job $(\ell,j)$. Next, recall that for any $\ell=1,...,L$ and $j\in\indexSet_\ell$, the job with index $(\ell,j)$ has a patience time $\patience_{\ell,j}$ that is a member of the i.i.d.\ sequence described in Assumption \ref{asm_patience} for jobs that arrive after time zero, and by \eqref{def_initial_age} for jobs initially in queue. The age in queue, $w_{\ell,j}(t)$, of the job with index $(\ell,j)$ at time $t\geq0$ is given by
+\begin{equation}\label{def_w}
+w_{\ell,j}(t)=
+  \begin{cases} (t-\arrivaltime_{\ell,j})^+ & \text{if }  t<\arrivaltime_{\ell,j}+\patience_{\ell,j},\\
+  \patience_{\ell,j}& \text{if }t\geq \arrivaltime_{\ell,j}+\patience_{\ell,j}.
+  \end{cases}
+\end{equation}
+Namely, $w_{\ell,j}(t)$ is zero before the job arrives, then it grows linearly with rate one until it reaches the job's patience time at the time $\renegtime_{\ell,j}:=\arrivaltime_{\ell,j}+\patience_{\ell,j}$, which we call the \textit{expiration time} of the job $(\ell,j)$. If the job $(\ell,j)$ is still in queue immediately prior to its expiration time (i.e.\ has not yet entered service), then it leaves the system at its expiration time without receiving service. We assume that jobs do not renege while receiving service. 
+
+Recall that a job may enter service either upon arrival (if the server is idle right before its arrival) or right after the service completion of another job (through being selected for service entry by the DROS policy after having waited in queue). The service entry time of a job $(\ell,j)$ is denoted by $\entrytime_{\ell,j}$. By convention, we define $\entrytime_{\ell,j}=+\infty$ if the job $(\ell,j)$ reneges before it could have entered service. Finally, recall that the service time requirements are determined by $L$ sequences of i.i.d.\ random variables $\{v_{\ell,i};i\geq1\},\;\ell=1,...,L$, whose distributions satisfy Assumption \ref{asm_service}. Namely, to the $i^{th}$ job to enter service, a service time requirement $v_{\ell,i}$ is assigned if that job is of class $\ell$, and the other $v_{\ell',i}$ for $\ell'\neq\ell$ are discarded. Each job remains in service until its service requirement is completed, and then it departs the system and the server will be available immediately for the next job to enter service.
+
+
+
+Using the notation introduced above, we can define auxiliary processes that help us described the dynamics of the state descriptors. First, note that the arrival processes satisfy
+\begin{equation}\label{arrival_rep}
+\arrival_\ell(t)=\sum_{j\in\indexSet_\ell}\indic{0<\arrivaltime_{\ell,j}\leq t}=\sum_{j=1}^\infty \indic{\arrivaltime_{\ell,j}\leq t}.
+\end{equation}
+Next, since the set $\inque_\ell(t)$ of jobs of class $\ell$ that are waiting in queue at time $t$ is in fact the set of jobs of class $\ell$ that have arrived to the system, but have not yet reneged or entered service by time $t$, it can be expressed as
+\[
+\inque_\ell(t)= \{j\geq -Q_\ell(0)+1 \; : \; \arrivaltime_{\ell,j}\leq t,\renegtime_{\ell,j}>t , \entrytime_{\ell,j}>t\}.
+\]
+The process $\{\reneg_{\ell,j}(t);t\geq0\}$ defined by\footnote{By definition, the set valued function $u\mapsto\inque_\ell(u)$ is piecewise constant and hence the definition of $\inque_\ell(u-)$ is unambiguous.}
+\begin{equation}\label{def_Rlj}
+\reneg_{\ell,j}(t):=\indic{\renegtime_{\ell,j}\leq t}\indic{j\in\inque_\ell(\renegtime_{\ell,j}-)},\quad\quad t\geq0,
+\end{equation}
+indicates whether the job $(\ell,j)$  has reneged from the queue at any given time $t$, and the total number of renegings of jobs of class $\ell$  during $(0,t]$ is then given by
+\begin{equation}
+  \reneg_\ell(t) = \sum_{j\in\indexSet_\ell} \reneg_{\ell,j}(t).
+\end{equation}
+Moreover, the process $\{\entry_{\ell,j}(t);t\geq0\}$ defined as
+\[
+\entry_{\ell,j}(t):= \indic{\entrytime_{\ell,j}\leq t},
+\]
+indicates whether the job $(\ell,j)$ has entered service by time $t$, and therefore, the number of service entries $K_\ell(t)$ of jobs of class $\ell$ and the total number of service entries $K(t)$ during $(0,t]$ are given by
+\begin{equation}\label{def_Klj}
+  \entry_\ell(t) = \sum_{j\in\indexSet_\ell} \entry_{\ell,j}(t)\quad\text{and}\quad\quad K(t)=\sum_{\ell=1}^{L}K_{\ell}(t),
+\end{equation}
+respectively. In addition, he process $\{K^Q_{\ell,j}(t);t\geq0\}$ defined as
+\begin{equation}\label{def_KQ}
+\entry^{Q}_{\ell,j}(t):= \indic{j\in\inque_\ell(\entrytime_{\ell,j}-)}\indic{\entrytime_{\ell,j}\leq t} = \int_0^t \indic{j\in\inque_\ell(u-)}d\entry_{\ell,j}(u),
+\end{equation}
+indicates whether the job $(\ell,j)$ has yet entered service by time $t$ after waiting in queue and being selected by DROS policy, and 
+\begin{equation*}
+\entry^Q_{\ell}(t):=\sum_{j\in\indexSet_\ell} \entry^Q_{\ell,j}(t)
+\end{equation*}
+denotes the total number of such service entries for jobs of class $\ell$ during $(0,t]$. 
+
+
+For brevity of notation in the equations derived in the next section, we define the following functional-valued versions of the reneging and service entry processes. For every $f\in\fset$ and $\ell=1,...,L$, and $t\geq0$, define
+\begin{equation}\label{def_renegC}
+  \renegC_\ell(f;t) :=\sum_{j\in\indexSet_\ell} f(\patience_{\ell,j})\indicil{j\in\inque_\ell(\renegtime_{\ell,j}-)}\indic{\renegtime_{\ell,j}\leq t}=  \sum_{j\in\indexSet_\ell} \int_0^tf(w_{\ell,j}(u))d\reneg_{\ell,j}(u),
+\end{equation}
+and
+\begin{equation}\label{def_entryC}
+\entryC_\ell(f;t):= \sum_{j\in\indexSet_\ell} f(w_{\ell,j}(\entrytime_{\ell,j}))\indic{j\in\inque_\ell(\entrytime_{\ell,j}-)}\indic{\entrytime_{\ell,j}\leq t} = \sum_{j\in\indexSet_\ell} \int_0^tf(w_{\ell,j}(s))d\entry^Q_{\ell,j}(u).
+\end{equation}
+Roughly speaking, $\renegC_\ell(\cdot;t)$ keeps track of patience times (or equivalently, the age in queue at reneging time) of those jobs of class $\ell$ that reneged from the system during $[0,t]$, and $\entryC_\ell(\cdot;t)$ keeps track of the age in queue at the service entry time for those jobs of class $\ell$ that entered service during $[0,t]$ after waiting in queue. Note that jobs that enter service directly upon arrival are not counted in $\entryC_\ell$, and in fact,
+\begin{equation}\label{KQ_Curly}
+	\entry^Q_{\ell}(t)=\entryC_\ell(\f1;t).
+\end{equation}
+
+
+Finally, using the notation introduced in this section we can express $\nu_\ell(t)$ as follows:
+\begin{equation}\label{def_nu_alt}
+\nu_\ell(t) = \sum_{j=-Q_\ell(0)+1}^{\arrival_\ell(t)}\delta_{\waiting_{\ell,j}(t)}\indic{\renegtime_{\ell,j}>t}\indic{\entrytime_{\ell,j}>t}.
+\end{equation}
+
+
+
+
+\begin{remark}
+It follows from \eqref{def_nu_alt} and the identity $Q_\ell(t)=\langle\f1,\nu_\ell(t)\rangle$ that 
+\begin{equation}\label{ineq_Qbalance}
+    \ql_\ell(t) \leq \ql_\ell(0)+ \arrival_\ell(t).
+\end{equation}
+Moreover, since the expiration time and service entry time of a job are always after its arrival time, we obtain the elementary bound
+  \begin{equation}\label{elementary_bound_R}
+%    R_\ell(t) \leq \sum_{-Q_\ell(0)+1}^0 \indic{\renegtime_{\ell,j}\leq t} + \sum_{j=1}^\infty\indic{\renegtime_{\ell,j}\leq t}\leq  \sum_{-Q_\ell(0)+1}^0 1 + \sum_{j=1}^\infty\indic{\arrivaltime_{\ell,j}\leq t} \leq Q_\ell(0)+E_\ell(0),
+	R_\ell(t)  \leq Q_\ell(0)+E_\ell(t),
+  \end{equation}
+  and,
+  \begin{equation}\label{elementary_bound_K}
+    K_\ell(t)\leq Q_\ell(0) + E_\ell(t),
+  \end{equation}
+for all $t\geq0$. These bounds are used later in Section \ref{sec_convproof}.
+\end{remark}
+
+
+\begin{remark} \label{def_tomega} The model has a simpler behavior on a subset of realizations $\tilde\Omega\subseteq \Omega$ on which all arrivals, renegings, and departures of all jobs of all classes occur on distinct times, the number of initial jobs in queue is finite, and for every finite time $t$, the total number of arrivals (and hence renegings and departures) occurred during $(0,t]$ is finite. It is easy to see that $\tilde\Omega$ has full measure. The proof is straightforward and hence is omitted; it follows from the fact that the distributions of interarrival times, patience times, and service times have densities, the assumption that the arrival processes have finite means, and assumption \ref{asm_initial}. The remainder of the results in this paper hold on $\tilde\Omega$, and hence, almost surely.
+
+
+\end{remark}
+
+
+\subsection{Dynamics of measure-valued state descriptors}
+
+To describe the dynamics of the vector of measure-valued state variables $\nu=(\nu_\ell;\ell=1,...,L)$, we study the actions of $\nu_\ell$, $\ell=1,...,L$, on the set of test functions $f\in\fset$. 
+
+
+
+\begin{proposition}\label{prop_prelim}
+Almost surely, for every $\ell=1,...,L$, $t\geq0$, and $f\in\fset$, $\nu_\ell$ satisfies
+\begin{align}\label{prelimit_dynamic}
+  \pairil{f}{\nu_\ell(t)}= & \pair{f}{\nu_\ell(0)}+ \int_{0}^{t}\pairil{f'}{\nu_\ell(s)}ds+   f(0)\int_0^t\indic{I(s-)\neq 0}d\arrival_{\ell}(s)  -\renegC_\ell(f;t)-\entryC_\ell(f;t).
+\end{align}
+\end{proposition}
+The terms on the right-hand side of the display above are due to, respectively, the initial condition, the linear growth of ages of jobs in queue, the arrival of new jobs (with age 0 at the time of their arrival), jobs leaving the queue due to abandonment, and jobs leaving the queue due to service entry. The rest of this section is devoted to the proof of Proposition \ref{prop_prelim}. 
+
+Fix a test function $f\in\fset$ and $t\geq0$. For every $\ell=1,...,L$, since $\nu_\ell$ is right-continuous by construction, we have
+\begin{align}\label{deltanu}
+    \pairil{f}{\nu_\ell(t)}-\pair{f}{\nu_\ell(0)} &=\lim_{n\to\infty}\sum_{k=0}^{\lfloor nt\rfloor} \pair{f}{\nu_\ell\left(\frac{k+1}{n}\right)-\nu_\ell\left(\frac{k}{n}\right)}= \mathcal{I}_1+\mathcal{I}_2,
+\end{align}
+where
+\begin{equation}\label{def_I1}
+     \mathcal{I}_1:= \lim_{n\to\infty}\sum_{k=0}^{\lfloor nt\rfloor} \pair{f\left(\cdot+\frac{1}{n}\right)}{\nu_\ell\left(\frac{k}{n}\right)}-\pair{f}{\nu_\ell\left(\frac{k}{n}\right)},
+\end{equation}
+and
+\begin{equation}\label{def_I2}
+    \mathcal{I}_2 := \lim_{n\to\infty}\sum_{k=0}^{\lfloor nt\rfloor} \pair{f}{\nu_\ell\left(\frac{k+1}{n}\right)}-\pair{f\left(\cdot+\frac{1}{n}\right)}{\nu_\ell\left(\frac{k}{n}\right)}.
+\end{equation}
+
+We first compute $\mathcal{I}_1$.
+
+\begin{lemma}\label{lem_I1}
+Almost surely, for every $f\in\fset$ and $t\geq0$,
+\begin{equation}\label{I1}
+  \mathcal{I}_1 = \int_{0}^{t}\pairil{f'}{\nu_\ell(s)}ds.
+\end{equation}
+\end{lemma}
+\proof{Proof.}
+For every $s,u\geq0,$ define 
+\[
+	F(s,u)=\langle f(\cdot+s),\nu_\ell(u)\rangle =\int_{\hc}f(x+s)\nu_\ell(u,dx).
+\]
+Using this notation, we can write 
+\begin{equation}\label{temp_I1a}
+     \sum_{k=0}^{\lfloor nt\rfloor} \pair{f\left(\cdot+\frac{1}{n}\right)}{\nu_\ell\left(\frac{k}{n}\right)}-\pair{f}{\nu_\ell\left(\frac{k}{n}\right)}=\sum_{k=0}^{\lfloor nt\rfloor}\left\{ F\left(\frac{1}{n},\frac{k}{n}\right)-F\left(0,\frac{k}{n}\right)\right\}.
+\end{equation}
+Since $f$ is continuously differentiable with bounded derivative $f'$ and $\nu_\ell(u)$ is a finite measure, for every $u\geq0$, the mapping $s\mapsto F(s,u)$ is  continuously differentiable with derivative $\partial_s F(s,u) = \langle f'(\cdot+s),\nu_\ell(u) \rangle.$ Therefore, by the mean value theorem, there exist $s_{n,k}\in(0,1/n)$, for $n\in\N, k=0,...,\lfloor nt\rfloor$, such that 
+\begin{align}
+\sum_{k=0}^{\lfloor nt\rfloor}\left\{ F\left(\frac{1}{n},\frac{k}{n}\right)-F\left(0,\frac{k}{n}\right)\right\} &  = \frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \partial_sF\left(s_{n,k}\;,\frac{k}{n}\right) \notag\\ 
+& = \frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \partial_sF\left(0,\frac{k}{n}\right)+ \frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \left\{\partial_sF\left(s_{n,k},\frac{k}{n}\right)-\partial_sF\left(0,\frac{k}{n}\right)\right\}.
+\end{align}
+First, since $f'$ is bounded and continuous, the mapping $u\mapsto\partial_sF(0,u) = \langle f',\nu_\ell(u) \rangle $ is right-continuous and hence, is Riemann integrable, and  thus,
+\begin{equation}
+\lim_{n\to\infty}\frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \partial_sF\left(0,\frac{k}{n}\right) = \int_0^t \langle f',\nu_\ell(u) \rangle du.
+\end{equation}
+To bound the other summation, fix any $\epsilon>0$. Define $T=\max\{\waiting_{\ell,j}(0)\;|\; j=-Q_\ell(0)+1,...,0\}+t$, which is finite since $Q_\ell(0)$, and note that by definition, $\waiting_{\ell,j}(u)\leq T$ for every $j\in\indexSet_\ell$ and $u\in[0,t]$. This implies 
+\[
+\langle f',\nu_\ell(u)\rangle = \sum_{j\in\inque_\ell(u)} f'(\waiting_{\ell,j}(u))=\int_{[0,T]}f'(x)\nu_\ell(u,dx),\quad\quad u\in[0,t].
+\]
+Moreover, since $f'$ is continuous, it is uniformly continuous on $[0,T+1]$ and thus for large enough $n$, $|f'(x+s_{n,k})-f'(x)|<\epsilon$ for every $x\in[0,T]$ and $k=1,...,\lfloor nt\rfloor$. Therefore, for all such $n$,
+\begin{align}\label{temp_I1b}
+\frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \left|\partial_sF\left(s_{n,k},\frac{k}{n}\right)-\partial_sF\left(0,\frac{k}{n}\right)\right| & \leq  \frac{1}{n}\sum_{k=0}^{\lfloor nt\rfloor} \int_{[0,T]} \left|f'(x+s_{n,k})-f'(x)\right|\nu_\ell\left(\frac{k}{n},dx\right)\notag \\
+\leq & \frac{\epsilon}{n}\sum_{k=0}^{\lfloor nt\rfloor} Q_\ell\left(\frac{k}{n}\right)\notag\\
+\leq & \epsilon t \big(Q_\ell(0)+\arrival_\ell(t)\big),
+\end{align}
+where the last inequality uses \eqref{ineq_Qbalance}. Recalling definition \eqref{def_I1} and combining \eqref{temp_I1a}-\eqref{temp_I1b}, we conclude that for every $\epsilon>0$,
+\[
+\left|\mathcal{I}_1 - \int_0^t \langle f',\nu_\ell(u) \rangle du \right| \leq \epsilon t (Q_\ell(0)+\arrival_\ell(t)).
+\]
+Since $\epsilon>0$ was arbitrary, the desired result follows on letting $\epsilon\to 0$.\Halmos 
+\endproof
+
+
+The computation of $\mathcal{I}_2$ is more involved. For every $t\geq0$ and $\delta>0$, define the set $\Omega_{t,\delta}$ to be the set of realizations for which there is at most one arrival, reneging, or departure happening during $(t,t+\delta]$.
+
+
+\begin{lemma}\label{lem_nufchange}
+    For every $\ell=1,...L,$ $s\geq0$, $\delta>0$, and $f\in\fset$, on $\Omega_{s,\delta}$ we have
+    \begin{align}\label{nufchange}
+      \pair{f}{\nu_\ell(s+\delta)}= & \pair{f(\cdot+\delta)}{\nu_\ell(s)}+ \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s+\delta))\indic{I(s)\neq 0}\indic{\arrivaltime_{\ell,j}\in(s,s+\delta]}\\
+      & - \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s)+\delta)\indic{j\in\inque_\ell(s)} \indic{\renegtime_{\ell,j}\in(s,s+\delta]} \notag\\
+&- \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s)+\delta)\indic{j\in\inque_\ell(s)}
+\indic{\entrytime_{\ell,j}\in(s,s+\delta]}.\notag
+    \end{align}
+\end{lemma}
+The first term on the right-hand side above captures the effect of unit-rate growth of ages of jobs in queue, while the next three terms represent the adjustments due to a possible arrival, reneging, or service entry during $(s,s+\delta]$.
+\proof{Proof.}
+  By  \eqref{def_nuk_early},
+  \begin{equation}\label{temp_wchange0}
+    \pairil{f}{\nu_\ell(s+\delta)}=\sum_{j\in\inque_\ell(s+\delta)} f(w_{\ell,j}(s+\delta)).
+  \end{equation}
+  The set $\inque_\ell(s+\delta)$ of jobs of class $\ell$ waiting in queue at time $s+\delta$ admits the partition
+  \begin{align}\label{temp_wchange1}
+	\inque_\ell(s+\delta) = \inque_\ell^{\text{old}}(s+\delta)\; \dot\cup \;\inque_\ell^\text{new}(s+\delta),
+  \end{align}
+where   $\inque_\ell^{\text{old}}(s+\delta):= \inque_\ell(s+\delta) \cap \inque_\ell(s)$ is the set of jobs that have been in queue since time $s$, and  $\inque_\ell^\text{new}(s+\delta) = \inque_\ell(s+\delta) \backslash \inque_\ell(s)$ is the set of jobs that have joined the queue during $(s,s+\delta]$. For a job $j\in\inque_\ell^{\text{old}}(s+\delta)$, the age in queue has increased by $\delta$ since time $s$, that is, $\waiting_{\ell,j}(s+\delta)=\waiting_{\ell,j}(s)+\delta$. Moreover, the jobs that are in $\inque_\ell(s)$ but not in $\inque_\ell^{\text{old}}(s+\delta)$ have left the queue, either due to reneging or service entry, during $(s,s+\delta]$. Therefore,
+\begin{align}
+	\sum_{j\in\inque_\ell^{\text{old}}(s+\delta)} f(w_{\ell,j}(s+\delta)) = & 	\sum_{j\in\inque_\ell(s)} f(w_{\ell,j}(s)+\delta) - \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s)+\delta)\indic{j\in\inque_\ell(s)} \indic{\renegtime_{\ell,j}\in(s,s+\delta]} \notag\\
+	      & - \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s)+\delta)\indic{j\in\inque_\ell(s)}\indic{\entrytime_{\ell,j}\in(s,s+\delta]}.
+\end{align}
+On the other hand, on $\Omega_{s,\delta}$, if a job arrives during $(s,s+\delta]$, no other events (reneging, departure, or other arrivals) can occur during that interval. In that case, the newly arrived job either directly enters service if the system is empty at time $s$ (i.e., if $I(s)=0$), or otherwise, joins the queue and remains in the queue until time $s+\delta$, and hence belongs to $\inque_\ell^\text{new}(s+\delta)$. Therefore, on $\Omega_{s,\delta}$,
+\begin{align}\label{temp_wchange2}
+\sum_{j\in\inque_\ell^\text{new}(s+\delta)} f(w_{\ell,j}(s+\delta)) =  & \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s+\delta))\indic{I(s)\neq 0}\indic{\arrivaltime_{\ell,j}\in(s,s+\delta]}
+\end{align}
+The equation \eqref{nufchange} follows on substituting \eqref{temp_wchange1}-\eqref{temp_wchange2} in \eqref{temp_wchange0}.\Halmos 
+\endproof
+
+
+
+For a fixed $\omega\in\tilde\Omega$ (see Remark \ref{def_tomega}) and $t\geq0$, the time difference between any two events (arrival, reneging, or departure) is strictly positive and the total number of such events during $(0,t]$ is finite.  Therefore, the minimum time distance $\delta^*$ between any two such events during $(0,t]$ is positive, and hence, any interval of length less than $\delta^*$ contains at most one arrival, reneging or departure. Therefore, for every large $n$ (namely, $n>1/\delta^*$) and $k=0,...,\lfloor nt \rfloor$, we can invoke Lemma  \ref{lem_nufchange} and obtain \eqref{nufchange} with $s=k/n$ and $\delta=1/n$. Substituting \eqref{nufchange}  in \eqref{def_I2} and changing the order of summation over $k$ and $j$, we have
+\begin{subequations}\label{I2}
+\begin{align}
+  \mathcal{I}_2=  \lim_{n\to\infty} \Bigg\{&\sum_{j\in\indexSet_\ell}\sum_{k=0}^{\lfloor nt\rfloor}  f\left(w_{\ell,j}\left(\frac{k+1}{n}\right)\right)\indic{I\left(\frac{k}{n}\right)\neq 0} \indic{\arrivaltime_{\ell,j}\in\left(\frac{k}{n},\frac{k+1}{n}\right]}\label{I2_arrival}\\
+      &- \sum_{j\in\indexSet_\ell}\sum_{k=0}^{\lfloor nt\rfloor}  f\left(w_{\ell,j}\left(\frac{k}{n}\right)+\frac{1}{n}\right) \indic{j\in\inque_\ell\left(\frac{k}{n}\right)}\indic{\renegtime_{\ell,j}\in\left(\frac{k}{n},\frac{k+1}{n}\right]} \label{I2_reneg}\\
+            &-\sum_{j\in\indexSet_\ell}\sum_{k=0}^{\lfloor nt\rfloor} f\left(w_{\ell,j}\left(\frac{k}{n}\right)+\frac{1}{n}\right)\indic{j\in\inque_\ell\left(\frac{k}{n}\right)}\indic{\entrytime_{\ell,j}\in\left(\frac{k}{n},\frac{k+1}{n}\right]}\label{I2_K1}\Bigg\}.
+\end{align}
+\end{subequations}
+Note that the total number of arrivals, renegings, and service entries during $(0,t]$ is finite, which justifies changing the order of summation. We now compute the limit as $n\to\infty$ in each term on the right-hand side above separately.
+
+In \eqref{I2_arrival}, the summation over $k$ is non-zero only for jobs $j$ that arrive during $(0,(\lfloor nt\rfloor+1)/n]$. For such a job $j$, the summand is non-zero only for a single interval $(k/n,k/n+1/n]$ that contains $\arrivaltime_{\ell,j}$, which corresponds to $k/n=\arrivaltime_{\ell,j,n}:=(\lceil n\arrivaltime_{\ell,j}\rceil-1)/n$. Therefore, the limit of the double sum in \eqref{I2_arrival} can be written as
+\begin{align*}
+  \lim_{n\to\infty}\sum_{j\in\indexSet_\ell}f\left(w_{\ell,j}\left(\arrivaltime_{\ell,j,n}+\frac{1}{n}\right)\right) \indic{I(\arrivaltime_{\ell,j,n}) \neq 0}\indic{0<\arrivaltime_{\ell,j}\leq\frac{\lfloor nt\rfloor+1}{n}}.
+\end{align*}
+Furthermore, we can interchange the order of summation and the limit because the summand is non-zero only for finitely many $j\in\indexSet_\ell$. Using the continuity of $f $ and $w_{\ell,j}$, the fact that $\arrivaltime_{\ell,j,n}\uparrow \arrivaltime_{\ell,j}$ as $n\to\infty$, $w_{\ell,j}(\arrivaltime_{\ell,j})=0$, and the fact that $I$ is piecewise constant, the last display can be written as
+\[
+  \sum_{j\in\indexSet_\ell}f(0)\indicil{I(\arrivaltime_{\ell,j}-)\neq 0}\indic{0<\arrivaltime_{\ell,j}\leq t}= f(0)\int_0^t\indic{I(s-)\neq 0} d \arrival_{\ell}(s),
+\]
+where the representation \eqref{arrival_rep} of $\arrival_\ell$ is used.
+Similarly, since $\inque_\ell(\cdot)$ is piecewise constant, the limit of the double sum in \eqref{I2_reneg} can be simplified as
+\begin{align*}
+\lim_{n\to\infty}&\sum_{j\in\indexSet_\ell}f\left(w_{\ell,j}\left(\renegtime_{\ell,j,n}\right)+\frac{1}{n}\right)\indic{j\in\inque_\ell(\renegtime_{\ell,j,n})}\indic{\renegtime_{\ell,j}\leq \frac{\lfloor nt\rfloor+1}{n}}\\
+  &=  \sum_{j\in\indexSet_\ell} f(w_{\ell,j}(\renegtime_{\ell,j})\indicil{j\in\inque_\ell(\renegtime_{\ell,j}-)})\indic{\renegtime_{\ell,j}\leq t}\\
+  & =\renegC_\ell(f;t),
+\end{align*}
+where $\renegtime_{\ell,j,n}:=(\lceil n\renegtime_{\ell,j}\rceil-1)/n\uparrow\renegtime_{\ell,j}$ as $n\to\infty$, and the identity $w_{\ell,j}(\renegtime_{\ell,j})=\patience_{\ell,j}$ and definition \eqref{def_renegC} of $\renegC_\ell$ are used.
+Finally, the limit of the double sum in \eqref{I2_K1} can similarly be simplified as
+\begin{align*}
+  \lim_{n\to\infty}&\sum_{j\in\indexSet_\ell}f\left(w_{\ell,j}\left(\entrytime_{\ell,j,n}\right)+\frac{1}{n}\right)\indic{j\in\inque_\ell(\entrytime_{\ell,j,n})}\indic{\entrytime_{\ell,j}\leq \frac{\lfloor nt\rfloor+1}{n}}\\
+  &=  \sum_{j\in\indexSet_\ell} f(w_{\ell,j}(\entrytime_{\ell,j}))\indic{j\in\inque_\ell(\entrytime_{\ell,j}-)}\indic{\entrytime_{\ell,j}\leq t}\\
+&  =\entryC_\ell(f;t),
+\end{align*}
+where $\entrytime_{\ell,j,n}:=(\lceil n\entrytime_{\ell,j}\rceil-1)/n\uparrow\entrytime_{\ell,j}$ as $n\to\infty$, and definition \eqref{def_entryC} of $\entryC_\ell$ is used.
+
+Substituting the last three displays in \eqref{I2_arrival}-\eqref{I2_K1} for $\mathcal{I}_2$, we obtain
+\begin{equation}\label{I2_final}
+\mathcal{I}_2=f(0)\int_0^t\indicil{I(s-)\neq 0} d \arrival_{\ell}(s)-\renegC_\ell(f;t)-\entryC_\ell(f;t).
+\end{equation}
+Equation \eqref{prelimit_dynamic} then follows on substituting equalities \eqref{I1} and \eqref{I2_final} in \eqref{deltanu}. This concludes the proof of Proposition \ref{prop_prelim}.
+
+
+
+
+
+
+\section{Martingale Decompositions}\label{sec_mgale}
+
+The goal of this section is to construct martingale decompositions for auxiliary processes describing the dynamics of the state variables in equation \eqref{prelimit_dynamic}. This is an important step in the proof of Theorem \ref{thm_conv}. The result is summarized Proposition \ref{prop_dynamic} below.
+
+
+We start by constructing a marked point process  ${\mathcal{T}}=\{(\tau_k,z_k);k\in\N\}$ that records all activities in the system. The increasing sequence $(\tau_k;k\in\N)$, which we call \textit{event times}, contains all times of entry to the system, all times at which a job reneges, and all times at which a job departs the system (recall from Remark \ref{def_tomega} that almost surely, all such times are distinct). The sequence $(z_k;k\in\N)$ of \textit{marks} appended to the event times is defined as follows.
+\begin{itemize}
+\item Each arrival time is marked by $(\mathfrak{E}, \ell,j)$, where $\mathfrak{E}$ indicates that the event is an arrival and $\ell$ and $j$ are the class and the index of the job arrived, respectively.
+\item Each reneging time is marked by $(\mathfrak{R},\ell,j)$ where $\mathfrak{R}$ indicates that the event is a reneging and $\ell$ and $j$ are the class and the index of the job reneged. 
+\item For departure times, recall that by the non-idling condition, when the queue is non-empty right before a departure, that departure is followed (immediately) by a service entry. Such  a departure time is marked by $(\mathfrak{D},\ell,j)$ where $\mathfrak{D}$ indicates that the event is a departure and $\ell$ and $j$ are the class and index of the job that consequently entered service. For a departure that leaves the system empty (i.e. when the queue is empty right before the departure), the departure time is marked by $(\mathfrak{D},\emptyset)$ where $\emptyset$ indicates that no service entry is followed by this departure.
+\end{itemize}
+
+The marked point process $\mathcal{T}$ is constructed inductively. Namely, the event time $\tau_{k+1}$ after $\tau_k$ is the minimum of the next arrival time, the next expiration time among the jobs waiting in queue, and the next departure time after $\tau_k$. Therefore, defining $\nextarrival_{k+1}$ to be the next arrival time of a job of class $\ell$ after $\tau_{k}$, and  $\nextdeparture_{k+1}$ to be the next departure time after $\tau_k$ if the server is busy at $\tau_k$ and $\nextdeparture_{k+1}=+\infty$ otherwise, and recalling that $\renegtime_{\ell,j}$ is the expiration time of the job $(\ell,j)$, one has
+\begin{equation}\label{next_event}
+  \tau_{k+1}= \min\{\nextarrival_{k+1};\ell=1,...,L\} \wedge \min\{\renegtime_{\ell,j}; \ell=1,...,L,j\in\inque_\ell(\tau_k) \} \wedge \nextdeparture_{k+1}.
+\end{equation}
+Define $\{\mathcal{F}_t;t\geq0\}$ to be the filtration generated by  the marked point process $\mathcal{T}$ (also called  the internal history of $\mathcal{T}$; see page 2 of \cite{BremaudBook}).
+
+
+We can now state the main result of this section. 
+
+\begin{proposition}\label{prop_dynamic}
+  For every $\ell=1,...,L$ and $f\in\fset$, there exist  $\{\filt_t\}$-martingales $\{M_{R,\ell}(f;t);t\geq0\}$ and $\{M_{S,\ell}(f;t);t\geq0\}$ such that, almost surely,
+  \begin{align}\label{dynamic_final}
+    \langle f,\nu_\ell(t) \rangle = & \langle f,\nu_\ell(0)\rangle + f(0)\int_0^t \indic{I(s-)\neq 0} d \arrival_\ell(s) - \int_0^t \langle fh_{R,\ell},\nu_\ell(s)\rangle ds \notag\\
+    & - \int_0^t h_{S,\class(s-)}\left(\age(s)\right)\frac{\weight_\ell \langle f,\nu_\ell(s)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(s)} ds + M_{R,\ell}(f;t)+M_{S,\ell}(f;t),\quad\quad t\geq0.
+  \end{align}
+\end{proposition}
+%TODO on which $Omega?$
+The proposition is proved at the end of this section.
+
+
+
+\subsection{General theory of marked point processes}
+
+
+For a given mark $z$, define $\mathcal{T}(z;\cdot)$ to be the process that counts events with mark $z$ that happened up to time $t$:
+\begin{equation}\label{def_mark_count}
+    \mathcal{T}(z;t)= \sum_{k\in\N} \indic{\tau_k\leq t}\indic{z_k=z}.
+\end{equation}
+As detailed in the next two sections, the auxiliary processes describing the dynamics of the state variables in equation \eqref{prelimit_dynamic} can be written in terms of Stieltjes integrals with respect to counting processes of the from \eqref{def_mark_count}. We use the theory of marked point processes to characterize the stochastic intensities for the process $\mathcal{T}(z;t)$ (see \cite[Definition II.D7]{BremaudBook} for a definition of stochastic intensity), and then invoke the elementary Lemma \ref{remark_integral} below to construct martingale decompositions for our auxiliary processes of interest. 
+
+\begin{proposition}\label{prop_intensity}
+For a fixed mark $z$ and at each event time $\tau_k$, suppose the conditional distribution, given the past $\filt_{\tau_k}$, of the next event time with mark $z$ admit a density, that is, there exists a sequence of measurable functions $\{g_{k}^z;k\geq1\}$ such that for every interval $A\subset\hc$,
+\begin{equation}\label{tau_density}
+\Prob{\tau_{k+1}-\tau_k\in A,z_{k+1}=z|\filt_{\tau_k}}(\omega)= \int_A g_{k+1}^z(\omega,x)dx,
+\end{equation}
+almost surely. Then, the process
+\begin{equation}\label{intensity_form}
+\sum_{k\geq0}\frac{g_{k+1}^z(t-\tau_k)}{\Prob{\tau_{k+1}>t|\filt_{\tau_k}}}\indic{\tau_k\leq t < \tau_{k+1}}.
+\end{equation}
+is an $\{\filt_t\}$-stochastic intensity of $\mathcal{T}(z;\cdot)$.
+\end{proposition}
+\proof{Proof.}
+The result follows from Theorem T7, comment ($\beta$) below the theorem in  \cite[page 61]{BremaudBook}, and the fact that  the sequence $\{\tau_k;k\geq 1\}$ of event times is non-explosive, almost surely (see Remark \ref{def_tomega}).\Halmos 
+\endproof
+
+
+
+To invoke Proposition \ref{prop_intensity} for finding stochastic intensities of counting processes of the form  \eqref{def_mark_count}, we need to compute conditional distributions of the next arrival times, the next expiration times for jobs in queue, and the next departure time after $\tau_k$, conditioned on ${\filt_{\tau_k}}$. Recall the sequence of selection random variables $\{\selector_i;i\geq1\}$, and note that the value of $\selector_{K(\tau_k)+1}$ determines the next job after $\tau_k$ to be drawn from the queue (if any) for service entry.
+
+\begin{lemma}\label{lem_condInd}
+For every $k\geq0$, $\nextarrival_{k+1},\ell=1,...,L$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_k)$, $\nextdeparture_{k+1}$, and $\selector_{K(\tau_k)+1}$ are conditionally independent given $\filt_{\tau_k}$. Moreover, almost surely, for $\ell=1,...,L$ and $j\in\mathbb{Z}$,
+\begin{equation}\label{cond_density_reneg}
+  \indic{j\in\inque_\ell(\tau_k)}\Prob{\renegtime_{\ell,j}-\tau_k>x\big|\filt_{\tau_k}} =\indic{j\in\inque_\ell(\tau_k)}\frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k)+x)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))}, \quad  x > 0,
+\end{equation}
+
+\begin{equation}\label{cond_density_departure}
+    \indic{I(\tau_k)\neq 0}\Prob{\nextdeparture_{k+1}-\tau_k>x\big|\filt_{\tau_k}} = \indic{I(\tau_k)\neq 0}\frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+x)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}, \quad  x > 0,
+\end{equation}
+and
+\begin{equation}\label{cond_density_selection}
+    \Prob{\selector_{K(\tau_k)+1}>x|\filt_{\tau_k}} = 1-x, \quad x\in[0,1].
+\end{equation}
+\end{lemma}
+
+
+
+The result in Lemma \ref{lem_condInd} is intuitive and follows from the independence of the interarrival, patience times, service times, and service entry selection random variable. However, a completely rigorous proof is rather technical, although involving fairly routine calculations. Hence, we omit the proof, and refer the reader to Appendix \ref{apx_mpp} for  details.
+
+
+
+
+\begin{lemma}\label{remark_integral}
+Let $N$ be a point process adapted to $\{\filt_t\}$ with an $\{\filt_t\}$-intensity $u$, and let $\theta$ be a locally bounded, $\{\filt_t\}$-predictable process. Define $\zeta(t):=\int_0^t \theta(s)d N(s).$ Then  $M(t):=\zeta(t)-\int_0^t \theta(s) u(s)ds, t\geq 0,$ is a local $\{\filt_t\}$-martingale with quadratic variation
+\begin{equation}\label{remark_Quad}
+  [M](t)=\int_0^t \theta^2(s)d N(s), \quad\quad t\geq0.
+\end{equation}
+\end{lemma}
+\proof{Proof.}
+The proof is elementary and follows from  \cite[Lemma II.L3]{BremaudBook} and \cite[Equation (18.1) in Chapter IV]{RogWilbook2}).\Halmos 
+\endproof
+
+
+
+
+
+\subsection{Martingale Decomposition for Reneging}
+Recall that the event time at which a job $(\ell,j)$ reneges system is marked by $(\mathfrak{R},\ell,j)$. Therefore, the process $\reneg_{\ell,j}$ that indicates whether the job $(\ell,j)$ has yet reneged by time $t$ has the representation
+\begin{equation}\label{Rl_marked}
+\reneg_{\ell,j}(t)=\sum_{k\in\N}\indic{\tau_k\leq t}\indic{z_k=(\mathfrak{R},\ell,j)}=\mathcal{T}((\mathfrak{R},\ell,j);t)
+% Old Formula  \reneg_{\ell,j}(t)=\sum_{k\in\N}\indic{\tau_k\leq t}\indic{z_k=(\mathfrak{R},\ell,j)}\indic{j\in\inque_{\ell}(\tau_k-)}=\int_0^t \indic{\inque_{\ell}(s-)>0}d\mathcal{T}((\mathfrak{R},\ell,j);s)
+\end{equation}
+We can therefore use Proposition \ref{prop_intensity} to compute stochastic intensity of  $\reneg_{\ell,j}$.
+
+\begin{lemma}\label{lem_Rintensity}
+  For every $\ell=1,...,L$ and $j\in\indexSet_\ell$, an $\{\filt_t\}$-stochastic intensity of $\reneg_{\ell,j}$ is given by
+  \begin{equation}\label{Rlj_decomposition}
+   \{\indic{j\in\inque_\ell(t)} h_{R,\ell}\left(\waiting_{\ell,j}(t)\right);t\geq0\}.
+  \end{equation}
+\end{lemma}
+
+\proof{Proof.}
+To invoke Proposition \ref{prop_intensity}, we first need to compute the conditional density $g^{(\mathfrak{R},\ell,j)}_{k+1}$ defined as
+\begin{equation}\label{prelim_gek_eq}
+\Prob{\tau_{k+1}-\tau_{k}\in A, z_{k+1}=(\mathfrak{R},\ell,j)\big|\filt_{\tau_k}}= \int_A g^{(\mathfrak{R},\ell,j)}_{k+1}(x) dx,\quad  A\in\mathcal{B}\hc,
+\end{equation}
+
+
+The next event has a mark $ z_{k+1}=(\mathfrak{R},\ell,j)$ if the job $(\ell,j)$ is in the queue at time $\tau_k$ and its expiration time occurs prior to the other possible events after $\tau_k$. Define $\tau_{k+1}^{-\mathfrak{R},\ell,j}$ to be the minimum of all possible event times after $\tau_k$ except for the expiration time of job $(\ell,j)$, that is,
+\[
+  \tau_{k+1}^{-\mathfrak{R},\ell,j} := \min\{\nextarrivalp_{k+1};\ell'=1,...,L\} \wedge \min\{\renegtime_{\ell',j'}; \ell'=1,...,L,j'\in\inque_{\ell'}(\tau_k), (\ell',j')\neq (\ell,j) \} \wedge \nextdeparture_{k+1}.
+\]
+Then, on $\{j\in\inque_\ell(\tau_k)\}$, $\tau_{k+1}= \renegtime_{\ell,j} \wedge \tau_{k+1}^{-\mathfrak{R},\ell,j}$ and $\tau_{k+1}^{-\mathfrak{R},\ell,j}$ and $\renegtime_{\ell,j}$ are conditionally independent given $\filt_{\tau_k}$, according to Lemma \ref{lem_condInd}. Therefore, by \eqref{cond_density_reneg},
+\begin{align}\label{prelim_gtemp1}
+&\indic{j\in\inque_\ell(\tau_k)}\Prob{\tau_{k+1}-\tau_{k}>t, z_{k+1}=(\mathfrak{R},\ell,j)\big|\filt_{\tau_k}} \notag\\ &\hspace{1cm}=\indic{j\in\inque_\ell(\tau_k)} \Prob{\renegtime_{\ell,j}>\tau_k+t,\tau_{k+1}^{-\mathfrak{R},\ell,j}>\renegtime_{\ell,j} \big|\filt_{\tau_k}}\notag\\
+&\hspace{1cm}=\indic{j\in\inque_\ell(\tau_k)} \int_t^\infty \frac{g_{R,\ell}(\waiting(\tau_k)+s)} {\overline G_{R,\ell}(\waiting(\tau_k))} \Prob{\tau_{k+1}^{-\mathfrak{R},\ell,j}>\tau_k+s\big|\filt_{\tau_k}}ds
+\end{align}
+Moreover, on $\{j\not \in\inque_\ell(\tau_k)\}$ where the job $(j,\ell)$ is not waiting in queue at time $\tau_k$, the next event after $\tau_k$ cannot be the reneging time of $(j,\ell)$ and hence, the probability on the right-hand side of \eqref{prelim_gek_eq} is zero. Therefore, the conditional density $g^{(\mathfrak{R},\ell,j)}_{k+1}$ exists, and for $t\geq \tau_k$,
+\begin{align}\label{prelim_gE}
+  g^{(\mathfrak{R},\ell,j)}_{k+1}(t-\tau_k)& = \indic{j\in\inque_\ell(\tau_k)} \frac{g_{R,\ell}(\waiting_{\ell,j}(\tau_k)+t-\tau_k)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))} \Prob{\tau_{k+1}^{-\mathfrak{R},\ell,j}>t\big|\filt_{\tau_k}}.
+\end{align}
+
+In addition,  analogous to the calculations in \eqref{prelim_gtemp1}, on $\{j \in\inque_\ell(\tau_k)\}$, for every $k\ge0$ and $t\geq \tau_k$ we have
+\begin{align}\label{prelim_Gbar}
+  \indic{j\in\inque_\ell(\tau_k)}\Prob{\tau_{k+1}>t|\filt_{\tau_k}} &= \indic{j\in\inque_\ell(\tau_k)}\Prob{ \tau_{k+1}^{-\mathfrak{R},\ell,j}>t |\filt_{\tau_k}}\Prob{ \renegtime_{\ell,j}>t |\filt_{\tau_k}}\notag\\
+  &=  \indic{j\in\inque_\ell(\tau_k)} \Prob{\tau_{k+1}^{-\mathfrak{R},\ell,j}>t|\filt_{\tau_k}} \frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k)+t-\tau_k)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))} .
+\end{align}
+
+Plugging \eqref{prelim_gE} and \eqref{prelim_Gbar}  in \eqref{intensity_form}, recalling that $h_{R,\ell}=g_{R,\ell}/\overline G_{R,\ell}$ is the hazard rate function associated to the patience times of jobs of class $\ell$, and noting that $\inque_\ell$ is constant during each interval   $(\tau_k,\tau_{k+1})$ and that $\waiting_{\ell,j}$ is continuous and grows linearly during each interval $(\tau_k,\tau_{k+1})$ where $j\in\inque_\ell(\tau_k)$, we conclude that the process
+\begin{align*}
+  \sum_{k=0}^\infty \indic{j\in\inque_\ell(\tau_k)} h_{R,\ell}(\waiting_{\ell,j}(\tau_k)+t-\tau_k)\indic{\tau_k \leq t < \tau_{k+1}} = \indic{j\in\inque_\ell(t)} h_{R,\ell}(\waiting_{\ell,j}(t))
+\end{align*}
+is an $\{\filt_t\}$-intensity of $\reneg_{\ell,j}$.\Halmos 
+\endproof
+
+
+\begin{lemma}\label{prop_Rdecomp}
+  For every $f\in\fset$ and $\ell=1,...,L$, the process $\{\renegC_\ell(f;t);t\geq0\}$ admits a decomposition
+  \begin{equation}\label{Rdecomp}
+    \renegC_\ell(f;t)= \int_0^t \langle fh_{R,\ell},\nu_\ell(s)\rangle ds +M_{R,\ell}(f;t)
+  \end{equation}
+  where $\{M_{R,\ell}(f;t);t\geq0\}$ is a local $\{\filt_t\}$-martingale with quadratic variation
+\begin{equation}
+  [M_{R,\ell}(f;\cdot)](t)=\renegC(f^2;t).
+\end{equation}
+\end{lemma}
+
+\proof{Proof.}
+  By definition \eqref{def_renegC}, we can write $\renegC_\ell$ as
+\begin{equation}\label{def_Rl_decomp}
+\renegC_\ell(f;t)=\sum_{j\in\indexSet_\ell} \renegC_{\ell,j}(f;t),
+\end{equation}
+where
+\begin{equation}\label{def_RClj}
+\renegC_{\ell,j}(f;t)= \int_0^tf(w_{\ell,j}(s-))d\reneg_{\ell,j}(s).
+\end{equation}
+Consider the setup of Lemma \ref{remark_integral} with $N$ replaced by $\reneg_{\ell,j}$,  $\theta(t)$ replaced by $f(\waiting_{\ell,j}(t-))$, and $\zeta(t)$ replaced by $\renegC_{\ell,j}(f;t)$. Using the from of stochastic intensity of $\reneg_{\ell,j}$ given by Lemma \ref{lem_Rintensity}, the process $\{M_{R,\ell,j}(f;t);t\geq0\}$ defined as
+\begin{equation}\label{temp_mgd_r1}
+M_{R,\ell,j}(f;t) := \renegC_{\ell,j}(f;t) - \int_0^t \indic{j\in\inque_\ell(s)} f((\waiting_{\ell,j}(s)) h_{R,\ell}(\waiting_{\ell,j}(s))ds
+\end{equation}
+is a local martingale. Summing \eqref{temp_mgd_r1} over $j\in\indexSet_\ell$, by definition \eqref{def_nuk_early} of $\nu_\ell$, we obtain,
+\begin{align*}
+  \renegC_\ell(f;t) = &  \int_0^t \sum_{j\in\indexSet_\ell} \indic{j\in\inque_\ell(s)} f((\waiting_{\ell,j}(s)) h_{R,\ell}(\waiting_{\ell,j}(s))ds + \sum_{j\in\indexSet_\ell}M_{R,\ell,j}(f;t)\\
+  & = \int_0^t \langle f h_{R,\ell},\nu_\ell(t) \rangle + M_{R,\ell}(f;t)
+\end{align*}
+where $M_{R,\ell} (f;\cdot):= \sum_{j\in \indexSet_\ell}M_{R,\ell,j}(f;\cdot)$ is a local martingale.\\
+
+
+Moreover, almost surely, for $j,j'\in\indexSet_\ell$  and $j'\neq j$, $\renegC_{\ell,j}(f,\cdot)$ and $\renegC_{\ell,j'}(f,\cdot)$ are bounded pure jump processes with no common jump times. Therefore,
+\[
+[\renegC_{\ell,j}(f;\cdot)](t) = \int_{0}^{t} f^2(\waiting_{\ell,j}(s-))d\reneg_{\ell,j}(s) = \renegC_{\ell,j}(f^2;t),
+\]
+and $[ \renegC_{\ell,j}(f,\cdot),\renegC_{\ell,j'}(f,\cdot)] \equiv 0.$  Together with the fact that $\renegC_{\ell}(f;\cdot)-M_{R,\ell}(f;\cdot)$ is a continuous process with finite variation, this implies
+\[ [M_{R,\ell}(f;\cdot)] = [\renegC_{\ell}(f;\cdot)] = [\sum_{j\in\indexSet_\ell}\renegC_{\ell,j}(f;\cdot)] = \sum_{j\in\indexSet_\ell}[\renegC_{\ell,j}(f;\cdot)] =\sum_{j\in\indexSet_\ell}\renegC_{\ell,j}(f^2;\cdot)=\renegC_{\ell}(f^2;\cdot). \]
+\Halmos 
+\endproof
+
+
+
+
+
+\subsection{Martingale Decomposition for Service Entry}
+
+Recall that a job may enter service either upon arrival if the server is idle right before its arrival, or right after departure of another job by being selected by the DROS policy while waiting in queue. The process $\{K^Q_{\ell,j}(t);t\geq0\}$, defined in \eqref{def_KQ}, indicates whether the job $(\ell,j)$ has yet entered service after waiting in queue through being selected by DROS policy by time $t$. Recalling that the time of this service entry is marked by $(\mathfrak{D},\ell,j)$, $K^Q_{\ell,j}$ has the representation
+\begin{align}\label{Kl_marked}
+  \entry_{\ell,j}^Q(t) = \sum_{k\in\N}\indic{\tau_k\leq t}\indic{z_k=(\mathfrak{D},\ell,j)} =  \mathcal{T}((\mathfrak{D},\ell,j);t).
+\end{align}
+
+
+
+\begin{lemma}\label{lem_Kintensity}
+  For every $\ell=1,...,L$ and $j\in\indexSet_\ell$, an $\filt$-stochastic intensity of $\entry^Q_{\ell,j}$ is given by
+  \begin{equation}\label{Klj_decomposition}
+    \{\indic{j\in\inque_\ell(t)} h_{S,\class(t)}\left(\age(t)\right) \frac{\weight_\ell}{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(t)};t\geq0\}.
+  \end{equation}
+\end{lemma}
+
+
+\proof{Proof.}
+To invoke Proposition \ref{prop_intensity}, we first need to compute the conditional density $g^{(\mathfrak{D},\ell,j)}_{k+1}$ defined through
+\begin{equation}\label{prelim_gek_eq2}
+\Prob{\tau_{k+1}-\tau_{k}\in A, z_{k+1}=(\mathfrak{D},\ell,j)\big|\filt_{\tau_k}}= \int_A g^{(\mathfrak{D},\ell,j)}_{k+1}(x) dx,\quad  A\in\mathcal{B}\hc.
+\end{equation}
+
+
+The next event after $\tau_k$ has a mark $z_{k+1}=(\mathfrak{D},\ell,j)$ if 1) the next event after $\tau_k$ is a departure, and 2) the job $(\ell,j)$ is waiting in queue at $\tau_k$ and is selected for service entry by DROS service policy. Recall that $\nextdeparture_{k+1}$ is the next departure time after $\tau_k$, and define $\tau_{k+1}^{-\mathfrak{D}}$  to be the minimum of all other possible event times after $\tau_k$ except for the next departure, that is,
+\[
+  \tau_{k+1}^{-\mathfrak{D}} := \min\{\nextarrival_{k+1};\ell=1,...,L\} \wedge \min\{\renegtime_{\ell,j}; \ell=1,...,L,\;j\in\inque_{\ell}(\tau_k)\}.
+\]
+Then $\tau_{k+1}= \nextdeparture_{k+1}\wedge\tau_{k+1}^{-\mathfrak{D}}$, and $\tau_{k+1}^{-\mathfrak{D}}$ and $\nextdeparture_{k+1}$ are conditionally independent given $\filt_{\tau_k}$, according to Lemma \ref{lem_condInd}. Moreover, on $j\in\inque_{\ell}(\tau_k)$ and when $\tau_{k+1}$ is a departure time, $K(\tau_{k+1})=K(\tau_k)+1$ indicates the total number of service entries up to time $\tau_{k+1}$, and hence, the class and index of the next job selected by DROS policy to enter service (if any) at $\tau_{k+1}$  is determined by $\selector_{K(\tau_{k})+1}$, which is conditionally independent of $\tau_{k+1}^{-\mathfrak{D}}$ and $\nextdeparture_{k+1}$  given $\filt_{\tau_k}$, by another application of Lemma \ref{lem_condInd}. Therefore, by \eqref{cond_density_departure} and \eqref{cond_density_selection},
+\[
+\Prob{\tau_{k+1}-\tau_{k}>t, z_{k+1}=(\mathfrak{D},\ell,j)\big|\filt_{\tau_k}} = \Prob{\nextdeparture_{k+1}>\tau_k+t,\tau_{k+1}^{-\mathfrak{D}}>\renegtime_{\ell,j} , \selector_{K(\tau_k)+1}\in I_{\ell,j}(\tau_k) \big|\filt_{\tau_k}},
+\]
+where $I_{\ell,j}(\tau_k)$ is a subinterval of $(a_\ell(\tau_{k+1}),b_\ell(\tau_{k+1})]$, such that $\selector_{K(\tau_k)+1}\in I_{\ell,j}(\tau_k)$ leads to the selection of $(\ell,j)$ for the next service entry. By \eqref{DROS}, the length of the subinterval $I_{\ell,j}(\tau_k)$ equals
+\[
+\frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_{k+1}-)} =\frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_k)},
+\]
+when $j\in\inque_{\ell}(\tau_k)$, and equals 0 otherwise. Therefore, the right-hand side of display above can be written as
+\begin{align}\label{prelim_gtemp2}
+&\Prob{\tau_{k+1}-\tau_{k}>t, z_{k+1}=(\mathfrak{D},\ell,j)\big|\filt_{\tau_k}} =\notag\\[1mm]
+&\hspace{1cm}\indic{j\in\inque_\ell(\tau_k)} \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_k)} \int_t^\infty \frac{g_{S,\class(\tau_k)}(\age(\tau_k)+s)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}  \Prob{\tau_{k+1}^{-\mathfrak{D}}>\tau_k+s\big|\filt_{\tau_k}}ds.
+\end{align}
+Therefore, the conditional density $g^{(\mathfrak{D},\ell,j)}_{k+1}$ exists, and for $t\geq \tau_k$,
+\begin{align}\label{prelim_gE2}
+  g^{(\mathfrak{D},\ell,j)}_{k+1}(t-\tau_k)& = \indic{j\in\inque_\ell(\tau_k)} \frac{g_{S,\class(\tau_k)}(\age(\tau_k)+t-\tau_k)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))} \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_k)} \Prob{\tau_{k+1}^{-\mathfrak{D}}>t\big|\filt_{\tau_k}}.
+\end{align}
+Similarly, using $\tau_{k+1}= \nextdeparture_{k+1} \wedge \tau_{k+1}^{-\mathfrak{D}}$ and independence of $\nextdeparture_{k+1}$ and $\tau_{k+1}^{-\mathfrak{D}}$, for every $k\ge0$ and $t\geq \tau_k$ we have
+\begin{align}\label{prelim_Gbar2}
+  \indic{j\in\inque_\ell(\tau_k)}\Prob{\tau_{k+1}>t|\filt_{\tau_k}}
+  &=  \indic{j\in\inque_\ell(\tau_k)} \Prob{\tau_{k+1}^{-\mathfrak{D}}>t|\filt_{\tau_k}} \frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+t)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))} .
+\end{align}
+
+
+Plugging \eqref{prelim_gE2} and \eqref{prelim_Gbar2}  in \eqref{intensity_form} of Proposition \ref{prop_intensity},  recalling that $h_{S,\ell}=g_{S,\ell}/\overline G_{S,\ell}$ is the hazard rate function associated to the service times of jobs of class $\ell$, and noting that $\inque_\ell$ is constant during each interval   $(\tau_k,\tau_{k+1})$ and that $\waiting_{\ell,j}$ is continuous and grows linearly during each interval $(\tau_k,\tau_{k+1})$ where $j\in\inque_\ell(\tau_k)$, we conclude that the process
+\begin{align*}
+  &\sum_{k=0}^\infty \indic{j\in\inque_\ell(\tau_k)} h_{S,\class(\tau_k)}(\age(\tau_k)+t-\tau_k) \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_k)} \indic{\tau_k\leq t < \tau_{k+1}}\\
+  &\hspace{1cm}= \indic{j\in\inque_\ell(t)} h_{S,\class(t)}(\age(t)) \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(t)}.
+\end{align*}
+is an $\{\filt_t\}$-intensity of $\entry^Q_{\ell,j}$.\Halmos 
+\endproof
+
+
+
+
+
+
+
+\begin{proposition}\label{prop_Kdecomp}
+  For every $f\in\fset$ and $\ell=1,...,L$, the process $\{\entryC_\ell(f;t);t\geq0\}$ admits a decomposition
+  \begin{equation}\label{Kdcomp}
+    \entryC_\ell(f;t)= \int_0^t h_{S,\class(s)}\left(\age(s)\right) \frac{\weight_\ell \langle f,\nu_\ell(s)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(s)} ds +M_{S,\ell}(f;t),
+  \end{equation}
+  where $\{M_{S,\ell}(f;t);t\geq0\}$ is a local $\{\filt_t\}$-martingale with quadratic variation $$[M_{S,\ell}](t)=\entryC_\ell(f^2;t).$$
+\end{proposition}
+
+\proof{Proof.}
+  We can write
+\begin{equation}\label{def_Kl_decomp}
+\entryC_\ell(f;t)=\sum_{j\in\Z} \entryC_{\ell,j}(f;t),
+\end{equation}
+where
+\begin{equation}\label{def_KClj}
+\entryC_{\ell,j}(f;t)= \int_0^tf(w_{\ell,j}(s-))d\entry^Q_{\ell,j}(s).
+\end{equation}
+
+
+Consider the setup of Lemma \ref{remark_integral} with $N$ replaced by $\entry^Q_{\ell,j}$,  $\theta(t)$ replaced by $f(\waiting_{\ell,j}(t-)$, and $\zeta(t)$ replaced by $\entryC_{\ell,j}(f;t)$. Using the from of stochastic intensity of $\entry_{\ell,j}$ given by Lemma \ref{lem_Kintensity}, the process $\{M_{S,\ell,j}(f;t);t\geq0\}$ defined as
+\begin{equation}\label{temp_mgd_k1}
+M_{S,\ell,j}(f;t) := \entryC_{\ell,j}(f;t) - \int_0^t \indic{j\in\inque_\ell(s)} h_{S,\class(s)}\left(\age(s)\right) f((\waiting_{\ell,j}(s)) \frac{\weight_\ell}{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(s)}ds
+\end{equation}
+is a local martingale. Summing \eqref{temp_mgd_k1} over $j\in\indexSet_\ell$, by definition \eqref{def_nuk_early} of $\nu_\ell$ we obtain
+\begin{align*}
+  \entryC_\ell(f;t) = &  \int_0^t \sum_{j\in\indexSet_\ell}\indic{j\in\inque_\ell(s)} h_{S,\class(s)}\left(\age(s)\right) f((\waiting_{\ell,j}(s)) \frac{\weight_\ell}{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(t-)}ds+ \sum_{j\in\indexSet_\ell}M_{S,\ell,j}(f;t)\\
+   = & \int_0^t h_{S,\class(s)}\left(\age(s)\right) \frac{\weight_\ell \langle f,\nu_\ell(s)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\ql_{\ell'}(s)} ds + M_{S,\ell}(f;t),
+\end{align*}
+where $M_{S,\ell} (f;\cdot):= \sum_{j\in \indexSet_\ell}M_{S,\ell,j}(f;\cdot)$ is a local martingale.\\
+
+Moreover, almost surely, for $j,j'\in\indexSet_\ell$  and $j'\neq j$, $\entryC_{\ell,j}(f,\cdot)$ and $\entryC_{\ell,j'}(f,\cdot)$ are bounded pure jump processes with no common jump times. Therefore,
+\[
+[\entryC_{\ell,j}(f;\cdot)](t) = \int_{0}^{t} f^2(\waiting_{\ell,j}(s-))d\entry^Q_{\ell,j}(s) = \entryC_{\ell,j}(f^2;t).
+\]
+and $[ \entryC_{\ell,j}(f,\cdot),\entryC_{\ell,j'}(f,\cdot)] \equiv 0.$  Together with the fact that $\entryC_{\ell}(f;\cdot)-M_{S,\ell}(f;\cdot)$ is a continuous process with finite variation, this implies
+\[ [M_{S,\ell}(f;\cdot)] = [\entryC_{\ell}(f;\cdot)] = [\sum_{j\in\indexSet_\ell}\entryC_{\ell,j}(f;\cdot)] = \sum_{j\in\indexSet_\ell}[\entryC_{\ell,j}(f;\cdot)] =\sum_{j\in\indexSet_\ell}\entryC_{\ell,j}(f^2;\cdot)=\entryC_{\ell}(f^2;\cdot). \]
+\Halmos 
+\endproof
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Proof of Convergence}\label{sec_convproof}
+
+
+
+This section is devoted to the proof of Theorem \ref{thm_conv}. We Consider a sequence of scaled DROS queues  with arrival processes, service times and patience time as described in Section \ref{sec_seq}, and study the asymptotic properties of of the sequence of state variables $\{\bnu^m\}_{m\in\N}$, by proving tightness and characterizing its subsequential limits. First, we study dynamic evolution of the scaled processes in Section \ref{sec_mDynamic}.  Section \ref{sec_LLN} contains a law of large numbers limit for primitive processes. In Section \ref{sec_tight}, we prove tightness for the fluid-scaled sequence of state variables and other auxiliary processes, and finally, subsequential limits are characterized in section \ref{sec_limit}.
+
+Throughout this section, to simplify notation, for $f\in \mathbf{C}_b[0,\infty)$, we use $\|f\| $ to denote $\|f\|_\infty =\sup_{s\in [0,\infty)} |f(s)| $.
+
+\subsection{Dynamics of the Scaled Processes}\label{sec_mDynamic}
+Recall from section \ref{sec_seq} that we consider a sequence of queueing systems indexed by $m$, where arrival process and service rates are accelerated. Writing equation  \eqref{prelimit_dynamic} for the the queueing system indexed by $m$, dividing both sides of the equation by $m$, recalling that $\barrival_\ell^m =\arrival_\ell^m/m$, and defining the fluid scaled quantities
+\begin{equation}\label{def_fluid}
+  \bar\reneg_\ell^m(t)=\frac{1}{m}\reneg_\ell^m(t),\quad
+  \bar\renegC_\ell^m(f;t)=\frac{1}{m}\renegC_\ell^m(f;t),\quad \bar\entry_\ell^m(t)=\frac{1}{m}\entry_\ell^m(t),\quad \bar\entryC_\ell^m(f;t)=\frac{1}{m}\entryC_\ell^m(f;t),\quad
+\end{equation}
+we can write the equations governing the dynamics of the fluid-scaled processes $\bnu_\ell^m$ as
+\begin{align}\label{prelimit_dynamic_scaled}
+  \pairil{f}{\bnu^m_\ell(t)}= & \pair{f}{\bnu^m_\ell(0)}+ \int_{0}^{t}\pairil{f'}{\bnu^m_\ell(s)}ds+   f(0)\int_0^t\indic{I^m(s-)\neq 0}d\barrival^m_{\ell}(s)  -\bar\renegC^m_\ell(f;t)-\bar\entryC^m_\ell(f;t).
+\end{align}
+In addition, invoking Propositions \ref{prop_Rdecomp} and \ref{prop_Kdecomp} for the queueing system with index $m$, we can write the martingale decompositions for the fluid-scaled processes $\bar\renegC_\ell^m$ and $\bar\entryC_\ell^m$. Namely, recalling that $h^m_{R,\ell}=h_{R,\ell}$ and $h^m_{S,\ell}(x)=mh_{S,\ell}(mx)$, for every $f\in\fset$ we have
+%and define
+%\begin{equation}\label{def_barmgale}
+%  \bar M_{\mathfrak{R},\ell}^m = \frac{1}{m} M_{\mathfrak{R},\ell}^m \text{\quad and \quad } \bar M_{\mathfrak{S},\ell}^m = \frac{1}{m} M_{\mathfrak{S},\ell}^m,
+%\end{equation}
+%Then,
+\begin{equation}\label{Rdecomp_scaled}
+    \bar\renegC^m_\ell(f;t)= \int_0^t \langle fh_{R,\ell},\bnu^m_\ell(s)\rangle ds +\bar M^m_{R,\ell}(f;t),
+\end{equation}
+where $\{\bar M^m_{R,\ell}(f;t);t\geq0\}$ is a local $\filt$-martingale with quadratic variation
+\begin{equation}\label{MR_QV}
+  [\bar M^m_{R,\ell}(f;\cdot)]_t =\frac{1}{m^2}\renegC^m_\ell(f^2;t),
+\end{equation}
+and
+\begin{equation}\label{Kdcomp_scaled}
+    \bar\entryC^m_\ell(f;t)= \int_0^t h_{S,\class^m(s)}\left(m\age^m(s)\right)\frac{\weight_\ell \langle f,\bnu^m_\ell(s)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(s)} ds +  \bar M^m_{S,\ell}(f;t),
+\end{equation}
+where $\{\bar M^m_{S,\ell}(f;t);t\geq0\}$ is a local $\filt$-martingale with quadratic variation
+\begin{equation}\label{MS_QV}
+[\bar M^m_{S,\ell}(f;\cdot)]_t=\frac{1}{m^2}\entryC^m_\ell(f^2;t).
+\end{equation}
+Plugging \eqref{Rdecomp_scaled} and \eqref{Kdcomp_scaled} in \eqref{dynamic_scaled}, we obtain
+\begin{align}\label{dynamic_scaled}
+    \langle f,\bnu^m_\ell(t) \rangle = & \langle f,\bnu^m_\ell(0)\rangle + f(0)\int_0^t \indic{\bx(s-)>0} d \barrival^m_\ell(s) + \int_0^t \langle f'-fh_{R,\ell},\bnu^m_\ell(s)\rangle ds \notag\\
+    & - \int_0^t h_{S,\class^m(s)}\left(m\age^m(s)\right)\frac{\weight_\ell \langle f,\bnu^m_\ell(s)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(s)} ds +  \bar M^m_{R,\ell}(t)+\bar M^m_{S,\ell}(t).
+\end{align}
+
+\subsection{Convergence of Primitives and Martingale Terms}\label{sec_LLN}
+
+\begin{lemma}\label{lem_Econv}
+  For every $\ell=1,...,L$, almost surely, $\bar E^m_\ell \to \lambda_\ell \id $ in $\D$ as $m\to\infty$, where $\id(t)=t$ is the identity function. Also for every $t\geq0$, $\Ept{\bar E^m_\ell(t)}\to \lambda_\ell t$ as $m\to\infty$.
+\end{lemma}
+\proof{Proof.}
+  This first assertion follows from standard law of large numbers results for renewal processes, see e.g.\ \cite[Theorem 5.10]{CheYao2001}. The second assertion follows from elementary renewal theorem; see \cite[Proposition V.1.4]{Asm03}.
+\Halmos 
+\endproof
+
+\begin{corollary}
+  It follows from Assumptions \ref{asm_initial} and Lemma \ref{lem_Econv} that for every $T<\infty$, there exists a constant $C_T<\infty$ such that for $t\in[0,T]$,
+  \begin{equation}\label{ineq_initial}
+    \sup_m\Ept{\bql^m_\ell(0)+\barrival_\ell^m(t)}<C_T.
+  \end{equation}
+\end{corollary}
+
+
+
+For every $\ell=1,...,L$, define the sequences of (random) measures $\{\bar\EL_\ell^m\}$ and $\{\bar\EH_\ell^m\}$ as
+\begin{equation}\label{def_kappaMeasure}
+  \bar\EL^m_\ell := \frac{1}{m}\sum_{\ell=1}^{m} \delta_{\selector_j} v_{\ell,j},\quad\quad \bar\EH^m_\ell := \frac{1}{m}\sum_{\ell=1}^{m} \delta_{\selector_j} \int_0^{v_{\ell,j}}h_{S,\ell}(u)du,
+\end{equation}
+where recall that $\{\selector_i;i=1,2,...\}$ is the i.i.d.\ sequence of random variables that determines the random job selection in the DROS algorithm. For every $m$, both measures above take values in $\mathcal{M}_{[0,1]}$, the set of finite non-negative measures on $[0,1]$.
+Note that both measures are constructed directly using primitives of the queueing system. The following elementary  law of large number result will be used later in Section \ref{sec_limit}
+
+
+
+
+\begin{lemma}\label{lem_llnKappa}
+For every $\ell=1,...,L$,
+\begin{equation}\label{llnK}
+   \bar\EL^m_\ell \Rightarrow \frac{1}{\mu_\ell}\mathcal{L}
+\end{equation}
+and
+\begin{equation}\label{llnA}
+   \bar\EH^m_\ell \Rightarrow \mathcal{L}
+\end{equation}
+as $m\to\infty$, where $\mathcal{L}$ is the Lebesgue measure on $[0,1]$.
+\end{lemma}
+\proof{Proof.}
+  The result basically follows from the law of large numbers, independence of $\selector_j$s and $v_{\ell,j}$s, and the facts that $\Eptil{v_{\ell,j}}=1/\mu_\ell$ and
+  \[\Ept{\int_0^{v_{\ell,j}}h_{S,\ell}(u)du}=\int_0^\infty \left(\int_0^xh_{S,\ell}(u)du\right)g_{S,\ell}(x)dx = \int_0^\infty \frac{g_{S,\ell}(u)}{\bar G_{s,\ell}(u)}\int_u^\infty g_{S,\ell}(x)dxdu=\int_0^\infty g_{S,\ell}(u)du=1.\]
+\Halmos 
+\endproof
+
+The next two lemmas prove that the martingale terms on the right hand of \eqref{dynamic_scaled} vanish as $m\to\infty$.
+
+\begin{lemma}\label{lem_MRconv}
+Fix  $f\in\fset$ and $\ell=1,...,L$. Then,
+\[
+\bar M^m_{R,\ell}(f;\cdot) \Rightarrow 0
+\]
+as $m\to\infty$, uniformly on compact sets.
+\end{lemma}
+\proof{Proof.}
+Fix $T<\infty.$ By \eqref{MR_QV}, the definition \eqref{def_renegC} of $\renegC_\ell^m$, the elementary bound \eqref{elementary_bound_R} (for the $m^{\text{th}}$ queue), and the bound \eqref{ineq_initial} obtained from Assumption \ref{asm_initial}, for $t\in[0,T]$ we have
+\[
+    \Ept{[\bar M^m_{R,\ell}(f;\cdot)]_t} \leq \frac{\|f^2\|}{m^2}\Ept{R_\ell^m(t)} \leq \frac{\|f^2\|}{m}
+    \Ept{\bar Q_\ell^m(0)+\bar E_\ell^m(t)}\leq  \frac{\|f\|^2}{m} C_T<\infty.
+\]
+Therefore, by \cite[Theorem 7.35]{klebBook}, $\{\bar M^m_{R,\ell}(f;t);t\geq0\}$ is a square integrable $\filt$-martingale. Moreover, by Doob's inequality, for every $\epsilon >0$,
+\[
+  \limsup_{m\to\infty}\Prob{\left| \sup_{0\leq t\leq T} \bar M^m_{R,\ell}(t)\right|> \epsilon} \leq \limsup_{m\to\infty} \frac{\|f\|^2}{m} C_T=0,
+\]
+which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{R,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution.\Halmos 
+\endproof
+
+
+\begin{lemma}\label{lem_MSconv}
+Fix  $f\in\fset$ and $\ell=1,...,L$. Then,
+\[
+\bar M^m_{S,\ell}(f;\cdot) \Rightarrow 0
+\]
+as $m\to\infty$, uniformly on compact sets.
+\end{lemma}
+\proof{Proof.}
+Fix $T<\infty.$ By \eqref{MS_QV}, the definition \eqref{def_entryC} of $\entryC_\ell^m$, the elementary bound \eqref{elementary_bound_R} (for the $m^{\text{th}}$ queue), and the bound \eqref{ineq_initial} obtained from Assumption \ref{asm_initial}, for $t\in[0,T]$ we have
+\[
+    \Ept{[\bar M^m_{S,\ell}(f;\cdot)]_t} \leq \frac{\|f^2\|}{m^2}\Ept{K_\ell^m(t)} \leq \frac{\|f^2\|}{m}
+    \Ept{\bar Q_\ell^m(0)+\bar E_\ell^m(t)}\leq  \frac{\|f\|^2}{m} C_T<\infty.
+\]
+Therefore, by \cite[Theorem 7.35]{klebBook}, $\{\bar M^m_{S,\ell}(f;t);t\geq0\}$ is a square integrable $\filt$-martingale. Moreover, by Doob's inequality, for every $\epsilon >0$,
+\[
+  \limsup_{m\to\infty}\Prob{\left| \sup_{0\leq t\leq T} \bar M^m_{S,\ell}(t)\right|> \epsilon} \leq \limsup_{m\to\infty} \frac{\|f\|^2}{m} C_T=0,
+\]
+which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution.\Halmos 
+\endproof
+
+
+\subsection{Proof of Tightness}\label{sec_tight}
+
+Recall that for a metric space $(E,d)$, a tight sequence of $\mathbb{D}_E\hc$-valued random elements is called $\mathbb{C}$-tight if every subsequential limit takes values in $\mathbb{C}_E\hc$, almost surely. 
+
+\begin{proposition}\label{prop_nutight}
+  The random sequence $\{\bnu^m\}_{m\in\N}$ taking values in $\mathbb{D}_{\Mset^L}[0,\infty)$ is  $\mathbb{C}$-tight.
+\end{proposition}
+
+The proof is given at the end of this section.
+
+\subsubsection{Review of Tightness Criteria}\label{sec_tightCriteria}
+
+We first recall tightness criteria for sequences of random elements in different spaces. Recall from Section \ref{sec_notation} that $w^\prime(f,\cdot,\cdot)$ denotes the modulus of continuity of a function $f$ in $\D$.
+
+\begin{proposition}[Kurtz's criteria for tightness in $\D$]\label{Kurtz}
+A sequence of processes $\{Y^m\}_{m\in\N}$ with sample paths in $\D$ is tight if and only if it satisfies the following:
+\begin{description}
+\item [K1.] For every rational $t\geq0$,
+\begin{equation}
+  \lim_{r\to\infty} \sup_{m}\Prob{|Y^m(t)|>r}=0;
+\end{equation}
+\end{description}
+\begin{description}
+  \item[K2a.] For every $\eta>0$ and $T>0$, there exists $\delta>0$ such that
+  \begin{equation}
+    \sup_m\Prob{w^\prime(Y^m,\delta,T)\geq\eta}\leq \eta.
+  \end{equation}
+\end{description}
+Moreover, $\{Y^m\}_{m\in\N}$ is tight if it satisfies K1 and the following condition:
+\begin{description}
+  \item[K2b.] For each $T\geq 0$, there exists $\beta>0$ such that
+  \begin{equation}
+    \lim_{\delta\to 0}\sup_{m}\Ept{\sup_{0\leq t\leq T}\left|Y^m(t+\delta)-Y^m(t)\right|^\beta}=0.
+  \end{equation}
+\end{description}
+\end{proposition}
+\proof{Proof.}
+The necessity and sufficiency of K1 and K2a follow from \cite[Theorem 3.7.2]{KurtzBook} and the sufficiency of K1 and K2b follows from \cite[Theorems 3.7.2 and 3.8.6 and Remark 3.8.7]{KurtzBook}.\Halmos 
+\endproof
+
+The spaces $(\Mset,d_p)$ is a separable metric space and thus, it is a completely regular topological space with metrizable compacts, and hence, so is $(\Mset^L,d_p^L)$. Therefore, we can invoke Jakubowski's criteria  \cite[Theorem 4.6]{Jak86} for tightness of $\Mset^L$-valued processes. 
+
+\begin{proposition}[Jakubowski's criteria]\label{Jakob}
+A sequence $\{\pi^m=(\pi^m_1,...,\pi^m_L)\}_{m\in\N}$ of $\mathbb{D}_{\Mset^L}[0,\infty)$-valued random elements is tight if% and only if
+\begin{description}
+  \item [J1.] (Compact containment condition) For each $T>0$ and $\eta>0$ there exists a compact set $C_{T,\eta}\subset\Mset$ such that for every $\ell=1,...,L$,
+      \[\liminf_{m}\Prob{\pi_\ell^m(t)\in C_{T,\eta}\text{ for all }t\in[0,T] }>1-\eta.\]
+
+  \item [J2.] For every $\ell=1,...,L$ and  $f\in\tightset$, the sequence $\{\langle f,\pi^m_\ell\rangle\}_{m\in\N}$ is tight in $\D$.
+\end{description}
+\end{proposition}
+\proof{Proof.}
+Condition J1 clearly implies the compact containment condition for the sequence $\{\pi^m=(\pi^m_1,...,\pi^m_L)\}$, that is
+\[
+\liminf_{m}\Prob{\pi^m(t)\in C_{T,\eta}^L\text{ for all }t\in[0,T] }>1-\eta,
+\]
+where the $L$-fold product $C_{T,\eta}^L=C_{T,\eta}\times....\times C_{T,\eta}$ is a compact subset of $\Mset^L$. Moreover, define $\mathbb{F}$ to be the family of real-valued continuous functionals on $\Mset^L$ that have the form 
+\[F(\mu)=\sum_{n=1}^N\prod_{\ell=1}^L\langle f^n_\ell,\mu_\ell\rangle,\;\; \forall\mu=(\mu_1,...,\mu_L)\in\Mset^L\]
+for some $N\in\N$ and $f^n_\ell\in\tightset,n=1,...,N,\ell=1,...,L$. Note that the set $\mathbb{F}$ is closed under addition, and  separates points in $\Mset^L$, that is, for every distinct $\mu,\tilde\mu\in\Mset^L$, there exists a function $F\in\mathbb{F}$ such that $F(\mu)\neq F(\tilde \mu)$. In addition, condition J2 implies that $\{\pi^m\}_{m\in\N}$ is $\mathbb{F}$-tight, that is, for every $F\in\mathbb{F}$, $\{F(\mu^m)\}_{m\in\N}$ is tight in $\D$. The result then follows from \cite[Theorem 4.6]{Jak86}.\Halmos 
+\endproof
+
+For $\pi\in\mathbb{D}_{\Mset^L}\hc$, the jump size $J(\pi)$ of $\pi$ is defined as
+\[
+J(\pi)=\sup_{t>0} d_p^L (\pi(t),\pi(t-)).
+\]
+The next result from \cite{BillingsleyBook} shows that when jump sizes of a sequences of random process in $\mathbb{D}_{\Mset^L}\hc$ vanish, the sequence is in fact $\mathbb{C}$-tight.
+
+\begin{proposition}\label{prop_Ctight_cond}
+A tight sequence $\{\pi^m=(\pi^m_1,...,\pi^m_L)\}_{m\in\N}$ of $\mathbb{D}_{\Mset^L}[0,\infty)$-valued random elements is $\mathbb{C}$-tight if and only if $J(\pi^m)\Rightarrow 0$ as $m\to\infty.$
+\end{proposition}
+\proof{Proof.}
+The result follows from applying Theorem 13.4 in \cite{BillingsleyBook} to any converging subsequence of $\{\pi^m\}_{m\in\N}$.\Halmos 
+\endproof
+
+
+
+
+\subsubsection{Proof of Compact Containment}
+
+For any constants $M>0$, define the subset $\tilde{\mathcal{C}}_M$ of $\Mset$ as
+\[
+\tilde{\mathcal{C}}_M := \{\mu\in\Mset \;:\;  \langle\f1,\mu\rangle, \langle\chi,\mu\rangle < M \},
+\]
+where recall that $\f1(x)=1$ and $\chi(x)=x$ for all $x\geq0$. It follows from compactness conditions \cite[Theorem 4.2]{kallenberg} for subsets of $\Mset$ that the closure $\mathcal{C}_M$ of $\tilde{\mathcal{C}}_M$ is a compact subset of $\Mset$.
+
+\begin{lemma}\label{lem_nuK1}
+  For every $T<\infty$ and $\eta>0$, there exists $M=M(T,\eta)$ such that for every $\ell=1,...,L$,
+  \begin{equation}\label{compact_contain}
+    \liminf_{m}\Prob{\bnu_\ell^m(t)\in \mathcal{C}_{M}\text{ for all }t\in[0,T] }>1-\eta.
+  \end{equation}
+\end{lemma}
+\proof{Proof.}
+  Recall that $\langle \f1,\bnu^m_\ell\rangle = \bar Q_\ell^m(t)$ is the fluid-scaled number of jobs of class $\ell$ waiting in queue at time $t$. The mass balance inequality \eqref{ineq_Qbalance} and monotonicity of $E^m_\ell$ implies that for every $t\in[0,T]$, $\bar Q_\ell^m(t)\leq \bar Q_\ell^m(0)+ \bar E^m_\ell(T)$, and hence, using the bound \eqref{ineq_initial}, we have
+  \[
+  \limsup_{m}\Ept{\sup_{0\leq t\leq T}\langle\f1,\bnu^m_\ell(t)\rangle}\leq \limsup_{m}\Ept{\bar\arrival_\ell(T)+ \bql_\ell(0)}\leq C_T.
+  \]
+  Therefore, choosing $M>2C_T/\eta$, using Markov's inequality one has
+  \begin{equation}\label{temp_cc1}
+    \limsup_m\Prob{\langle\f1,\bnu^m_\ell(t)\rangle >M \text{ for some }t\in[0,T] }\leq \limsup_m \frac{1}{M}\Ept{\sup_{0\leq t\leq T}\langle\f1,\bnu^m_\ell(t)}\leq \frac{\eta}{2}
+  \end{equation}
+  Moreover, for every  $t\in[0,T]$ and every job $(\ell,j)$,  $\waiting_{\ell,j}(t)\leq \patience_{\ell,j}$  and hence,
+  \[
+  \langle\chi,\bnu_\ell^m(t)\rangle =\frac{1}{m}\sum_{j\in\inque_\ell(t)}\waiting_{\ell,j}(t) \leq \frac{1}{m}\sum_{j=-\ql_\ell(0)+1}^{0}\patience_{\ell,j}+\frac{1}{m}\sum_{j=1}^{\arrival_\ell(T)} \patience_{\ell,j}
+  \]
+  Since the arrival process and the initial queue length are independent of patience times and the sequence of patience times $\{\patience_{\ell,j}\}_j$ for jobs of class $\ell$ are iid with mean $1/\gamma_\ell$,  by Wald's lemma \cite[Proposition A.10.2]{Asm03} we have
+  \[\limsup_{m}\Ept{\sup_{0\leq t\leq T}\langle\chi,\bnu^m_\ell(t)\rangle}\leq  \limsup_m \Ept{\bql^m_\ell(0)+\bar\arrival^m_\ell(T)} \Ept{\patience_{\ell,1}}\leq \frac{C_T}{\gamma_\ell}.\]
+  Therefore, for $M>2C_T/(\gamma_\ell\eta)$, by another application of Markov's inequality,
+  \begin{equation}\label{temp_cc2}
+  \limsup_m\Prob{\langle\chi,\bnu^m_\ell(t)\rangle >M \text{ for some }t\in[0,T] }\leq \limsup_m \frac{1}{M}\Ept{\sup_{0\leq t\leq T}\langle\chi,\bnu^m_\ell(t)}\leq \frac{\eta}{2}.
+  \end{equation}
+  Equation \eqref{compact_contain} with $M>2C_t(1+\gamma_\ell)/(\gamma_\ell\eta)$ then follows from \eqref{temp_cc1} and \eqref{temp_cc2}, and the definitions of $\tilde{\mathcal{C}}_M$ and $\mathcal{C}_M$.\Halmos 
+\endproof
+
+
+\subsubsection{Tightness of $\{\langle f,\bnu^m_\ell\rangle\}_{m=1}^\infty$}
+
+We now show that the sequence $\{\bnu^m_\ell\}_m$ satisfies condition J2 of Proposition \ref{Jakob} for any fixed $\ell\in\{1,2,...,L\}$. We first need to prove the tightness of an auxiliary process. For every $m\in\N$, $\ell=1,...,L$, and $f\in\fset$ define
+
+\begin{equation}\label{def_Am}
+  \bar A^m_\ell(f;t)= \int_{0}^t h_{S,\class^m(u)}\left(m\age^m(u)\right) \frac{\weight_\ell \langle f,\bnu^m_\ell(u)\rangle}{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(u)} du.
+\end{equation}
+
+\begin{lemma}\label{lem_Atight}
+For every $\ell=1,...,L$ and $f\in\fset$, the sequence $\{\bar A^m_\ell(f;\cdot)\}_{m\in\N}$ is tight in $\D$.
+\end{lemma}
+
+\proof{Proof.}
+Recall by Assumption \ref{asm_service} that for every $\ell=1,...,L$, the hazard rate function $h_{S,\ell}$ is bounded by a constant $H$, and note that $|\langle f,\bnu_\ell^m(u)\rangle| \leq \|f\| \bql^m_{\ell}(u)$ for all $u\geq0$. Therefore, for every $0\leq s\leq t$,
+\begin{equation}\label{temp_Ktight}
+\left|\bar A^m_\ell(t)-\bar A^m_\ell(s)\right| \leq \left|\int_s^t h_{S,\class^m(u)}\left(m\age^m(u)\right) \frac{\weight_\ell \langle f,\bnu^m_\ell(u)\rangle}{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(u)} du\right|\leq  \|f\| H |t-s|.
+\end{equation}
+
+
+We now verify Kurtz's criteria of Proposition \ref{Kurtz} for $\{\bar A^m_\ell(f;\cdot)\}$ using the bound above. First, using \eqref{temp_Ktight} with $s=0$ implies that for every $t\geq0$, $\Probil{\sup_m|\bar A^m_\ell(t)|>r}=0$ for $r\geq \|f\| H t$, and hence condition K1 holds. Moreover, by another application of \eqref{temp_Ktight} with $t=s+\delta$, we obtain
+\[
+\lim_{\delta\to0}\sup_m\Ept{\sup_{0\leq s\leq T}|\bar A_\ell^m(s+\delta)-\bar A_\ell^m(s)|} \leq \lim_{\delta\to0}\sup_m \|f\|H\delta =0,
+\]
+and hence condition K2a holds with $\beta=1$.\Halmos 
+\endproof
+
+
+
+\begin{lemma}\label{lem_nuK2}
+For every $f\in\tightset$, the sequence $\{\langle f,\bnu^m_\ell\rangle \}_m$ is tight in $\D$.
+\end{lemma}
+
+\proof{Proof.}
+Recall that by equation \eqref{dynamic_scaled} and definition \eqref{def_Am} of $\bar A^m_\ell(f;\cdot)$, for $t\in[0,T]$,
+\begin{align}\label{temp_tight}
+    \langle f,\bnu^m_\ell(t) \rangle = & \langle f,\bnu^m_\ell(0)\rangle + f(0)\int_0^t \indic{\bx(s-)>0} d \barrival^m_\ell(s) + \int_0^t \langle f'-fh_{R,\ell},\bnu^m_\ell(s)\rangle ds \notag\\&-\bar A^m_\ell(f;t) +  \bar M^m_{R,\ell}(t)+\bar M^m_{S,\ell}(t).
+\end{align}
+We show tightness for $\{\langle f,\bnu^m_\ell\rangle \}_m$ by verifying Kurtz's criteria of Proposition \ref{Kurtz} for each term on the right-hand side of \eqref{temp_tight} separately.
+
+For the sequence corresponding to the first term on the right-hand side of \eqref{temp_tight}, note that by Markov's inequality, for every $m\in\N$ and $r>0$,
+\[
+\sup_m\;\Prob{|\langle f,\bnu_\ell^m(0)|>r}\;\leq\; \sup_m\; \Prob{\|f\|Q_\ell^m(0)>r} \;\leq\; \frac{\|f\|}{r} \sup_m \Ept{Q_\ell^m(0)}.
+\]
+Since $\Ept{Q_\ell^m(0)}<0$ by Assumption \ref{asm_initial}, the sequence $\{\langle f,\bnu^m_\ell(0)\rangle\}_{m\in\N}$ satisfies condition K1. Condition K2a trivially holds for $\{\langle f,\bnu^m_\ell(0)\rangle\}_{m\in\N}$.
+
+For the sequence corresponding to the first term on the right-hand side of \eqref{temp_tight}, note that the bound
+\begin{equation}\label{temp_t3}
+  \int_s^{t}\indic{I^m(u-) \neq 0}d\barrival^m_{\ell}(u)\leq \barrival^m(t)-\barrival^m(s),
+\quad\quad\forall s,t\in[0,T], 
+\end{equation}
+implies 
+\begin{equation}\label{temp_t4}
+w^\prime(\int_0^{\cdot}\indic{I^m(s-) \neq 0}d\barrival^m_{\ell}(s),\delta,T)\leq w'(\barrival_\ell^m,\delta,T).
+\end{equation}
+Since the sequence $\{\barrival_\ell^m\}_m$ converges in $\D$ to the deterministic limit $\lambda_\ell \id$ almost surely (and hence in distribution) by Lemma \ref{lem_Econv}, it is a tight sequence and thus satisfies conditions K1 and K2a of Proposition \ref{Kurtz}. The validity of conditions K1 and K2a for the sequence $\{\int_0^\cdot\indic{I^m(s-)\neq 0}d\barrival^m_{\ell}(s)\}_m$ follow from the bounds \eqref{temp_t3} (with $s=0$) and \eqref{temp_t4}, respectively, and the corresponding conditions for $\{\barrival_\ell^m\}_m$.
+
+For the sequence corresponding to the first term on the right-hand side of \eqref{temp_tight}, using the bound \eqref{ineq_Qbalance} and monotonicity of $\arrival_\ell^m$, we have $\bql^m_\ell(s) \leq \bql_\ell^m(0)+ \barrival_\ell^m(T)$ for all $s\in[0,T]$. Therefore, recalling that $\|h_{R,\ell}\|\leq H$ by Assumption \ref{asm_patience} and using the bound \eqref{ineq_initial},
+\begin{align}\label{temp_tight1}
+\sup_{m}\Ept{\sup_{t\in[0,T-\delta]}\Big| \int_{t}^{t+\delta}\pairil{f'-fh_{R,\ell}}{\bnu^m_\ell(s)}ds \Big|}\leq & (\|f'\|+\|f\|\|h_{R,\ell}\|)\sup_{m}\Ept{\sup_{t\in[0,T-\delta]} \int_t^{t+\delta}\bql^m_\ell(s) ds }\notag\\[2mm]
+&\leq \delta(\|f'\|+H\|f\|)\sup_{m}\Ept{\bql_\ell^m(0)+ \barrival_\ell^m(T)}\notag\\[2mm]
+&\leq \delta(\|f'\|+H\|f\|)C_{T}.
+\end{align}
+The sequence $\{\int_{0}^{\cdot}\pairil{f'-fh_{R,\ell}}{\bnu^m_\ell(s)}ds\}_m$ therefore satisfies conditions K1 and K2b (with $\beta=1$). 
+
+Finally, tightness for sequence $\{\bar A^m_\ell(f;\cdot)\}_{m\in\N}$, $\{\bar M^m_{R,\ell}(f;\cdot)\}_{m\in\N}$, and $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ is proved in Lemmas  \ref{lem_Atight}, \ref{lem_MRconv}, and \ref{lem_MSconv}, respectively. This completes the proof.\Halmos 
+\endproof
+
+
+\proof{Proof of Proposition \ref{prop_nutight}.}
+Tightness of $\{\bnu^m=(\bnu_\ell^m;\ell=1,...,L)\}_{m\in\N}$ in $\mathcal{D}_{\Mset^L}[0,\infty)$ follows from Lemmas \ref{lem_nuK1} and \ref{lem_nuK2}, and the Jakobovski's criteria of Proposition \ref{Jakob}. To prove the $\mathcal{C}$-tightness, we need to show that the jump sizes vanish. 
+
+For every $m\in\N$, define $\tilde\Omega^m$ to be the set of realizations $\omega$ on which in queueing system with index $m$, all arrivals, renegings, and departures of all jobs of all classes occur on distinct times, and for every finite time $t$, the total number of arrivals, renegings, and departures occurred during $[0,t]$ is finite, which has full measure (see Remark \ref{def_tomega}). On $\tilde \Omega^m$, and hence almost surely, for every $t>0$, the sets $\inque^m_\ell(t)$ and $\inque^m_\ell(t-)$ of job indices that are waiting in queue at time $t$ and right before time $t$, respectively, differ at most by one job index. Therefore, since for every $j\in\Z$ and $\ell=1,...,L$, $t\mapsto\waiting_{j,\ell}(t)$ is continuous by definition, $\nu^m_\ell(t)$ and $\nu^m_\ell(t-)$ at most differ by one delta mass, which implies $d_{TV}(\bnu^m_\ell(t),\bnu^m_\ell(t-))\leq 1/m$, where $d_{TV}$ is the total variation metric. Finally, since the Prohorov metric is bounded by total variation metric (see \cite[Equation (2.24) of page 36]{HuberBook}), we conclude 
+\begin{equation}
+J(\bnu^m) =\sup_{t>0}d_p^L(\bnu^m(t),\bnu^m(t-)) = \sup_{t>0}\;\sup_{\ell=1,...,L} d_p(\bnu^m_\ell(t),\bnu^m_\ell(t-))\leq \frac{1}{m},
+\end{equation}
+and hence $J(\bnu^m)\Rightarrow 0$, as $m\to\infty$. $\mathcal{C}$-tightness of the sequence $\{\bnu^m\}_{m\in\N}$ then follows from Proposition \ref{prop_Ctight_cond}.\Halmos 
+\endproof
+
+\subsection{Characterization of Subsequential Limits}\label{sec_limit}
+By Proposition \ref{prop_nutight}, the sequence $\{\bar\nu^m=(\bar\nu^m_\ell;\ell=1,...,L)\}_{m\in\N}$ is tight in $\mathcal{D}_{\Mset^L}[0,\infty)$, and therefore every subsequence $\{\bar\nu^m\}_{m\in\mathbf{\tilde m}}$ has a further subsequence $\{\bar\nu^m\}_{m\in\mathbf{\hat m}}$ such that $\{\bar\nu^m\}$ converges to a limit $\bar\nu=(\bar\nu_\ell;\ell=1,...,L)$ along $\mathbf{\hat m}$. Our goal is to find a characterization for the subsequential limit $\bar\nu$.
+
+
+Fix $f\in\fset$. Combining Assumption \ref{asm_initial} and the results of  Proposition \ref{prop_nutight} and Lemmas \ref{lem_Econv}, \ref{lem_Atight}, \ref{lem_MRconv}, \ref{lem_MSconv},  and \ref{lem_llnKappa}, we conclude that the sequence $\{\bar Y^m\}_{m\in\N}$ defined as
+\[\bar Y^m := (\bar\nu_\ell^m(0),\bar\nu^m_\ell,\bar E^m_\ell,\bar A^m_\ell(f,\cdot),\bar M^m_{R,\ell}(f;\cdot),\bar M^m_{S,\ell}(f;\cdot),\bar K^m,\bar{\mathcal{L}}^m_\ell,\bar{\mathcal{H}}_\ell^m;\ell=1,...,L ), \]
+is tight in the space $\mathcal{Y}$ defined as
+\[
+\mathcal{Y}:=\Mset^L\times\mathcal{D}_{\Mset^L}[0,\infty)\times \D^{4L+1}\times \Mset^{2L},
+\]
+and hence the subsequence $\{\bar Y^m\}_{m\in\mathbf{\hat m}}$ has a further subsequence  $\{\bar Y^m\}_{m\in\mathbf{\mathring{ m}}}$
+that converges in distribution to 
+\[
+\bar Y = (\bar\nu_\ell(0),\bar\nu_\ell,\lambda_\ell\id,\bar A_\ell(f,\cdot),\mathbf{0},\mathbf{0},\bar K,\frac{1}{\mu_\ell}\bar{\mathcal{L}},\bar{\mathcal{L}};\ell=1,...,L ),
+\]
+where $\mathbf{0}$ is the zero function in $\D$. 
+
+As a first step to characterize $\bar\nu$, the next lemma shows the mapping $t\mapsto\bar\nu(t)$ is continuous.
+
+\begin{lemma}\label{lem_Ycont}
+Almost surely, the mapping $t\mapsto\bar\nu(t)$ is continuous.
+\end{lemma}
+\proof{Proof.}
+Fix $f\in\fset$ and $T<\infty$. Since at most one event (arrival, reneging, or service entry) happens at each, the sets $\inque_\ell^m(t)$  of jobs of class $\ell$ waiting in queue only changes by at most one element from $t-$ to $t$, and hence, 
+\[ |\langle f,\bar\nu^m_\ell(t) \rangle  - \langle f, \bar\nu_\ell^m(t-)\rangle | \leq \frac{1}{m}\|f\|,\]
+for all $t\in[0,T]$, and hence $J_T(\langle f,\bar\nu_\ell^m\rangle )\leq \|f\|/m$, where $J_T(x)$ is the maximum jump size of a function $x\in\D$ on $[0,T]$. Therefore, by \cite[Theorem 13.4]{BillingsleyBook}, the mapping $t\mapsto\langle f,\bar\nu_\ell(t)\rangle$ is continuous almost surely, which implies the result.\Halmos 
+\endproof
+By Skorokhod representation theorem, there exists a sequence (possibly on a different probability space) whose elements have the same distributions as $\bar Y^m, m\in\mathbf{\mathring{m}},$ that converges almost surely to a limit with the same distribution as $\bar Y$. Since we are only interested in the distribution of the limit process, we denote this new sequence and its limit by $\{\bar Y^m\}_{m\in\N}$ and $\bar Y$ again. Finally, since the limit process $\bar Y$ is continuous almost surely by Lemma \ref{lem_Ycont}, the convergence in the Skorokhod topology implies uniform convergence on compact sets.
+
+In summary, for the rest of the article we can assume that there exists $\Omega_0\subset\Omega$ with $P(\Omega_0)=1$ such that for every $\omega \in \Omega_0$,
+\begin{equation}\label{converge}
+\bar Y^m \to \bar Y
+\end{equation}
+as $m\to\infty$, uniformly on compact sets.
+
+
+
+\subsubsection{Lipschitz Continuity of the Limit Process}
+For the rest of this section we fix $f\in\fset$ and $\omega\in\Omega_0$.
+\begin{lemma}\label{lem_preLip}
+Fix  $T<\infty$. There exist $\Lip_f>0$ and sequences $\{c_0^m\}\downarrow0$ and $\{c_L^m\}\downarrow0$ such that
+\renewcommand{\theenumi}{\alph{enumi}}
+\begin{enumerate}
+  \item for every $\ell=1,...,L$
+  \begin{equation}\label{preLip1}
+    \left| \langle f, \bnu_\ell^m(0) \rangle - \langle f,\bnu_\ell(0) \rangle   \right| \leq c_0^m,
+  \end{equation}
+
+  \item for every $\ell=1,...,L$ and $s,t\in[0,T]$,
+  \begin{equation}\label{preLip2}
+    \left| \langle f, \bnu_\ell^m(s) \rangle -\langle f, \bnu_\ell^m(t) \rangle \right| \leq \Lip_f|s-t| + c_L^m.
+  \end{equation}
+
+\end{enumerate}
+
+\end{lemma}
+
+\proof{Proof.}
+The bound \eqref{preLip1} follows from convergence of the first component in \eqref{converge}. To see \eqref{preLip2}, recall that for every $0\leq s\leq t$, by \eqref{dynamic_scaled},
+\begin{align}\label{temp_lip1}
+    \langle f,\bnu^m_\ell(t) \rangle - \langle f,\bnu^m_\ell(s)\rangle =&   \int_s^t \langle f'-fh_{R,\ell},\bnu^m_\ell(u)\rangle du \notag + f(0)\int_s^t \indic{\bx(u-)>0} d \barrival^m_\ell(u)\\
+    & - \int_s^t h_{S,\class^m(u)}\left(m\age^m(u)\right)\frac{\weight_\ell \langle f,\bnu^m_\ell(u)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(u)} du \notag\\[2mm]
+    &+  \bar M^m_{R,\ell}(f;t)-\bar M^m_{R,\ell}(f;s)+\bar M^m_{S,\ell}(f;t)-\bar M^m_{S,\ell}(f;s).
+\end{align}
+For the first term on the right-hand side above, recalling from Assumption \ref{asm_patience} that the hazard rate $h_{R,\ell}$ is bounded by constant $H$,
+\[
+\langle f'-fh_{R,\ell},\bnu^m_\ell(u)\rangle du \leq (\|f'\|+\|f\|H)\int_s^t \bar Q_\ell^m(u)du,
+\]
+By \eqref{converge}, $\bar Q_\ell^m=\langle \f1,\bar\nu_\ell^m\rangle$ converges uniformly on $[s,t]$ to the continuous function $\bar Q=\langle\f1,\bar\nu_\ell\rangle$, and therefore, there exists a constant $C_T=C_T(\omega)$ such that $\bar Q_\ell^m(u)\leq C_T$ for every large enough $m$. Hence,
+\begin{equation}
+  \langle f'-fh_{R,\ell},\bnu^m_\ell(u)\rangle du \leq C_T(\|f'\|+\|f\|H)|t-s|.
+\end{equation}
+For the second term, since $\barrival^m_\ell$ converges to $\lambda_\ell\id$ uniformly on $[s,t]$, there exists a sequence $\{c_1^m\} \downarrow0$ such that $|\barrival^m_\ell(t)-\lambda_\ell t|\vee|\barrival^m_\ell(s)-\lambda_\ell s|<c_1^m$. Therefore,
+\begin{align}
+\int_s^t \indic{\bx(u-)>0} d \barrival^m_\ell(u) & \leq \barrival^m_\ell(t)-\barrival^m_\ell(s) \notag\\
+&\leq |\barrival^m_\ell(t)-\lambda_\ell t|+|\barrival^m_\ell(t)-\lambda_\ell t|+\lambda_\ell |t-s|\notag\\
+&\leq 2c_1^m+\lambda_\ell|t-s|
+\end{align}
+For the third term, recalling from Assumption \ref{asm_service} \footnote{Can remove bounded hazard rate assumption on service time distribution.} that the hazard rate function $h_{S,\ell}$ is bounded by $H$ and since the fraction in the integrand is bounded by $\|f\|$,
+\begin{equation}
+\int_s^t h_{S,\class^m(u)}\left(m\age^m(u)\right)\frac{\weight_\ell \langle f,\bnu^m_\ell(u)\rangle }{\sum_{\ell'=1}^L\weight_{\ell'}\bql^m_{\ell'}(u)} du \leq H\|f\||t-s|
+\end{equation}
+Finally, by \eqref{converge}, the sequences of martingales $\{\bar M_{R,\ell}(f;\cdot)\}$ and $\{\bar M_{S,\ell}(f;\cdot)\}$ converge to zero uniformly on compact sets, and hence there exists a sequence $\{c_2^m\}\downarrow 0$ such that
+\begin{equation}\label{temp_lip2}
+  |\bar M^m_{R,\ell}(f;t)-\bar M^m_{R,\ell}(f;s)+\bar M^m_{S,\ell}(f;t)-\bar M^m_{S,\ell}(f;s)| \leq c_2^m.
+\end{equation}
+The bound \eqref{preLip2} follows from \eqref{temp_lip1}-\eqref{temp_lip2} with
+\[\Lip_f=\max_{\ell=1,...,L}\{(1+C_T)(\|f'\|+2H\|f\|)+\lambda_\ell\},\]
+and $c_L^m=2c_1^m+c_2^m$.\Halmos 
+\endproof
+
+Taking the limit as $m\to\infty$ in \eqref{preLip2}, we conclude that the limit points are Lipschitz functions.
+\begin{corollary}\label{cor_lipschitz}
+For every $\omega\in\Omega_0$, $f\in\fset$ and $T<\infty$, $\langle f,\bnu_\ell \rangle $ is locally Lipschitz continuous on $[0,T]$ with a constant $\Lip_f$, that is, for every $s,t\in[0,T]$,
+\begin{equation}\label{lip}
+    \left| \langle f, \bnu_\ell(s) \rangle -\langle f, \bnu_\ell(t) \rangle \right| \leq \Lip_f|s-t|.
+\end{equation}
+
+\end{corollary}
+
+\subsubsection{Equations Governing the Fluid Limit}
+
+Since Lipschitz continuity implies absolute continuity, we have thus proven that with probability one, trajectories of $\langle f, \bnu_\ell \rangle$ are absolutely continuous and hence have derivative almost everywhere. We show that its derivative is given by equation \eqref{fluid_eq}. For the rest of this section, we fix a realization $\omega\in\Omega_0$ and $f\in\fset$.
+
+Define
+\[
+\bar Q(t)= \sum_{\ell=1}^L \bar Q_\ell(t),
+\]
+to be the fluid limit of the total number of jobs in queue (of all classes). The derivative of $\langle f, \bnu_\ell \rangle(t)$ depends on whether the queue is empty at time $t$.
+
+\begin{lemma}\label{lem_idle}
+  Let $t\geq0$ be such that $\bar Q(t)=0$ and $\langle f,\bnu_\ell\rangle$ is differentiable at $t$. Then,
+  \[
+  \frac{d}{dt}\langle f,\bnu_\ell(t) \rangle =0.
+  \]
+\end{lemma}
+\proof{Proof.}
+  Note that since $\bar Q(t)=0,$
+  \[
+  \langle f,\bar\nu_\ell(t)\rangle \leq  \|f\|  \langle \f1,\bar\nu_\ell(t)\rangle = \|f\| \bar Q_\ell(t) \leq \|f\| \bar Q(t) =0.
+  \]
+Since the function $u\mapsto \langle f,\bnu_\ell(u) \rangle $ is non-negative and differentiable at $t$, its derivative at $t$ needs to be zero.\Halmos 
+\endproof
+
+
+
+\begin{lemma}\label{lem_nonidle}
+For every $\ell=1,...,L$, $t\in[0,T]$ and $\epsilon>0$, there exists $M<\infty$ such that for all $m\geq M$,
+\begin{equation}\label{nubound}
+|\langle f,\bar \nu_\ell^m(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|\leq 2\Lip_f \epsilon,\quad\quad \forall u\in[t,t+\epsilon].
+\end{equation}
+and in particular,
+\begin{equation}\label{Qbound}
+|\bar Q_\ell^m(u)-\bar Q_\ell(t)|\leq 2\Lip_{\f1} \epsilon,\quad\quad \forall u\in[t,t+\epsilon].
+\end{equation}
+In addition, if $\bar Q(t)>0$ for some $t\geq0$, then there exists $\epsilon>0$ and $M<\infty$ such that $\bar Q^m(u)>0$ for every $u\in[t,t+\epsilon]$ and $m>M$.
+\end{lemma}
+\proof{Proof.}
+Fix $\epsilon>0$. For every $u\in[t,t+\epsilon]$ and $m\in\N$,
+\[
+|\langle f,\bar \nu_\ell^m(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle| \leq
+|\langle f,\bar \nu_\ell^m(u)\rangle-\langle f,\bar \nu_\ell(u)\rangle| +
+|\langle f,\bar \nu_\ell(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|
+.\]
+Since  $\langle f,\bar \nu_\ell\rangle$ is  Lipschitz continuous with constant $\Lip_f$ (Corollary \ref{cor_lipschitz}),  $|\langle f,\bar \nu_\ell(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|\leq \Lip_f\epsilon$ for every  $u\in[t,t+\epsilon]$. Moreover, by \eqref{converge}, $\langle f,\bar\nu^m_\ell\rangle$ converges to $\langle f,\bar \nu_\ell\rangle$  uniformly on $[t,t+\epsilon]$, and hence for large enough $m>M$, $|\langle f,\bar \nu_\ell(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|\leq \Lip_f\epsilon$, and therefore \eqref{nubound} follows. Since  $\bar Q_\ell=\langle \f1,\bar \nu_\ell\rangle$, \eqref{Qbound} follows on plugging $f=\f1$ in \eqref{nubound}. Finally, for $u\in[t,t+\epsilon]$,
+\[|\bar Q^m(u)-\bar Q(t)|\leq \sum_{\ell-1}^L |\bar Q^m_\ell(u)-\bar Q_\ell(t)|\leq 2L\Lip_\f1\epsilon.\]
+The last claim then follows from the display above with  $\epsilon=\bar Q(t)/4L\Lip_{\f1}>0$.\Halmos 
+\endproof
+
+
+\begin{lemma}
+  For every $t\geq0$ with $\bar Q(t)>0$,  $\bar K$ is differentiable with derivative
+  \begin{equation}\label{Kdot}
+    \frac{d}{dt}\bar K(t)= \frac{\sum_{\ell=1}^{L}\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell=1}^{L}\frac{\weight_{\ell}}{\mu_{\ell}}\bar Q_{\ell}(t)}.
+  \end{equation}
+\end{lemma}
+
+\proof{Proof.}
+  By definition, the derivative is given by
+  \[
+  \frac{d}{dt}\bar K(t) = \lim_{\epsilon\to 0} \lim_{m\to 0} \frac{\bar K^m(t+\epsilon)-\bar K^m(t)}{\epsilon}.
+  \]
+  We compute the limit as $\epsilon\downarrow 0$; the computation of the left limit is exactly identical. Fix $\epsilon>0$ as small as required by Lemma \ref{lem_nonidle}. Therefore, by that lemma, $\bar Q^m(u)>0$ for all large enough $m$ and $u\in[t,t+\epsilon]$, and hence the server is never idle during $[t,t+\epsilon]$. Therefore, service times of jobs that have been served during $[t,t+\epsilon]$ should approximately sum up to $\epsilon$. To make this precise, recall that $K^m$ is the total service entry process, and let $\{\Ktimes^m_j;\}_{j\in\N}$ be the epoch times of $K^m$. Recall from Section \ref{sec_model} that the $j^\text{th}$ job to enter service (at time $\Ktime^m_j$) will be of class $\ell$ if $\selector_j\in[a^m_\ell(\Ktime^m_j),b^m_\ell(\Ktime^m_j))$ where $a^m_\ell$ and $b^m_\ell$ are defined in \ref{def_class_interval}, we have
+  \begin{align}\label{nonIdligBound}
+    \sum_{j=K^m(t)+1}^{K^m(t+\epsilon)-1}\sum_{\ell=1}^{L}\indic{\selector_j\in[a^m_\ell(\Ktime^m_j),b^m_\ell(\Ktime^m_j))} \frac{v_{\ell,j}}{m} \leq \epsilon \leq \sum_{j=K^m(t)}^{K^m(t+\epsilon)}\sum_{\ell=1}^{L}\indic{\selector_j\in[a^m_\ell(\Ktime^m_j),b^m_\ell(\Ktime^m_j))} \frac{v_{\ell,j}}{m}
+  \end{align}
+Since $\bar K^m$ converges to $\bar K$ uniformly on $[t,t+\epsilon]$ by \eqref{converge}, there exists an $M$ such that for all $m\geq M$ and $u\in[t,t+\epsilon]$, $\bar K^m(u)\in\bar K(u)\pm \epsilon^2$, and hence
+\begin{equation}\label{Kbound}
+  m\bar K(t)-m\epsilon^2\leq K^m(u)\leq m\bar K(t+\epsilon)+m\epsilon^2.
+\end{equation}
+Moreover, by \eqref{Qbound}, $\bar Q_\ell(t)-2\Lip_\f1\epsilon\leq \bar Q^m_\ell(u)\leq \bar Q_\ell(t)+2\Lip_\f1\epsilon$, and therefore,
+\begin{equation}\label{abBound}
+[\;\underbar a_\ell(\epsilon)\;,\;\underbar b_\ell(\epsilon)\;) \subset [\;a^m_\ell(\Ktime^m_j)\;,\;b^m_\ell(\Ktime^m_j)\;) \subset [\;\bar a_\ell(\epsilon)\;,\;\bar b_\ell(\epsilon)\;),
+\end{equation}
+with
+\begin{align*}
+  \bar a_\ell(\epsilon)= \frac{\sum_{\ell'=1}^{\ell-1 }\weight_{\ell'}\bar Q_{\ell'}(t)-2L\Lip_\f1\epsilon}{\sum_{\ell'=1}^{L}\weight_{\ell'}\bar Q_{\ell'}(t)+2L\Lip_\f1\epsilon},\quad\quad \bar b_\ell(\epsilon)= \frac{\sum_{\ell'=1}^{\ell }\weight_{\ell'}\bar Q_{\ell'}(t)+2L\Lip_\f1\epsilon}{\sum_{\ell'=1}^{L}\weight_{\ell'}\bar Q_{\ell'}(t)-2L\Lip_\f1\epsilon}.\\
+  \underbar a_\ell(\epsilon)= \frac{\sum_{\ell'=1}^{\ell-1 }\weight_{\ell'}\bar Q_{\ell'}(t)+2L\Lip_\f1\epsilon}{\sum_{\ell'=1}^{L}\weight_{\ell'}\bar Q_{\ell'}(t)-2L\Lip_\f1\epsilon},\quad\quad
+  \underbar b_\ell(\epsilon)= \frac{\sum_{\ell'=1}^{\ell }\weight_{\ell'}\bar Q_{\ell'}(t)-L2\Lip_\f1\epsilon}{\sum_{\ell'=1}^{L}\weight_{\ell'}\bar Q_{\ell'}(t)+2L\Lip_\f1\epsilon},
+\end{align*}
+when note that
+\begin{equation}\label{ablimit}
+  \lim_{\epsilon\to0} \bar b_\ell(\epsilon)-\bar a_\ell(\epsilon) =\lim_{\epsilon\to0} \underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon) = \frac{\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell'=1}^{L}\weight_{\ell'}\bar Q_{\ell'}(t)}.
+\end{equation}
+Therefore, plugging in \eqref{Kbound} and \eqref{abBound} in \eqref{nonIdligBound} we have
+\[
+  \sum_{j=\lceil m\bar K(t)+ m\epsilon^2\rceil+1}^{\lfloor m \bar K(t+\epsilon)+ m\epsilon^2\rfloor -1}\sum_{\ell=1}^{L}\indic{\selector_j\in [\underbar a_\ell(\epsilon),\underbar b_\ell(\epsilon))}\frac{v_{\ell,j}}{m}
+  \leq \epsilon
+  \leq \sum_{j=\lfloor m\bar K(t)+ m\epsilon^2\rfloor}^{\lceil m \bar K(t+\epsilon)+ m\epsilon^2\rceil}\sum_{\ell=1}^{L}\indic{\selector_j\in [\bar a_\ell(\epsilon),\bar b_\ell(\epsilon))}\frac{v_{\ell,j}}{m}
+\]
+Recall from the definition \eqref{def_kappaMeasure} of $\bar{\mathcal{L}}_\ell^m$ that for $\ell=1,...,L$ and $I=[\underbar a_\ell(\epsilon),\underbar b_\ell(\epsilon))$ or $I= [\bar a_\ell(\epsilon),\bar b_\ell(\epsilon))$,
+\[
+\sum_{j=1}^m \indic{\selector_j\in I}\frac{v_{\ell,j}}{m} = \bar{\mathcal{L}}_\ell^m \left(I\right).
+\]
+Therefore, taking $m\to\infty$ using \eqref{llnK} of Lemma \ref{lem_llnKappa}, we obtain
+\begin{equation}
+  \frac{\bar K(t+\epsilon)-\bar K(t)}{\epsilon} \sum_{\ell=1}^{L}\frac{\underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon)}{\mu_\ell}\leq 1 \leq \frac{\bar K(t+\epsilon)-\bar K(t)}{\epsilon} \sum_{\ell=1}^{L}\frac{\bar b_\ell(\epsilon)-\bar a_\ell(\epsilon)}{\mu_\ell}
+\end{equation}
+Finally, taking $\epsilon\to 0$ and using \eqref{ablimit}, we have
+\begin{equation}
+  \frac{d}{dt}\bar K(t) \sum_{\ell=1}^{L}\frac{1}{\mu_{\ell}}\frac{\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell=1}^{L}\weight_{\ell}\bar Q_{\ell}(t)} \leq 1 \leq
+  \frac{d}{dt}\bar K(t) \sum_{\ell=1}^{L}\frac{1}{\mu_{\ell}}\frac{\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell=1}^{L}\weight_{\ell}\bar Q_{\ell}(t)}
+\end{equation}
+which proves \eqref{Kdot}.\Halmos 
+\endproof
+
+
+
+\begin{lemma}
+  For every $\ell=1,...,L$ and $t>0$ with $\bar Q(t)>0$,  $\bar A_\ell(f;\cdot)$ is differentiable at $t$ with derivative
+  \begin{equation}\label{Adot}
+    \frac{d}{dt}\bar A_\ell(f;t) =\frac{\weight_\ell\langle f,\bnu_\ell(t)\rangle}{\sum_{\ell'=1}^{L}\frac{\weight_{\ell'}}{\mu_{\ell'}}\bar Q_{\ell'}(t)}
+  \end{equation}
+
+\end{lemma}
+
+\proof{Proof.}
+Fix $\epsilon>0$ as small as required by Lemma \ref{lem_nonidle}. Plugging in the bounds \eqref{nubound} and \eqref{Qbound} in the definition \eqref{def_Am} of $A_\ell^m(f;\cdot)$, we obtain
+\begin{align}
+\frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle-\weight_\ell c \epsilon}{\sum_{\ell'=1}^L \weight_{\ell'}(\bql_{\ell'}(t)+c\epsilon)}
+\int_{t}^{t+\epsilon} h_{S,\class^m(u)}&\left(m\age^m(u)\right)  du\leq \bar A^m(t+\epsilon)-\bar A^m(t)\\
+&\leq \frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle+\weight_\ell c \epsilon}{\sum_{\ell'=1}^L \weight_{\ell'}(\bql_{\ell'}(t)-c\epsilon)}
+\int_{t}^{t+\epsilon} h_{S,\class^m(u)}\left(m\age^m(u)\right)  du
+\end{align}
+To find bounds for the integral in the upper and lower bounds above, note that by Lemma \ref{lem_nonidle}, $\bar Q^m(u)>0$ for all large enough $m>0$ and $u\in[t,t+\epsilon]$, and hence the server is never idle during $[t,t+\epsilon]$. Recalling that $\{\Ktimes_j^m\}$ are the epoch times of the total service entry process $K^m$ and using the bounds $\Ktime_{K^m(t)}\leq t\leq \Ktime_{K^m(t)+1}$, we have the following lower bound
+\begin{align}\label{temp_A1}
+\int_{t}^{t+\epsilon} h_{S,\class^m(u)}\left(m\age^m(u)\right)  du
+\geq & \int_{\Ktime_{K^m(t)+1}}^{\Ktime_{K^m(t+\epsilon)}} h_{S,\class^m(u)}\left(m\age^m(u)\right)  du \notag\\
+\geq &\sum_{K^m(t)+1}^{K^m(t+\epsilon)-1} \int_{\Ktime_j}^{\Ktime_{j+1}} h_{S,\class^m(u)}\left(m\age^m(u)\right)du \notag\\
+\geq &\sum_{K^m(t)+1}^{K^m(t+\epsilon)-1} \sum_{\ell=1}^{L}\indic{\selector_j\in[a^m_\ell(\Ktime_j),b^m_\ell(\Ktime_j))}  \int_{\Ktime_j}^{\Ktime_{j+1}} h_{S,\ell}\left(m\age^m(u)\right)du
+\end{align}
+Since the server busy during $[t,t+\epsilon]$, the age $a^m(t)$ of the job in service is zero at each $\Ktime_j$, and grows linearly with unit speed during $[\Ktime_j,\Ktime_{j+1})$, and when the job in service during that interval is of class $\ell$, we have $\Ktime_{j+1}-\Ktime_{j}=v_{\ell,j}/m$. Therefore, on $\{\selector_j\in[a^m_\ell(\Ktime_j),b^m_\ell(\Ktime_j))\}$, the last integral in the right-hand side of \eqref{temp_A1} can be written as
+\begin{align}\label{temp_A2}
+\int_{\Ktime_j}^{\Ktime_{j+1}} h_{S,\ell}\left(m\age^m(u)\right)du = \int_{0}^{\Ktime_{j+1}-\Ktime_j} h_{S,\ell}\left(mu\right) du=\frac{1}{m}\int_{0}^{m(\Ktime_{j+1}-\Ktime_j)} h_{S,\ell}\left(u\right) du
+   =\frac{1}{m} \int_{0}^{v_{\ell,j}} h_{S,\ell}\left(u\right) du
+\end{align}
+
+Plugging \eqref{temp_A2} in \eqref{temp_A1}, using the bounds \eqref{Kbound} and \eqref{abBound}, and changing the order of summations, we obtain
+\begin{equation}\label{temp_ALB}
+  \int_{t}^{t+\epsilon} h_{S,\class^m(u)}\left(m\age^m(u)\right)  du
+\geq \frac{1}{m}\sum_{\ell=1}^{L} \sum_{j=\lceil m\bar K(t)+ m\epsilon^2\rceil+1}^{\lfloor m \bar K(t+\epsilon)+ m\epsilon^2\rfloor -1} \indic{\selector_j\in[\underbar a_\ell(\epsilon),\underbar b_\ell(\epsilon))} \int_{0}^{v_{\ell,j}} h_{S,\ell}\left(u\right) du,
+\end{equation}\label{temp_AUB}
+We can obtain the upper bound bellow in a similar fashion:
+\begin{equation}
+\int_{t}^{t+\epsilon} h_{S,\class^m(u)}\left(m\age^m(u)\right)  du
+\leq \frac{1}{m} \sum_{\ell=1}^{L} \sum_{j=\lfloor m\bar K(t)+ m\epsilon^2\rfloor}^{\lceil m \bar K(t+\epsilon)+ m\epsilon^2\rceil} \indic{\selector_j\in[\bar a_\ell(\epsilon),\bar b_\ell(\epsilon)}\int_{0}^{v_{\ell,j}} h_{S,\ell}\left(u\right) du
+\end{equation}
+
+
+Taking the limit $m\to\infty$ from both sides of \eqref{temp_ALB} and \eqref{temp_AUB} and recalling from \eqref{converge} that $\bar\nu^m_\ell$ converges to $\bar\nu_\ell$, $\bar K^m$ converges to $\bar K$, $\bar A^m_\ell(f;\cdot)$ converges to $\bar A_\ell(f;\cdot)$ and $\bar{\mathcal{H}}$ converges to the Lebesgue measure $\mathcal{L}$, we conclude
+\begin{align}
+  \frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle-\weight_\ell c \epsilon}{\sum_{\ell'=1}^L \weight_{\ell'}(\bql_{\ell'}(t)+c\epsilon)}&\left(\bar K(t+\epsilon)-\bar K(t)\right)
+\sum_{\ell=1}^{L}\underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon) \leq \bar A(t+\epsilon)-\bar A(t) \notag\\
+&\leq \frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle+\weight_\ell c \epsilon}{\sum_{\ell'=1}^L \weight_{\ell'}(\bql_{\ell'}(t)-c\epsilon)}\left(\bar K(t+\epsilon)-\bar K(t)\right)
+\sum_{\ell=1}^{L}\bar b_\ell(\epsilon)-\bar a_\ell(\epsilon)
+\end{align}
+Dividing all sides by $\epsilon$, taking the limit $\epsilon\to 0$,
+\[
+\frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle }{\sum_{\ell'=1}^L \weight_{\ell'}\bql_{\ell'}(t)}\frac{d\bar K(t)}{dt}
+\sum_{\ell'=1}^{L}\lim_{\epsilon\to0}\underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon)\leq \frac{d}{dt}\bar A(t) \leq \frac{\weight_\ell \langle f,\bnu_\ell(t)\rangle }{\sum_{\ell'=1}^L \weight_{\ell'}\bql_{\ell'}(t)}\frac{d\bar K(t)}{dt}
+\sum_{\ell'=1}^{L}\lim_{\epsilon\to 0}\bar b_\ell(\epsilon)-\bar a_\ell(\epsilon)
+\]
+Finally, substituting $d/dt \bar K(t)$ from \eqref{Kdot} and using the fact that by \eqref{ablimit}
+\[
+\sum_{\ell'=1}^{L}\lim_{\epsilon\to0}\underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon)=\sum_{\ell'=1}^{L}\lim_{\epsilon\to0}\bar b_\ell(\epsilon)-\bar a_\ell(\epsilon)=1,
+\]
+\eqref{Adot} follows.\Halmos 
+\endproof
+
+
+
+
+
+\begin{APPENDICES}
+
+
+\section{On Marked Point Process $T$}\label{apx_mpp}
+
+In this section, we prove Lemma \ref{lem_condInd}.  We first  recall the following lemma from \cite{AghRam17} that is used in the proof of Lemma \ref{lem_condInd}.
+
+
+Let $Y$ and $W_i,i\geq 1$, be $\R\cup\{\infty\}$-valued random variables defined on a probability space $(\Omega,\filt,\mathbb{P})$, and let $\cal G\subset\cal F$ be a $\sigma$-algebra such that $W_i,i\geq1$ and $Y$ are conditionally independent given $\mathcal{G}$. For $i\geq1$, define
+\[ \overline F_i(a) := \Prob{W_i>a|\cal G},  \quad\quad  a \geq 0. \]
+Also, define $T\doteq \min(Y,W_i;i\geq1)$ and let $Z$ be a discrete-valued random variable such that $\{Y<\min(W_i;i\geq1)\}=\{Z= z^*\}$ for some value $z^*$.  
+
+\begin{lemma}\label{lem_condauxind}
+Suppose $Y, W_i; i\geq1,Y,T$ and $Z$ are as described above. Then, on $\{Z=z^*\}$,  $W_i;i\geq1$, are  conditionally independent given $\cal G$, $T$ and $Z$, that is, for every $n\geq1$ and $b_1,...,b_n\geq0$,
+\begin{equation}\label{condAuxInd}
+   \indic{Z=z^*}\Prob{W_i>T+b_i;i\geq 1 \big| \mathcal{G},T,Z}=   \indic{Z=z^*}\prod_{i=1}^n\Prob{W_i>T+b_i\big| \mathcal{G},T,Z},
+\end{equation}
+and,  for $b \geq 0$,
+\begin{equation}\label{condAuxDist}
+     \indic{Z=z^*}\Prob{W_i>T+b\big| \mathcal{G},T,Z} = \indic{Z=z^*}\frac{\overline F_i(T+b)}{\overline F_i(T)}.
+\end{equation}
+\end{lemma}
+
+Lemma \ref{lem_condauxind} is proved in \cite[Lemma A.5]{AghRam17}.
+
+
+\proof{Proof of Lemma \ref{lem_condInd}.}
+We prove the lemma by induction on k. Suppose by induction hypothesis that $\nextarrival_{k},\ell=1,...,L$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_{k-1})$, and $\nextdeparture_{k}$ are conditionally independent given $\filt_{\tau_{k-1}}$, and that equations \eqref{cond_density_reneg}-\eqref{cond_density_departure} hold with $k$ replaced by $k-1$, that is,
+\begin{equation}\label{cond_density_reneg_k-1}
+  \indic{j\in\inque_\ell(\tau_{k-1})}\Prob{\renegtime_{\ell,j}-\tau_{k-1}>x\big|\filt_{\tau_{k-1}}} =\indic{j\in\inque_\ell(\tau_{k-1})}\frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_{k-1})+x)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_{k-1}))}, \quad  x > 0,
+\end{equation}
+
+\begin{equation}\label{cond_density_departure_k-1}
+    \indic{I(\tau_{k-1})\neq 0}\Prob{\nextdeparture_{k}-\tau_{k-1}>x\big|\filt_{\tau_{k-1}}} = \indic{I(\tau_{k-1})\neq 0}\frac{\overline G_{S,\class(\tau_{k-1})}(\age(\tau_{k-1})+x)}{\overline G_{S,\class(\tau_{k-1})}(\age(\tau_{k-1}))}, \quad  x > 0,
+\end{equation}
+We partition the sample space based on possible values of the mark $z_k$ and the status of the server (idle or busy) at $\tau_{k-1}$, and prove the result by constructing the underlying random variables on each of the sets in this partition. Recall from \eqref{next_event} that the next event after $\tau_{k-1}$ is given by
+\begin{equation}\label{next_event_k}
+  \tau_{k}= \min\{\nextarrival_{k};\ell=1,...,L\} \wedge \min\{\renegtime_{\ell,j}; \ell=1,...,L,j\in\inque_\ell(\tau_{k-1}) \} \wedge \nextdeparture_{k}.
+\end{equation}
+In the following, for every time $t\geq0$, define $B_{t}:=\{I(t)\neq0\}$ to be subset of realizations on which the server is busy at time $t$. The following are all the possibilities for the event type at $\tau_k$.\\[1mm]
+
+\noindent \textbf{1. An arrival occurs at $\tau_k$}. For every pair $(\ell^*,j^*)$ with $l^*\in\{1,...,L\}$ and $j^*\in\Z$, define the event $A_{\ell^*,j^*}:=\{z_k=(\fE,\ell^*,j^*)\}$ on which the next event is the arrival of the job $(\ell^*,j^*)$. Note that on $A_{\ell^*,j^*}$, $\tau_k=\tau_k^{\fE,\ell^*}$, and the forward renewal time for the arrival process of jobs of class $\ell^*$ will reset after $\tau_k$, while it remains unchanged for the arrival processes of jobs of other classes, that is,
+\[
+\tau_{k+1}^{\fE,\ell^*}=\tau_k+u_{\ell^*,E_\ell(\tau_k)+1},\quad\quad  \tau_{k+1}^{\fE,\ell}=\tau_k^{\fE,\ell}\text{ for }\ell\neq\ell^*, 
+\]
+where $u_{\ell^*,E_\ell(\tau_k)+1}$ is the next interarrival time of the renewal process $\arrival_\ell^*$ after $\tau_k$. 
+
+Moreover, when the server is busy right before this arrival, the job  $(\ell^*,j^*)$ will be added to the set of job indices of class $\ell^*$, and the next departure time after $\tau_k$ will remain unchanged. That is, on $A_{\ell^*,j^*}\cap B_{\tau_{k-1}}$,
+\[
+Q_{\ell^*}(\tau_k)=Q_{\ell^*}(\tau_{k-1})\cup \{j^*\},\quad \sigma_{\ell^*,j^*}=\tau_k+\patience_{\ell^*,j^*}, \quad Q_{\ell}(\tau_k)=Q_{\ell}(\tau_{k-1})\text{ for }\ell\neq\ell^*,\quad \tau^{\fD}_{k+1}=\tau^{\fD}_{k}.
+\]
+By an application of Lemma \ref{lem_condauxind}, with $\mathcal{G}$ replaced by $\F_{\tau_{k-1}}$, $T$ replaced by $\tau_{k}$, $Z$ replaced by $z_{k}$, $z^*$ replaced by $(\fE,\ell^*,j^*)$, $Y$ replaced by $t_k^{\fE,\ell^*}$, and the sequence $Z_i$ replaced by other random times on the right-hand side of \eqref{next_event_k}, we conclude that on $A_{\ell^*,j^*}\cap B_{\tau_{k-1}}$, $\nextarrival_{k+1},\ell\neq \ell^*$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_{k-1})$ and $\nextdeparture_{k}$ are conditionally independent given $\F_{\tau_k} = \F_{\tau_{k-1}}\wedge \sigma(\tau_k,z_k)$. Also, $\tau_{k+1}^{\fE,\ell^*}-\tau_k = u_{\ell^*,E_\ell(\tau_k)+1}$ is the next interarrival time of the renewal process $\arrival_\ell^*$ after $\tau_k$ and hence is independent of other random variables, given $\F_{\tau_k}$. Moreover, the equation \eqref{condAuxDist} of same lemma with $F_i$ replaced by the conditional distribution given in \eqref{cond_density_reneg_k-1}, implies that for all $(\ell,j)\neq (\ell^*,j^*)$ and all $x\geq0$
+\begin{equation}\label{cond_density_reneg_1}
+  \indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}\cap \{j\in\inque_\ell(\tau_k)\}}\Prob{\renegtime_{\ell,j}-\tau_k>x\big|\filt_{\tau_k}} =\indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}\cap \{j\in\inque_\ell(\tau_k)\}}\frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k)+x)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))},
+\end{equation}
+and by another application of \eqref{condAuxDist} with $F_i$ replaced by the conditional distribution given in \eqref{cond_density_departure_k-1}, for all $x>0$,
+\begin{equation}\label{cond_density_departure_1}
+    \indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}}\Prob{\nextdeparture_{k+1}-\tau_k>x\big|\filt_{\tau_k}} = \indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}}\frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+x)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}.
+\end{equation}
+Note that we have used the fact that on $A_{\ell^*,k^*}$, $\waiting(\tau_{k-1})+\tau_k-\tau_{k-1} = \waiting (\tau_k)$ and $\age(\tau_{k-1})+\tau_k-\tau_{k-1} = \age (\tau_k)$. Moreover, since $\sigma_{\ell^*,j^*}-\tau_k=\patience_{\ell^*,j^*}$ is the patience time of a newly arrived job, and hence is independent of the current observations $\F_{\tau_k}$ and satisfies 
+\[
+\Prob{\patience_{\ell^*,j^*}>x} = \overline G_{R,\ell^*}(x) =\frac{\overline G_{R,\ell^*}(\waiting_{\ell^*,j^*}(\tau_k)+x)} {\overline G_{R,\ell^*}(\waiting_{\ell^*,j^*}(\tau_k))},
+\] 
+where the second equality holds because $\waiting_{\ell^*,j^*}(\tau_k)=0$. Therefore, \eqref{cond_density_reneg_1} hold for all pairs $(\ell,j)$, including $(\ell^*,j^*)$.
+
+
+On the other hand, when the server is idle before the arrival, the job immediately enters service and hence, the queue remains empty and the time until the next departure at $\tau_k$ is set to be equal to the service time requirement of the job in service. That is, on $A_{\ell^*,j^*}\cap B^c_{\tau_{k-1}}$,
+\[
+\quad Q_{\ell}(\tau_k)=\emptyset\text{ for }\ell=1,...,L,\quad \tau^{\fD}_{k+1}=\tau_k+v_{\ell,K(\tau_k)}.
+\]
+By an application of Lemma \ref{lem_condauxind}, with $\mathcal{G}$ replaced by $\F_{\tau_{k-1}}$, $T$ replaced by $\tau_{k}$, $Z$ replaced by $z_{k}$, $z^*$ replaced by $(\fE,\ell^*,j^*)$, $Y$ replaced by $t_k^{\fE,\ell^*}$, and the sequence $Z_i$ replaced by other random times on the right-hand side of \eqref{next_event_k}, we conclude that on $A_{\ell^*,j^*}\cap B^c_{\tau_{k-1}}$, $\nextarrival_{k+1},\ell=1,...,L$, and $\nextdeparture_{k}$ are conditionally independent given $\F_{\tau_k} = \F_{\tau_{k-1}}\wedge \sigma(\tau_k,z_k)$, and for all $(\ell,j)$ and all $x\geq0$
+\begin{equation}\label{cond_density_reneg_2}
+ A_{\ell^*,j^*}\cap B_{\tau_{k-1}}\cap \{j\in\inque_\ell(\tau_k)\} =\emptyset.
+\end{equation}
+Moreover, since $\tau^{\fD}_{k+1}-\tau_k=v_{\ell,K(\tau_k)}$ is the service requirement time of the job just entered service, it is independent of the current observations $\F_{\tau_k}$ and satisfies 
+\begin{equation}\label{cond_density_departure_2}
+    \indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}}\Prob{\nextdeparture_{k+1}-\tau_k>x\big|\filt_{\tau_k}} = \overline G_{S,\class(\tau_k)}(x)= \indic{A_{\ell^*,j^*}\cap B_{\tau_{k-1}}}\frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+x)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}.
+\end{equation}
+where the second equality holds because $\age(\tau_k)=0$ on $A_{\ell^*,j^*}\cap B_{\tau_{k-1}}$.\\[1mm]
+
+
+
+\noindent \textbf{2. A reneging occurs at $\tau_k$}. for every pair $(\ell^*,j^*)$ with $\ell^*\in\{1,...,L\}$ and $j^*\in\Z$, define the event $C_{\ell^*,j^*}:=\{z_k=(\fR,\ell^*,j^*)\}$ on which the next event is the reneging of the job $(\ell^*,j^*)$ from the queue. Note that $C_{\ell^*,j^*}=\{\tau_k=\sigma_{\ell^*,j^*}\}$, and on $C_{\ell^*,j^*}$
+\[
+\tau_{k+1}^{\fE,\ell}=\tau_k^{\fE,\ell}\text{ for }\ell=1,...,L,\quad  Q_{\ell^*}(\tau_k)=Q_{\ell^*}(\tau_{k-1})\backslash \{j^*\}, \quad Q_{\ell}(\tau_k)=Q_{\ell}(\tau_{k-1})\text{ for }\ell\neq\ell^*,\quad \tau^{\fD}_{k+1}=\tau^{\fD}_{k}.
+\]
+By an application of Lemma \ref{lem_condauxind}, with $\mathcal{G}$ replaced by $\F_{\tau_{k-1}}$, $T$ replaced by $\tau_{k}$, $Z$ replaced by $z_{k}$, $z^*$ replaced by $(\fR,\ell^*,j^*)$, $Y$ replaced by $\sigma_{\ell^*,j^*}$, and the sequence $Z_i$ replaced by other random times on the right-hand side of \eqref{next_event_k}, we conclude that on $C_{\ell^*,j^*}$, $\nextarrival_{k+1},\ell=1,...,L$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_{k})$ and $\nextdeparture_{k}$ are conditionally independent given $\F_{\tau_k} = \F_{\tau_{k-1}}\wedge \sigma(\tau_k,z_k)$. Moreover, as above, the equation \eqref{condAuxDist} of same lemma with $F_i$ replaced by the conditional distribution given in \eqref{cond_density_reneg_k-1}, implies that for all $(\ell,j)$ and all $x\geq0$
+\begin{equation}\label{cond_density_reneg_3}
+  \indic{C_{\ell^*,j^*}\cap \{j\in\inque_\ell(\tau_k)\}}\Prob{\renegtime_{\ell,j}-\tau_k>x\big|\filt_{\tau_k}} =\indic{C_{\ell^*,j^*}\cap \{j\in\inque_\ell(\tau_k)\}}\frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k)+x)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))}, 
+\end{equation}
+ and by another application of \eqref{condAuxDist} of same lemma with $F_i$ replaced by the conditional distribution given in \eqref{cond_density_departure_k-1}, for all $x>0$,
+\begin{equation}\label{cond_density_departure_3}
+    \indic{C_{\ell^*,j^*}}\Prob{\nextdeparture_{k+1}-\tau_k>x\big|\filt_{\tau_k}} = \indic{C_{\ell^*,j^*}}\frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+x)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}.
+\end{equation}
+
+
+
+\noindent \textbf{3. A departure occurs at $\tau_k$ immediately followed by a service entry}. For every pair $(\ell^*,j^*)$ with $l^*\in\{1,...,L\}$ and $j^*\in\Z$, define the event $D_{\ell^*,j^*}:=\{z_k=(\fD,\ell^*,j^*)\}$ on which the next event is the departure of the job in service immediately followed by the entry of the job $(\ell^*,j^*)$ to the service. Note that on $D_{\ell^*,j^*}$, $\tau_k=\tau^{\fD}_k$ and 
+\[
+t_{k+1}^{\fE,\ell}=t_k^{\fE,\ell}\text{ for }\ell=1,...,L,\quad  Q_{\ell^*}(\tau_k)=Q_{\ell^*}(\tau_{k-1})\backslash \{j^*\}, \quad Q_{\ell}(\tau_k)=Q_{\ell}(\tau_{k-1})\text{ for }\ell\neq\ell^*,\quad \tau^{\fD}_{k+1}=\tau_k+v_{\ell,K(\tau_k)}.
+\]
+By an application of Lemma \ref{lem_condauxind}, with $\mathcal{G}$ replaced by $\F_{\tau_{k-1}}$, $T$ replaced by $\tau_{k}$, $Z$ replaced by $z_{k}$, $z^*$ replaced by $(\fD,\ell^*,j^*)$, $Y$ replaced by $\tau^{\fD}_{k}$, and the sequence $Z_i$ replaced by other random times on the right-hand side of \eqref{next_event_k}, we conclude that on $D_{\ell^*,j^*}$, $\nextarrival_{k+1},\ell=1,...,L$, and $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_{k})$ are conditionally independent given $\F_{\tau_k} = \F_{\tau_{k-1}}\wedge \sigma(\tau_k,z_k)$. Also, $\tau^{\fD}_{k+1}-\tau_k=v_{\ell,K(\tau_k)}$ is the service requirement time of the job $(\ell^*,j^*)$ that enters service at $\tau_k$, and hence is independent of other random variables, given $\F_{\tau_k}$. Again, the equation \eqref{condAuxDist} of same lemma with $F_i$ replaced by the conditional distribution given in \eqref{cond_density_reneg_k-1}, implies that for all $(\ell,j)$ and all $x\geq0$
+\begin{equation}\label{cond_density_reneg_4}
+  \indic{D_{\ell^*,j^*}\cap \{j\in\inque_\ell(\tau_k)\}}\Prob{\renegtime_{\ell,j}-\tau_k>x\big|\filt_{\tau_k}} =\indic{D_{\ell^*,j^*}\cap \{j\in\inque_\ell(\tau_k)\}}\frac{\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k)+x)} {\overline G_{R,\ell}(\waiting_{\ell,j}(\tau_k))}, 
+\end{equation}
+Moreover, since $\tau^{\fD}_{k+1}-\tau_k=v_{\ell,K(\tau_k)}$ is the service requirement time of the job just entered service, it is independent of the current observations $\F_{\tau_k}$ and satisfies 
+\begin{equation}\label{cond_density_departure_4}
+    \indic{D_{\ell^*,j^*}}\Prob{\nextdeparture_{k+1}-\tau_k>x\big|\filt_{\tau_k}} = \overline G_{S,\class(\tau_k)}(x)= \indic{D_{\ell^*,j^*}}\frac{\overline G_{S,\class(\tau_k)}(\age(\tau_k)+x)}{\overline G_{S,\class(\tau_k)}(\age(\tau_k))}.
+\end{equation}
+where the second equality holds because $\age(\tau_k)=0$ on $D_{\ell^*,j^*}$.\\[1mm]
+
+
+
+
+\noindent \textbf{4. A departure occurs at $\tau_k$, that leaves the system empty}. Finally, define the event $D_{\emptyset}:= \{z_k=(\fD,\emptyset)\}$ on which the next event is the departure of the job in service and the service remains idle after the departure. Note that on $D_{\emptyset}$, $\tau_k=\tau^{\fD}_k$ and 
+\[
+t_{k+1}^{\fE,\ell'}=t_k^{\fE,\ell'}\text{ for }\ell'=1,...,L,\quad   Q_{\ell'}(\tau_k)=\emptyset\text{ for }\ell'=1,...,L,,\quad \tau^{\fD}_{k+1}=\infty.
+\]
+By an application of Lemma \ref{lem_condauxind}, with $\mathcal{G}$ replaced by $\F_{\tau_{k-1}}$, $T$ replaced by $\tau_{k}$, $Z$ replaced by $z_{k}$, $z^*$ replaced by $(\fD,\emptyset)$, $Y$ replaced by $\tau^{\fD}_{k}$, and the sequence $Z_i$ replaced by other random times on the right-hand side of \eqref{next_event_k}, we conclude that on $D_{\emptyset}$, $\nextarrival_{k+1},\ell=1,...,L$, are conditionally independent given $\F_{\tau_k} = \F_{\tau_{k-1}}\wedge \sigma(\tau_k,z_k)$. Moreover, note that on $D_{\emptyset}$, there are no jobs in queue at time $\tau_k$, that is, for all $(\ell,j)$, 
+\begin{equation}\label{cond_density_reneg_5}
+  D_{\ell^*,j^*}\cap \{j\in\inque_\ell(\tau_k)\}=\emptyset, 
+\end{equation}
+and the server is idle at $\tau_k$, that is,
+\begin{equation}\label{cond_density_departure_5}
+    \{I(\tau_k)\neq 0\} \cap D_{\emptyset}=\emptyset.
+\end{equation}
+
+\vspace{2mm}
+Putting all the cases together, we conclude that $\nextarrival_{k+1},\ell=1,...,L$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_k)$, and $\nextdeparture_{k+1}$ are conditionally independent given $\filt_{\tau_k}$. Moreover, \eqref{cond_density_reneg} follows on summing \eqref{cond_density_reneg_1}, \eqref{cond_density_reneg_2}, \eqref{cond_density_reneg_3},\eqref{cond_density_reneg_4}, and \eqref{cond_density_reneg_5} over all $\ell=1,...,$ and $j\in\Z$, and \eqref{cond_density_departure} follows on summing \eqref{cond_density_departure_1}, \eqref{cond_density_departure_2}, \eqref{cond_density_departure_3}, \eqref{cond_density_departure_4}, and \eqref{cond_density_departure_5} over all $\ell=1,...,$ and $j\in\Z$.
+
+ Finally, given $\filt_{\tau_k}$, $\selector_{K(\tau_k)+1}$ is drawn from an i.i.d.\ sequence of uniformly distributed random variables, that are independent of all other random variables, and hence, \eqref{cond_density_selection} is satisfied.\Halmos 
+\endproof
+
+\section{List of Notation}
+
+\subsection{Primitives}
+
+\begin{center}
+\begin{tabular}{ | l | l | }
+\hline
+$\arrival_\ell$                 & Arrival process of class $\ell$ \\
+\hline
+$\reneg_{\ell,j}$               & indicator function of reneging of job j of class $\ell$ \\
+\hline
+$\entry_{\ell,j}$               & Counting service entry process \\
+\hline
+\hline
+$\intarrival_{\ell,j}$          & Inter-arrival times of class $\ell$\\
+\hline
+$\lambda_{\ell}$                 & arrival rate of class $\ell$\\
+\hline
+$\patience_{\ell,j}$            & Patience Time of class $\ell$\\
+\hline
+$\renegrate_{\ell}$             & reciprocal mean of patience time of class $\ell$\\
+\hline
+$\servicereq_{\ell,j}$          & Service Requirement of class $\ell$\\
+\hline
+$\servicerate_\ell$             & reciprocal mean of service requirement of class $\ell$\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{State Spaces}
+
+\begin{center}
+\begin{tabular}{ | l | l | }
+\hline
+$\Mset$                 & The space of non-negative Borel measures on $\hc$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{State Variables}
+
+\begin{center}
+\begin{tabular}{ | l | l | }
+\hline
+$\arrivaltime_{\ell,_j}$           & Arrival time of job j of class $\ell$\\
+\hline
+$\entrytime_{\ell,_j}$             & Service entry time of job j class $\ell$ \\
+\hline
+$\renegtime_{\ell,_j}$             & reneging time of job j class $\ell$\\
+\hline
+$\statevec$                        & State Vector\\
+\hline
+$\brt$                        & backward recurrence Time class $\ell$\\
+\hline
+$\inque_\ell$                      & set of jobs in queue class $\ell$\\
+\hline
+$\ql_\ell$                         & number of jobs of class $\ell$ waiting in queue\\
+\hline
+$\waiting_{\ell,_j}$               & current waiting time of job j class $\ell$\\
+\hline
+$\age$                             & age of the job in service\\
+\hline
+$\class(t)$                        & class of the current job in service at time $t$\\
+\hline
+$\indx(t)$                         & index of the current job in service at time $t$    \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
+
+\subsection{Constants}
+
+
+\begin{center}
+\begin{tabular}{ | l | l | }
+\hline
+$L$                               & number of different classes\\
+\hline
+$\weight_\ell$                    & weight of class $\ell$ in DROS algorithm\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{APPENDICES}
+
+\ACKNOWLEDGMENT{Research supported in part by NSF Grant DMS-1712974 and the Charles Lee Powell Foundation.}
+
+
+\bibliographystyle{informs2014}
+\bibliography{ROSref}
+
+
+
+
+%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%
+
+
+
