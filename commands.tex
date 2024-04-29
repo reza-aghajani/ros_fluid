@@ -4,6 +4,9 @@
 \usepackage{amsfonts}
 \usepackage[toc,page]{appendix}
 
+\usepackage[margin=1in]{geometry} % full-width
+
+
 \usepackage{amsmath}               
   {
       \newtheorem{assumption}{Assumption}
@@ -13,6 +16,13 @@
       \newtheorem{lemma}{Lemma}
       \newtheorem{corollary}{Corollary}
   }
+
+\numberwithin{assumption}{section}
+\numberwithin{remark}{section}
+\numberwithin{theorem}{section}
+\numberwithin{proposition}{section}
+\numberwithin{lemma}{section}
+\numberwithin{corollary}{section}
 
 \usepackage{natbib}
  \bibpunct[, ]{(}{)}{,}{a}{}{,}%
@@ -172,11 +182,13 @@
 
 
 %Shortcuts
-
 \def\Q{\mathbb{Q}}
 \def\F{\mathcal{F}}
 \def\K{\mathcal{K}}
 \def\calR{\mathcal{R}}
 \def\fnFamily{\vartheta}
+\def\fE{\mathfrak{E}}
+\def\fR{\mathfrak{R}}
+\def\fD{\mathfrak{D}}
 
 \newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}} 

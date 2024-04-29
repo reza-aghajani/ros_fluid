@@ -1,16 +1,29 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Author template for Stochastic Systems (stsy) [interim solution; new styles under construction]
-%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
-%% ver. 0.92, August 2017
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
 \input{commands}
+
+\numberwithin{equation}{section}
+
+
+\usepackage[pages=all, color=black, position={current page.south}, placement=bottom, scale=2, opacity=.2, vshift=5mm]{background}
+\SetBgContents{
+	\tt preprint
+}
+
+
+% Author info
+\title{Fluid Limit for a Multi-Class $G/G/1+G$ Queue with Random Order of Service}
+\author{Reza Aghajani$^1$\thanks{ Research was mostly conducted during the author's appointment at University of California, Mathematics Department in San Diego, California. Research supported in part by NSF Grant DMS-1712974 and the Charles Lee Powell Foundation.}}
+
+\date{
+	$^1$Google Research \\{\vspace{5mm}} {raghajani01@gmail.com}
+}
 
 
 %%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%
 
+\maketitle 
 
 \tableofcontents
 
@@ -56,7 +69,7 @@ We consider a single-server queue with infinite capacity waiting room that provi
 
 \subsection{Primitive stochastic processes}\label{sec_model}
 
-XXXShould we consider delayed renewal processes?XXX
+%XXXShould we consider delayed renewal processes?XXX
 
 \subsubsection*{Job arrivals.}
 Jobs of different classes arrive according to independent processes $E_\ell$, $\ell=1,...,L$, where for each $t\geq0$, $\arrival_\ell(t)$ is the number of job arrivals of class $\ell$ during $(0,t]$. The arrival processes are assumed to satisfy the following assumption.
@@ -118,7 +131,7 @@ $\selector_i\in(\lowInt_\ell(t),\upInt_\ell(t)]$, where
 \end{equation}
 In addition, all jobs of class $\ell$ waiting in queue right before the entry time  (if any) are equally likely to be selected, and hence, each such job is selected with a probability given by \eqref{DROS}.  On the other hand, if the $i^{th}$ service entry results from a job arrival when the server is idle, no random selection for service entry is required and $\selector_i$ is discarded.
 
-XXXIn addition to the random variables $\selector_i$, it seems to me that you need a random variable, once the class is chosen,  to choose which of the jobs of that class will enter service.XXXX
+%XXXIn addition to the random variables $\selector_i$, it seems to me that you need a random variable, once the class is chosen,  to choose which of the jobs of that class will enter service.XXXX
 
 
 
@@ -158,7 +171,7 @@ The initial condition for our queueing system is described by the collection of 
 \begin{equation}\label{ic}
 \mathfrak{Q}_0:=\{\nu(0)=(\nu_\ell(0);\ell=1,...,L),a(0),I(0)\}.
 \end{equation}
-XXX Should we include a backward recurrence time for arrivals   in this? XXX
+%XXX Should we include a backward recurrence time for arrivals   in this? XXX
 Note that a valid initial condition must be consistent with the non-idling assumption: when $I(0)=0$ (which means the server is initially idle), one must have $a(0)=0$ and $\nu_\ell(0)$ is the zero measure on $[0, \infty)$,  for each $\ell=1,...,L$. The number of jobs initially in queue and their initial ages can be recovered from $\nu(0)$: for $\ell=1,...,L,$ the number of jobs of class $\ell$ initially in queue is given by 
 \begin{equation}\label{QLzero}
 Q_\ell(0)=\langle\f1,\nu_\ell(0) \rangle,
@@ -197,7 +210,7 @@ Initial conditions and the random elements listed above are all defined on a com
 \end{remark}
 
 
-XXX DO WE NEED ANOTHER SEQUENCE OF RANDOM VARIABLES BESIDES THE $\selector_i$. XXX
+%XXX DO WE NEED ANOTHER SEQUENCE OF RANDOM VARIABLES BESIDES THE $\selector_i$. XXX
 
 
 
@@ -1420,7 +1433,8 @@ Finally, substituting $d/dt \bar K(t)$ from \eqref{Kdot} and using the fact that
 \eqref{Adot} follows. 
 \endproof
 
-
+\section*{Acknowledgement} The author extend his deepest gratitude to Professor Ruth Williams for her invaluable support and guidance on this work.
+\addcontentsline{toc}{section}{Acknowledgement}
 
 
 
@@ -1646,16 +1660,11 @@ $\weight_\ell$                    & weight of class $\ell$ in DROS algorithm\\
 
 \end{appendices}
 
-\ACKNOWLEDGMENT{Research supported in part by NSF Grant DMS-1712974 and the Charles Lee Powell Foundation.}
 
 
-\bibliographystyle{informs2014}
+
+\bibliographystyle{abbrv}
 \bibliography{ROSref}
-
-
-
-
-
 
 
 
