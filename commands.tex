@@ -1,3 +1,31 @@
+\usepackage{pdfsync}
+\usepackage{color}
+\usepackage{bbm,multirow,bm,cases}
+\usepackage{amsfonts}
+\usepackage[toc,page]{appendix}
+
+\usepackage{amsmath}               
+  {
+      \newtheorem{assumption}{Assumption}
+      \newtheorem{remark}{Remark}
+      \newtheorem{theorem}{Theorem}
+      \newtheorem{proposition}{Proposition}
+      \newtheorem{lemma}{Lemma}
+      \newtheorem{corollary}{Corollary}
+  }
+
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+\def\QEDmark{\ensuremath{\square}}
+\def\proof{\paragraph{Proof.}}
+\def\endproof{\hfill\QEDmark}
+
 \def\N{\mathbb{N}}
 \def\Z{\mathbb{Z}}
 \def\R{\mathbb{R}}

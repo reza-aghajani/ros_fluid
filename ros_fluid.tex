@@ -4,28 +4,12 @@
 %% ver. 0.92, August 2017
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
-
-% Natbib setup for author-year style
-\usepackage{pdfsync}
-\usepackage{color}
-\usepackage{bbm,multirow,bm,cases}
-
-
-\usepackage{natbib}
- \bibpunct[, ]{(}{)}{,}{a}{}{,}%
- \def\bibfont{\small}%
- \def\bibsep{\smallskipamount}%
- \def\bibhang{24pt}%
- \def\newblock{\ }%
- \def\BIBand{and}%
-
-
+\input{commands}
 
 
 %%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%
-
 
 
 \tableofcontents
@@ -454,7 +438,7 @@ where the last inequality uses \eqref{ineq_Qbalance}. Recalling definition \eqre
 \[
 \left|\mathcal{I}_1 - \int_0^t \langle f',\nu_\ell(u) \rangle du \right| \leq \epsilon t (Q_\ell(0)+\arrival_\ell(t)).
 \]
-Since $\epsilon>0$ was arbitrary, the desired result follows on letting $\epsilon\to 0$.\Halmos 
+Since $\epsilon>0$ was arbitrary, the desired result follows on letting $\epsilon\to 0$. 
 \endproof
 
 
@@ -489,7 +473,7 @@ On the other hand, on $\Omega_{s,\delta}$, if a job arrives during $(s,s+\delta]
 \begin{align}\label{temp_wchange2}
 \sum_{j\in\inque_\ell^\text{new}(s+\delta)} f(w_{\ell,j}(s+\delta)) =  & \sum_{j\in\indexSet_\ell}f(w_{\ell,j}(s+\delta))\indic{I(s)\neq 0}\indic{\arrivaltime_{\ell,j}\in(s,s+\delta]}
 \end{align}
-The equation \eqref{nufchange} follows on substituting \eqref{temp_wchange1}-\eqref{temp_wchange2} in \eqref{temp_wchange0}.\Halmos 
+The equation \eqref{nufchange} follows on substituting \eqref{temp_wchange1}-\eqref{temp_wchange2} in \eqref{temp_wchange0}. 
 \endproof
 
 
@@ -593,7 +577,7 @@ almost surely. Then, the process
 is an $\{\filt_t\}$-stochastic intensity of $\mathcal{T}(z;\cdot)$.
 \end{proposition}
 \proof{Proof.}
-The result follows from Theorem T7, comment ($\beta$) below the theorem in  \cite[page 61]{BremaudBook}, and the fact that  the sequence $\{\tau_k;k\geq 1\}$ of event times is non-explosive, almost surely (see Remark \ref{def_tomega}).\Halmos 
+The result follows from Theorem T7, comment ($\beta$) below the theorem in  \cite[page 61]{BremaudBook}, and the fact that  the sequence $\{\tau_k;k\geq 1\}$ of event times is non-explosive, almost surely (see Remark \ref{def_tomega}). 
 \endproof
 
 
@@ -629,7 +613,7 @@ Let $N$ be a point process adapted to $\{\filt_t\}$ with an $\{\filt_t\}$-intens
 \end{equation}
 \end{lemma}
 \proof{Proof.}
-The proof is elementary and follows from  \cite[Lemma II.L3]{BremaudBook} and \cite[Equation (18.1) in Chapter IV]{RogWilbook2}).\Halmos 
+The proof is elementary and follows from  \cite[Lemma II.L3]{BremaudBook} and \cite[Equation (18.1) in Chapter IV]{RogWilbook2}). 
 \endproof
 
 
@@ -682,7 +666,7 @@ Plugging \eqref{prelim_gE} and \eqref{prelim_Gbar}  in \eqref{intensity_form}, r
 \begin{align*}
   \sum_{k=0}^\infty \indic{j\in\inque_\ell(\tau_k)} h_{R,\ell}(\waiting_{\ell,j}(\tau_k)+t-\tau_k)\indic{\tau_k \leq t < \tau_{k+1}} = \indic{j\in\inque_\ell(t)} h_{R,\ell}(\waiting_{\ell,j}(t))
 \end{align*}
-is an $\{\filt_t\}$-intensity of $\reneg_{\ell,j}$.\Halmos 
+is an $\{\filt_t\}$-intensity of $\reneg_{\ell,j}$. 
 \endproof
 
 
@@ -724,7 +708,7 @@ Moreover, almost surely, for $j,j'\in\indexSet_\ell$  and $j'\neq j$, $\renegC_{
 \]
 and $[ \renegC_{\ell,j}(f,\cdot),\renegC_{\ell,j'}(f,\cdot)] \equiv 0.$  Together with the fact that $\renegC_{\ell}(f;\cdot)-M_{R,\ell}(f;\cdot)$ is a continuous process with finite variation, this implies
 \[ [M_{R,\ell}(f;\cdot)] = [\renegC_{\ell}(f;\cdot)] = [\sum_{j\in\indexSet_\ell}\renegC_{\ell,j}(f;\cdot)] = \sum_{j\in\indexSet_\ell}[\renegC_{\ell,j}(f;\cdot)] =\sum_{j\in\indexSet_\ell}\renegC_{\ell,j}(f^2;\cdot)=\renegC_{\ell}(f^2;\cdot). \]
-\Halmos 
+ 
 \endproof
 
 
@@ -788,7 +772,7 @@ Plugging \eqref{prelim_gE2} and \eqref{prelim_Gbar2}  in \eqref{intensity_form} 
   &\sum_{k=0}^\infty \indic{j\in\inque_\ell(\tau_k)} h_{S,\class(\tau_k)}(\age(\tau_k)+t-\tau_k) \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(\tau_k)} \indic{\tau_k\leq t < \tau_{k+1}}\\
   &\hspace{1cm}= \indic{j\in\inque_\ell(t)} h_{S,\class(t)}(\age(t)) \frac{\weight_\ell}{\sum_{\ell'=1}^{L}\weight_{\ell'}\ql_{\ell'}(t)}.
 \end{align*}
-is an $\{\filt_t\}$-intensity of $\entry^Q_{\ell,j}$.\Halmos 
+is an $\{\filt_t\}$-intensity of $\entry^Q_{\ell,j}$. 
 \endproof
 
 
@@ -833,15 +817,8 @@ Moreover, almost surely, for $j,j'\in\indexSet_\ell$  and $j'\neq j$, $\entryC_{
 \]
 and $[ \entryC_{\ell,j}(f,\cdot),\entryC_{\ell,j'}(f,\cdot)] \equiv 0.$  Together with the fact that $\entryC_{\ell}(f;\cdot)-M_{S,\ell}(f;\cdot)$ is a continuous process with finite variation, this implies
 \[ [M_{S,\ell}(f;\cdot)] = [\entryC_{\ell}(f;\cdot)] = [\sum_{j\in\indexSet_\ell}\entryC_{\ell,j}(f;\cdot)] = \sum_{j\in\indexSet_\ell}[\entryC_{\ell,j}(f;\cdot)] =\sum_{j\in\indexSet_\ell}\entryC_{\ell,j}(f^2;\cdot)=\entryC_{\ell}(f^2;\cdot). \]
-\Halmos 
+ 
 \endproof
-
-
-
-
-
-
-
 
 
 
@@ -899,7 +876,7 @@ Plugging \eqref{Rdecomp_scaled} and \eqref{Kdcomp_scaled} in \eqref{dynamic_scal
 \end{lemma}
 \proof{Proof.}
   This first assertion follows from standard law of large numbers results for renewal processes, see e.g.\ \cite[Theorem 5.10]{CheYao2001}. The second assertion follows from elementary renewal theorem; see \cite[Proposition V.1.4]{Asm03}.
-\Halmos 
+ 
 \endproof
 
 \begin{corollary}
@@ -935,7 +912,7 @@ as $m\to\infty$, where $\mathcal{L}$ is the Lebesgue measure on $[0,1]$.
 \proof{Proof.}
   The result basically follows from the law of large numbers, independence of $\selector_j$s and $v_{\ell,j}$s, and the facts that $\Eptil{v_{\ell,j}}=1/\mu_\ell$ and
   \[\Ept{\int_0^{v_{\ell,j}}h_{S,\ell}(u)du}=\int_0^\infty \left(\int_0^xh_{S,\ell}(u)du\right)g_{S,\ell}(x)dx = \int_0^\infty \frac{g_{S,\ell}(u)}{\bar G_{s,\ell}(u)}\int_u^\infty g_{S,\ell}(x)dxdu=\int_0^\infty g_{S,\ell}(u)du=1.\]
-\Halmos 
+ 
 \endproof
 
 The next two lemmas prove that the martingale terms on the right hand of \eqref{dynamic_scaled} vanish as $m\to\infty$.
@@ -957,7 +934,7 @@ Therefore, by \cite[Theorem 7.35]{klebBook}, $\{\bar M^m_{R,\ell}(f;t);t\geq0\}$
 \[
   \limsup_{m\to\infty}\Prob{\left| \sup_{0\leq t\leq T} \bar M^m_{R,\ell}(t)\right|> \epsilon} \leq \limsup_{m\to\infty} \frac{\|f\|^2}{m} C_T=0,
 \]
-which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{R,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution.\Halmos 
+which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{R,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution. 
 \endproof
 
 
@@ -978,7 +955,7 @@ Therefore, by \cite[Theorem 7.35]{klebBook}, $\{\bar M^m_{S,\ell}(f;t);t\geq0\}$
 \[
   \limsup_{m\to\infty}\Prob{\left| \sup_{0\leq t\leq T} \bar M^m_{S,\ell}(t)\right|> \epsilon} \leq \limsup_{m\to\infty} \frac{\|f\|^2}{m} C_T=0,
 \]
-which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution.\Halmos 
+which in turn shows that, uniformly on compact sets,  $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ converges to zero in probability, and hence  in distribution. 
 \endproof
 
 
@@ -1019,7 +996,7 @@ Moreover, $\{Y^m\}_{m\in\N}$ is tight if it satisfies K1 and the following condi
 \end{description}
 \end{proposition}
 \proof{Proof.}
-The necessity and sufficiency of K1 and K2a follow from \cite[Theorem 3.7.2]{KurtzBook} and the sufficiency of K1 and K2b follows from \cite[Theorems 3.7.2 and 3.8.6 and Remark 3.8.7]{KurtzBook}.\Halmos 
+The necessity and sufficiency of K1 and K2a follow from \cite[Theorem 3.7.2]{KurtzBook} and the sufficiency of K1 and K2b follows from \cite[Theorems 3.7.2 and 3.8.6 and Remark 3.8.7]{KurtzBook}. 
 \endproof
 
 The spaces $(\Mset,d_p)$ is a separable metric space and thus, it is a completely regular topological space with metrizable compacts, and hence, so is $(\Mset^L,d_p^L)$. Therefore, we can invoke Jakubowski's criteria  \cite[Theorem 4.6]{Jak86} for tightness of $\Mset^L$-valued processes. 
@@ -1040,7 +1017,7 @@ Condition J1 clearly implies the compact containment condition for the sequence 
 \]
 where the $L$-fold product $C_{T,\eta}^L=C_{T,\eta}\times....\times C_{T,\eta}$ is a compact subset of $\Mset^L$. Moreover, define $\mathbb{F}$ to be the family of real-valued continuous functionals on $\Mset^L$ that have the form 
 \[F(\mu)=\sum_{n=1}^N\prod_{\ell=1}^L\langle f^n_\ell,\mu_\ell\rangle,\;\; \forall\mu=(\mu_1,...,\mu_L)\in\Mset^L\]
-for some $N\in\N$ and $f^n_\ell\in\tightset,n=1,...,N,\ell=1,...,L$. Note that the set $\mathbb{F}$ is closed under addition, and  separates points in $\Mset^L$, that is, for every distinct $\mu,\tilde\mu\in\Mset^L$, there exists a function $F\in\mathbb{F}$ such that $F(\mu)\neq F(\tilde \mu)$. In addition, condition J2 implies that $\{\pi^m\}_{m\in\N}$ is $\mathbb{F}$-tight, that is, for every $F\in\mathbb{F}$, $\{F(\mu^m)\}_{m\in\N}$ is tight in $\D$. The result then follows from \cite[Theorem 4.6]{Jak86}.\Halmos 
+for some $N\in\N$ and $f^n_\ell\in\tightset,n=1,...,N,\ell=1,...,L$. Note that the set $\mathbb{F}$ is closed under addition, and  separates points in $\Mset^L$, that is, for every distinct $\mu,\tilde\mu\in\Mset^L$, there exists a function $F\in\mathbb{F}$ such that $F(\mu)\neq F(\tilde \mu)$. In addition, condition J2 implies that $\{\pi^m\}_{m\in\N}$ is $\mathbb{F}$-tight, that is, for every $F\in\mathbb{F}$, $\{F(\mu^m)\}_{m\in\N}$ is tight in $\D$. The result then follows from \cite[Theorem 4.6]{Jak86}. 
 \endproof
 
 For $\pi\in\mathbb{D}_{\Mset^L}\hc$, the jump size $J(\pi)$ of $\pi$ is defined as
@@ -1053,7 +1030,7 @@ The next result from \cite{BillingsleyBook} shows that when jump sizes of a sequ
 A tight sequence $\{\pi^m=(\pi^m_1,...,\pi^m_L)\}_{m\in\N}$ of $\mathbb{D}_{\Mset^L}[0,\infty)$-valued random elements is $\mathbb{C}$-tight if and only if $J(\pi^m)\Rightarrow 0$ as $m\to\infty.$
 \end{proposition}
 \proof{Proof.}
-The result follows from applying Theorem 13.4 in \cite{BillingsleyBook} to any converging subsequence of $\{\pi^m\}_{m\in\N}$.\Halmos 
+The result follows from applying Theorem 13.4 in \cite{BillingsleyBook} to any converging subsequence of $\{\pi^m\}_{m\in\N}$. 
 \endproof
 
 
@@ -1092,7 +1069,7 @@ where recall that $\f1(x)=1$ and $\chi(x)=x$ for all $x\geq0$. It follows from c
   \begin{equation}\label{temp_cc2}
   \limsup_m\Prob{\langle\chi,\bnu^m_\ell(t)\rangle >M \text{ for some }t\in[0,T] }\leq \limsup_m \frac{1}{M}\Ept{\sup_{0\leq t\leq T}\langle\chi,\bnu^m_\ell(t)}\leq \frac{\eta}{2}.
   \end{equation}
-  Equation \eqref{compact_contain} with $M>2C_t(1+\gamma_\ell)/(\gamma_\ell\eta)$ then follows from \eqref{temp_cc1} and \eqref{temp_cc2}, and the definitions of $\tilde{\mathcal{C}}_M$ and $\mathcal{C}_M$.\Halmos 
+  Equation \eqref{compact_contain} with $M>2C_t(1+\gamma_\ell)/(\gamma_\ell\eta)$ then follows from \eqref{temp_cc1} and \eqref{temp_cc2}, and the definitions of $\tilde{\mathcal{C}}_M$ and $\mathcal{C}_M$. 
 \endproof
 
 
@@ -1119,7 +1096,7 @@ We now verify Kurtz's criteria of Proposition \ref{Kurtz} for $\{\bar A^m_\ell(f
 \[
 \lim_{\delta\to0}\sup_m\Ept{\sup_{0\leq s\leq T}|\bar A_\ell^m(s+\delta)-\bar A_\ell^m(s)|} \leq \lim_{\delta\to0}\sup_m \|f\|H\delta =0,
 \]
-and hence condition K2a holds with $\beta=1$.\Halmos 
+and hence condition K2a holds with $\beta=1$. 
 \endproof
 
 
@@ -1160,7 +1137,7 @@ For the sequence corresponding to the first term on the right-hand side of \eqre
 \end{align}
 The sequence $\{\int_{0}^{\cdot}\pairil{f'-fh_{R,\ell}}{\bnu^m_\ell(s)}ds\}_m$ therefore satisfies conditions K1 and K2b (with $\beta=1$). 
 
-Finally, tightness for sequence $\{\bar A^m_\ell(f;\cdot)\}_{m\in\N}$, $\{\bar M^m_{R,\ell}(f;\cdot)\}_{m\in\N}$, and $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ is proved in Lemmas  \ref{lem_Atight}, \ref{lem_MRconv}, and \ref{lem_MSconv}, respectively. This completes the proof.\Halmos 
+Finally, tightness for sequence $\{\bar A^m_\ell(f;\cdot)\}_{m\in\N}$, $\{\bar M^m_{R,\ell}(f;\cdot)\}_{m\in\N}$, and $\{\bar M^m_{S,\ell}(f;\cdot)\}_m$ is proved in Lemmas  \ref{lem_Atight}, \ref{lem_MRconv}, and \ref{lem_MSconv}, respectively. This completes the proof. 
 \endproof
 
 
@@ -1171,7 +1148,7 @@ For every $m\in\N$, define $\tilde\Omega^m$ to be the set of realizations $\omeg
 \begin{equation}
 J(\bnu^m) =\sup_{t>0}d_p^L(\bnu^m(t),\bnu^m(t-)) = \sup_{t>0}\;\sup_{\ell=1,...,L} d_p(\bnu^m_\ell(t),\bnu^m_\ell(t-))\leq \frac{1}{m},
 \end{equation}
-and hence $J(\bnu^m)\Rightarrow 0$, as $m\to\infty$. $\mathcal{C}$-tightness of the sequence $\{\bnu^m\}_{m\in\N}$ then follows from Proposition \ref{prop_Ctight_cond}.\Halmos 
+and hence $J(\bnu^m)\Rightarrow 0$, as $m\to\infty$. $\mathcal{C}$-tightness of the sequence $\{\bnu^m\}_{m\in\N}$ then follows from Proposition \ref{prop_Ctight_cond}. 
 \endproof
 
 \subsection{Characterization of Subsequential Limits}\label{sec_limit}
@@ -1199,7 +1176,7 @@ Almost surely, the mapping $t\mapsto\bar\nu(t)$ is continuous.
 \proof{Proof.}
 Fix $f\in\fset$ and $T<\infty$. Since at most one event (arrival, reneging, or service entry) happens at each, the sets $\inque_\ell^m(t)$  of jobs of class $\ell$ waiting in queue only changes by at most one element from $t-$ to $t$, and hence, 
 \[ |\langle f,\bar\nu^m_\ell(t) \rangle  - \langle f, \bar\nu_\ell^m(t-)\rangle | \leq \frac{1}{m}\|f\|,\]
-for all $t\in[0,T]$, and hence $J_T(\langle f,\bar\nu_\ell^m\rangle )\leq \|f\|/m$, where $J_T(x)$ is the maximum jump size of a function $x\in\D$ on $[0,T]$. Therefore, by \cite[Theorem 13.4]{BillingsleyBook}, the mapping $t\mapsto\langle f,\bar\nu_\ell(t)\rangle$ is continuous almost surely, which implies the result.\Halmos 
+for all $t\in[0,T]$, and hence $J_T(\langle f,\bar\nu_\ell^m\rangle )\leq \|f\|/m$, where $J_T(x)$ is the maximum jump size of a function $x\in\D$ on $[0,T]$. Therefore, by \cite[Theorem 13.4]{BillingsleyBook}, the mapping $t\mapsto\langle f,\bar\nu_\ell(t)\rangle$ is continuous almost surely, which implies the result. 
 \endproof
 By Skorokhod representation theorem, there exists a sequence (possibly on a different probability space) whose elements have the same distributions as $\bar Y^m, m\in\mathbf{\mathring{m}},$ that converges almost surely to a limit with the same distribution as $\bar Y$. Since we are only interested in the distribution of the limit process, we denote this new sequence and its limit by $\{\bar Y^m\}_{m\in\N}$ and $\bar Y$ again. Finally, since the limit process $\bar Y$ is continuous almost surely by Lemma \ref{lem_Ycont}, the convergence in the Skorokhod topology implies uniform convergence on compact sets.
 
@@ -1262,7 +1239,7 @@ Finally, by \eqref{converge}, the sequences of martingales $\{\bar M_{R,\ell}(f;
 \end{equation}
 The bound \eqref{preLip2} follows from \eqref{temp_lip1}-\eqref{temp_lip2} with
 \[\Lip_f=\max_{\ell=1,...,L}\{(1+C_T)(\|f'\|+2H\|f\|)+\lambda_\ell\},\]
-and $c_L^m=2c_1^m+c_2^m$.\Halmos 
+and $c_L^m=2c_1^m+c_2^m$. 
 \endproof
 
 Taking the limit as $m\to\infty$ in \eqref{preLip2}, we conclude that the limit points are Lipschitz functions.
@@ -1295,7 +1272,7 @@ to be the fluid limit of the total number of jobs in queue (of all classes). The
   \[
   \langle f,\bar\nu_\ell(t)\rangle \leq  \|f\|  \langle \f1,\bar\nu_\ell(t)\rangle = \|f\| \bar Q_\ell(t) \leq \|f\| \bar Q(t) =0.
   \]
-Since the function $u\mapsto \langle f,\bnu_\ell(u) \rangle $ is non-negative and differentiable at $t$, its derivative at $t$ needs to be zero.\Halmos 
+Since the function $u\mapsto \langle f,\bnu_\ell(u) \rangle $ is non-negative and differentiable at $t$, its derivative at $t$ needs to be zero. 
 \endproof
 
 
@@ -1320,7 +1297,7 @@ Fix $\epsilon>0$. For every $u\in[t,t+\epsilon]$ and $m\in\N$,
 .\]
 Since  $\langle f,\bar \nu_\ell\rangle$ is  Lipschitz continuous with constant $\Lip_f$ (Corollary \ref{cor_lipschitz}),  $|\langle f,\bar \nu_\ell(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|\leq \Lip_f\epsilon$ for every  $u\in[t,t+\epsilon]$. Moreover, by \eqref{converge}, $\langle f,\bar\nu^m_\ell\rangle$ converges to $\langle f,\bar \nu_\ell\rangle$  uniformly on $[t,t+\epsilon]$, and hence for large enough $m>M$, $|\langle f,\bar \nu_\ell(u)\rangle-\langle f,\bar \nu_\ell(t)\rangle|\leq \Lip_f\epsilon$, and therefore \eqref{nubound} follows. Since  $\bar Q_\ell=\langle \f1,\bar \nu_\ell\rangle$, \eqref{Qbound} follows on plugging $f=\f1$ in \eqref{nubound}. Finally, for $u\in[t,t+\epsilon]$,
 \[|\bar Q^m(u)-\bar Q(t)|\leq \sum_{\ell-1}^L |\bar Q^m_\ell(u)-\bar Q_\ell(t)|\leq 2L\Lip_\f1\epsilon.\]
-The last claim then follows from the display above with  $\epsilon=\bar Q(t)/4L\Lip_{\f1}>0$.\Halmos 
+The last claim then follows from the display above with  $\epsilon=\bar Q(t)/4L\Lip_{\f1}>0$. 
 \endproof
 
 
@@ -1377,7 +1354,7 @@ Finally, taking $\epsilon\to 0$ and using \eqref{ablimit}, we have
   \frac{d}{dt}\bar K(t) \sum_{\ell=1}^{L}\frac{1}{\mu_{\ell}}\frac{\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell=1}^{L}\weight_{\ell}\bar Q_{\ell}(t)} \leq 1 \leq
   \frac{d}{dt}\bar K(t) \sum_{\ell=1}^{L}\frac{1}{\mu_{\ell}}\frac{\weight_{\ell}\bar Q_{\ell}(t)}{\sum_{\ell=1}^{L}\weight_{\ell}\bar Q_{\ell}(t)}
 \end{equation}
-which proves \eqref{Kdot}.\Halmos 
+which proves \eqref{Kdot}. 
 \endproof
 
 
@@ -1440,14 +1417,14 @@ Finally, substituting $d/dt \bar K(t)$ from \eqref{Kdot} and using the fact that
 \[
 \sum_{\ell'=1}^{L}\lim_{\epsilon\to0}\underbar b_\ell(\epsilon)-\underbar a_\ell(\epsilon)=\sum_{\ell'=1}^{L}\lim_{\epsilon\to0}\bar b_\ell(\epsilon)-\bar a_\ell(\epsilon)=1,
 \]
-\eqref{Adot} follows.\Halmos 
+\eqref{Adot} follows. 
 \endproof
 
 
 
 
 
-\begin{APPENDICES}
+\begin{appendices}
 
 
 \section{On Marked Point Process $T$}\label{apx_mpp}
@@ -1577,7 +1554,7 @@ and the server is idle at $\tau_k$, that is,
 \vspace{2mm}
 Putting all the cases together, we conclude that $\nextarrival_{k+1},\ell=1,...,L$, $\renegtime_{\ell,j}, \ell=1,...,L$, $j\in\inque_\ell(\tau_k)$, and $\nextdeparture_{k+1}$ are conditionally independent given $\filt_{\tau_k}$. Moreover, \eqref{cond_density_reneg} follows on summing \eqref{cond_density_reneg_1}, \eqref{cond_density_reneg_2}, \eqref{cond_density_reneg_3},\eqref{cond_density_reneg_4}, and \eqref{cond_density_reneg_5} over all $\ell=1,...,$ and $j\in\Z$, and \eqref{cond_density_departure} follows on summing \eqref{cond_density_departure_1}, \eqref{cond_density_departure_2}, \eqref{cond_density_departure_3}, \eqref{cond_density_departure_4}, and \eqref{cond_density_departure_5} over all $\ell=1,...,$ and $j\in\Z$.
 
- Finally, given $\filt_{\tau_k}$, $\selector_{K(\tau_k)+1}$ is drawn from an i.i.d.\ sequence of uniformly distributed random variables, that are independent of all other random variables, and hence, \eqref{cond_density_selection} is satisfied.\Halmos 
+ Finally, given $\filt_{\tau_k}$, $\selector_{K(\tau_k)+1}$ is drawn from an i.i.d.\ sequence of uniformly distributed random variables, that are independent of all other random variables, and hence, \eqref{cond_density_selection} is satisfied. 
 \endproof
 
 \section{List of Notation}
@@ -1667,7 +1644,7 @@ $\weight_\ell$                    & weight of class $\ell$ in DROS algorithm\\
 \end{tabular}
 \end{center}
 
-\end{APPENDICES}
+\end{appendices}
 
 \ACKNOWLEDGMENT{Research supported in part by NSF Grant DMS-1712974 and the Charles Lee Powell Foundation.}
 
@@ -1678,9 +1655,12 @@ $\weight_\ell$                    & weight of class $\ell$ in DROS algorithm\\
 
 
 
+
+
+
+
+
 %%%%%%%%%%%%%%%%%
 \end{document}
 %%%%%%%%%%%%%%%%%
-
-
 
