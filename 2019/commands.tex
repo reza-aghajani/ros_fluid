@@ -1,0 +1,157 @@
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\R{\mathbb{R}}
+\def\hc{[0,\infty)}
+\def\ho{(0,\infty)}
+
+
+
+
+
+%Primitives
+
+\def\arrival{E}                 % Arrival process
+
+
+\def\intarrival{u}              % Inter-arrival times
+\def\endsup{M}                  % Endpoint of the support of G_{R,k}
+
+\def\arrivaltime{\alpha}        % Arrival time of job j
+\def\entrytime{\beta}           % Service entry time of job j
+\def\renegtime{\sigma}
+\def\departuretime{\eta}
+
+\def\patience{\varpi}                % Patience Time
+\def\renegrate{\gamma}          % reciprocal mean of patience time
+\def\servicereq{v}              % Service Requirement
+\def\servicerate{\mu}           % reciprocal mean of service requirement
+
+
+% DROS
+\def\weight{p}                  % weight of class \ell in DROS algorithm
+\def\selector{\kappa}             % uniform r.v. for service entry selection
+\def\Ktime{\eta}                % jump times of K
+\def\lowInt{a}					% Interval to determine class index for service etnry
+\def\upInt{b}
+
+
+\def\EL{\mathcal{L}}            % Measure-valued primitive 1
+\def\EH{\mathcal{H}}            % Measure-valued primitive 2
+
+
+
+
+
+% Marked Point Process Related
+
+\def\filt{\mathcal{F}}
+\def\nextarrival{\tau^{\mathfrak{E},\ell}}          % next arrival time after \tau_k
+\def\nextarrivalp{\tau^{\mathfrak{E},\ell'}}          % next arrival time after \tau_k
+\def\nextdeparture{\tau^{\mathfrak{D}}}             % next departure time after \tau_k
+\def\selection{\chi}
+\def\preOmega{\tilde \Omega}					    % set of realizations on which 		 prelimit equations hold
+
+
+% State Variables
+
+\def\indexSet{\mathcal{Z}}
+\def\statevec{Y}                % State Vector
+\def\brt{r_{\ell}}                     % backward recurrence Time
+\def\ql{Q}                      % number of jobs of class k waiting in queue
+\def\waiting{w}                 % current waiting time of job j
+\def\inque{\mathcal{Q}}         % set of jobs in queue
+\def\age{a}                     % age
+\def\class{I}                   % class of the current job in service
+\def\indx{J}                    % index of the current job in service
+
+
+
+% Auxiliary Processes
+
+\def\reneg{R}                    % Counting reneging process
+\def\entry{K}                    % Counting service entry process
+\def\renegC{\mathcal{R}}         % Counting reneging process
+\def\entryC{\mathcal{K}}         % Counting service entry process
+
+\def\depart{D}
+
+\def\Ktimes{\eta}                % time that $j$th job enters service
+
+
+% Fluid-Scale versions.
+\def\bstatevec{\bar Y}               % State Vector
+\def\bbrt{\bar{\brt}}                % backward recurrence Time
+\def\bql{\bar {\ql}}                 % number of jobs of class k waiting in queue
+\def\bwaiting{\bar w}                % current waiting time of job j
+\def\bage{\bar a}                    % age
+\def\bnu{\bar{\nu}}                  % nu bar
+\def\bx{\bar X}
+\def\barrival{\bar E}
+\def\Lip{\Lambda}                          % Lipschitz constant of the limit
+
+
+
+
+
+%State Spaces
+\def\D{\mathbb{D}[0,\infty)}
+\def\C{\mathbb{C}[0,\infty)}
+\def\X{\mathcal{X}}                     % State space for (\nu_1,...,\nu_K)
+\def\phiset{\mathbb{C}_b^{1,1}(\hc\times\hc)}
+\def\tightset{\mathbb{C}^1_c\hc}
+\def\fset{\mathbb{C}_b^{1}\hc}
+\def\Zset{\mathbb{C}^1(\hc\times\hc)}
+\def\Mset{\mathcal{M}}
+
+
+
+
+
+
+
+
+%Math Operators
+\newcommand{\Ept}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\Eptil}[1]{\mathbb{E}[#1]}
+\newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\Probil}[1]{\mathbb{P}(#1)}
+\newcommand{\pair}[2]{\left\langle #1 , #2 \right\rangle}
+\newcommand{\pairil}[2]{\langle #1,#2\rangle}
+\def\f1{\mathbf{1}}
+\def\id{\textbf{Id}}
+\newcommand{\indic}[1]{\mathbbm{1}\left(#1\right)}
+\newcommand{\indicil}[1]{\mathbbm{1}(#1)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Shortcuts
+
+\def\Q{\mathbb{Q}}
+\def\F{\mathcal{F}}
+\def\K{\mathcal{K}}
+\def\calR{\mathcal{R}}
+\def\fnFamily{\vartheta}
+\def\fE{\mathfrak{E}}
+\def\fR{\mathfrak{R}}
+\def\fD{\mathfrak{D}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}} 
